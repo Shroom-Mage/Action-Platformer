@@ -1,0 +1,123 @@
+[gd_scene load_steps=16 format=3 uid="uid://buu8wl23agswh"]
+
+[ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://characters/player/sophia_skin/sophia_skin.tscn" id="1_3cb50"]
+[ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
+[ext_resource type="PackedScene" uid="uid://b80mqcvfdrtae" path="res://characters/attack.tscn" id="4_ixbpm"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6jjan"]
+height = 1.6
+radius = 0.44
+
+[sub_resource type="Curve" id="Curve_ic4db"]
+_data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oyjle"]
+width = 32
+curve = SubResource("Curve_ic4db")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oj4oi"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(1, 1, 0)
+spread = 90.0
+initial_velocity_min = 0.1
+initial_velocity_max = 0.35
+gravity = Vector3(0, 0.5, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = 0.199998
+scale_min = 0.2
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_oyjle")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyafj"]
+shading_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_fbwp3"]
+material = SubResource("StandardMaterial3D_jyafj")
+
+[sub_resource type="Curve" id="Curve_exd8k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5dc8e"]
+curve = SubResource("Curve_exd8k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ixbpm"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_5dc8e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6leb"]
+transparency = 1
+albedo_color = Color(1, 0.4, 0.2, 0.8)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dirf7"]
+material = SubResource("StandardMaterial3D_c6leb")
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o7dro"]
+length = 0.1
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_mxv5h")
+CameraHorizontalSpeed = 3.0
+CameraVerticalSpeed = 3.0
+GroundAcceleration = 15.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CylinderShape3D_6jjan")
+
+[node name="Model" parent="." instance=ExtResource("1_3cb50")]
+
+[node name="Dust" type="GPUParticles3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+layers = 4
+cast_shadow = 0
+gi_mode = 0
+emitting = false
+explosiveness = 0.05
+process_material = SubResource("ParticleProcessMaterial_oj4oi")
+draw_pass_1 = SubResource("SphereMesh_fbwp3")
+
+[node name="Slam" type="GPUParticles3D" parent="Model"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ixbpm")
+draw_pass_1 = SubResource("SphereMesh_dirf7")
+
+[node name="StandingSlash" parent="Model" instance=ExtResource("4_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+
+[node name="Sprite" parent="Model/StandingSlash" index="1"]
+flip_v = true
+axis = 1
+frame = 9
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CameraArm" type="SpringArm3D" parent="CameraPivot"]
+unique_name_in_owner = true
+transform = Transform3D(-1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 0, 0)
+collision_mask = 0
+spring_length = 20.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/CameraArm"]
+current = true
+fov = 30.0
+
+[node name="ShadowArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_o7dro")
+spring_length = 10.0
+
+[node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
+light_negative = true
+omni_range = 0.4
+
+[connection signal="body_entered" from="Model/StandingSlash" to="Model/StandingSlash" method="OnBodyEntered"]
+[connection signal="body_exited" from="Model/StandingSlash" to="Model/StandingSlash" method="OnBodyExited"]
+[connection signal="ready" from="Model/StandingSlash" to="Model/StandingSlash" method="OnReady"]
+
+[editable path="Model/StandingSlash"]

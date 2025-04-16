@@ -1,0 +1,839 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6f3cdxk2epg0"]
+
+[ext_resource type="PackedScene" uid="uid://buu8wl23agswh" path="res://characters/player/player.tscn" id="1_ewdoh"]
+[ext_resource type="PackedScene" uid="uid://b38vahcwqubi0" path="res://environment/tutorial/platforms/platform_tiny.tscn" id="2_jedxc"]
+[ext_resource type="PackedScene" uid="uid://j2ksih2r28a3" path="res://environment/tutorial/platforms/platform_short_ramp.tscn" id="3_72r3t"]
+[ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/terrain/grass.tres" id="4_q1q1c"]
+[ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/hit_dummy.tscn" id="5_j5jx5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5stkp"]
+sky_top_color = Color(0.2, 0.2, 0.4, 1)
+sky_horizon_color = Color(0.4, 0.6, 0.8, 1)
+sky_curve = 0.1
+ground_bottom_color = Color(0.2, 0.4, 0.2, 1)
+ground_horizon_color = Color(0.4, 0.6, 0.2, 1)
+ground_curve = 0.025
+sun_curve = 1.0
+
+[sub_resource type="Sky" id="Sky_okd3u"]
+sky_material = SubResource("ProceduralSkyMaterial_5stkp")
+
+[sub_resource type="Environment" id="Environment_txidm"]
+background_mode = 2
+background_color = Color(0.4, 0.6, 0.8, 1)
+sky = SubResource("Sky_okd3u")
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.5, 0.5, 1)
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.2, 0.4, 0.2, 1)
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_begin = 20.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ewdoh")]
+
+[node name="Environment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_txidm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.965926, 0.183013, -0.183013, 0.258819, -0.683013, 0.683013, -6.68001e-09, -0.707107, -0.707107, 0, 15.5, 0)
+light_color = Color(0.5, 0.5, 0.5, 1)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="Geometry" type="Node3D" parent="Environment"]
+
+[node name="PlatformTiny" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PlatformTiny2" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="PlatformTiny3" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="PlatformTiny4" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="PlatformTiny5" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="PlatformTiny6" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="PlatformTiny7" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="PlatformTiny8" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="PlatformTiny9" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="PlatformTiny10" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
+
+[node name="PlatformTiny11" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)
+
+[node name="PlatformTiny12" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="PlatformTiny13" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="PlatformTiny14" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="PlatformTiny15" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4)
+
+[node name="PlatformTiny16" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="PlatformTiny17" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="PlatformTiny18" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+
+[node name="PlatformTiny19" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 3)
+
+[node name="PlatformTiny20" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="PlatformTiny21" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="PlatformShortRamp" parent="Environment/Geometry" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 3)
+
+[node name="PlatformShortRamp2" parent="Environment/Geometry" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 8)
+
+[node name="PlatformTiny22" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 5)
+
+[node name="PlatformTiny23" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 5)
+
+[node name="PlatformTiny24" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 5)
+
+[node name="PlatformTiny25" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 3)
+
+[node name="PlatformTiny26" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="PlatformTiny27" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="PlatformTiny28" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="PlatformTiny29" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 3.00965)
+
+[node name="PlatformTiny30" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 1.00965)
+
+[node name="PlatformTiny31" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -0.990352)
+
+[node name="PlatformTiny32" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -2.99035)
+
+[node name="PlatformTiny33" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -4.99035)
+
+[node name="PlatformTiny34" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -6.99035)
+
+[node name="Geometry2" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -72)
+
+[node name="PlatformTiny" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PlatformTiny2" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="PlatformTiny3" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="PlatformTiny4" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="PlatformTiny5" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="PlatformTiny6" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="PlatformTiny7" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="PlatformTiny8" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="PlatformTiny9" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="PlatformTiny10" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
+
+[node name="PlatformTiny11" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)
+
+[node name="PlatformTiny12" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="PlatformTiny13" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="PlatformTiny14" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="PlatformTiny15" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4)
+
+[node name="PlatformTiny16" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="PlatformTiny17" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="PlatformTiny18" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+
+[node name="PlatformTiny19" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 3)
+
+[node name="PlatformTiny20" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="PlatformTiny21" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="PlatformShortRamp" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 3)
+
+[node name="PlatformShortRamp2" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 8)
+
+[node name="PlatformTiny22" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 5)
+
+[node name="PlatformTiny23" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 5)
+
+[node name="PlatformTiny24" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 5)
+
+[node name="PlatformTiny25" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 3)
+
+[node name="PlatformTiny26" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="PlatformTiny27" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="PlatformTiny28" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="PlatformTiny29" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 3.00965)
+
+[node name="PlatformTiny30" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 1.00965)
+
+[node name="PlatformTiny31" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -0.990352)
+
+[node name="PlatformTiny32" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -2.99035)
+
+[node name="PlatformTiny33" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -4.99035)
+
+[node name="PlatformTiny34" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -6.99035)
+
+[node name="PlatformTiny35" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)
+
+[node name="PlatformTiny36" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 23)
+
+[node name="PlatformTiny37" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 23)
+
+[node name="PlatformTiny38" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 21)
+
+[node name="PlatformTiny39" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 19)
+
+[node name="PlatformTiny40" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+
+[node name="PlatformTiny41" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 19)
+
+[node name="PlatformTiny42" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 23)
+
+[node name="PlatformTiny43" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 21)
+
+[node name="PlatformTiny44" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 13)
+
+[node name="PlatformTiny45" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 17)
+
+[node name="PlatformTiny46" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 15)
+
+[node name="PlatformTiny47" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 17)
+
+[node name="PlatformTiny48" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="PlatformTiny49" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 17)
+
+[node name="PlatformTiny50" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 15)
+
+[node name="PlatformTiny51" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
+
+[node name="PlatformTiny52" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 13)
+
+[node name="PlatformTiny53" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 24)
+
+[node name="PlatformTiny54" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 17)
+
+[node name="PlatformTiny55" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 15)
+
+[node name="PlatformShortRamp3" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 24)
+
+[node name="PlatformShortRamp4" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 29)
+
+[node name="PlatformTiny56" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 26)
+
+[node name="PlatformTiny57" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 26)
+
+[node name="PlatformTiny58" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 26)
+
+[node name="PlatformTiny59" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 24)
+
+[node name="PlatformTiny60" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 23)
+
+[node name="PlatformTiny61" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 21)
+
+[node name="PlatformTiny62" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 19)
+
+[node name="PlatformTiny63" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 24.0097)
+
+[node name="PlatformTiny64" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 22.0097)
+
+[node name="PlatformTiny65" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 20.0097)
+
+[node name="PlatformTiny66" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 18.0097)
+
+[node name="PlatformTiny67" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 16.0097)
+
+[node name="PlatformTiny68" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 14.0097)
+
+[node name="PlatformTiny69" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42)
+
+[node name="PlatformTiny70" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44)
+
+[node name="PlatformTiny71" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 44)
+
+[node name="PlatformTiny72" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 42)
+
+[node name="PlatformTiny73" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 40)
+
+[node name="PlatformTiny74" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+
+[node name="PlatformTiny75" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 40)
+
+[node name="PlatformTiny76" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 44)
+
+[node name="PlatformTiny77" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 42)
+
+[node name="PlatformTiny78" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 34)
+
+[node name="PlatformTiny79" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 38)
+
+[node name="PlatformTiny80" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 36)
+
+[node name="PlatformTiny81" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 38)
+
+[node name="PlatformTiny82" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36)
+
+[node name="PlatformTiny83" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 38)
+
+[node name="PlatformTiny84" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 36)
+
+[node name="PlatformTiny85" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34)
+
+[node name="PlatformTiny86" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 34)
+
+[node name="PlatformTiny87" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 45)
+
+[node name="PlatformTiny88" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 38)
+
+[node name="PlatformTiny89" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 36)
+
+[node name="PlatformShortRamp5" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 45)
+
+[node name="PlatformShortRamp6" parent="Environment/Geometry2" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 50)
+
+[node name="PlatformTiny90" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 47)
+
+[node name="PlatformTiny91" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 47)
+
+[node name="PlatformTiny92" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 47)
+
+[node name="PlatformTiny93" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 45)
+
+[node name="PlatformTiny94" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 44)
+
+[node name="PlatformTiny95" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 42)
+
+[node name="PlatformTiny96" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 40)
+
+[node name="PlatformTiny97" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 45.0097)
+
+[node name="PlatformTiny98" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 43.0097)
+
+[node name="PlatformTiny99" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 41.0097)
+
+[node name="PlatformTiny100" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 39.0097)
+
+[node name="PlatformTiny101" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 37.0097)
+
+[node name="PlatformTiny102" parent="Environment/Geometry2" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 35.0097)
+
+[node name="Geometry3" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -137)
+
+[node name="PlatformTiny" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="PlatformTiny2" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="PlatformTiny3" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="PlatformTiny4" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="PlatformTiny5" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="PlatformTiny6" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="PlatformTiny7" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="PlatformTiny8" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="PlatformTiny9" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="PlatformTiny10" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
+
+[node name="PlatformTiny11" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)
+
+[node name="PlatformTiny12" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="PlatformTiny13" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="PlatformTiny14" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="PlatformTiny15" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4)
+
+[node name="PlatformTiny16" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="PlatformTiny17" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="PlatformTiny18" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -8)
+
+[node name="PlatformTiny19" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 3)
+
+[node name="PlatformTiny20" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="PlatformTiny21" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="PlatformShortRamp" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 3)
+
+[node name="PlatformShortRamp2" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 8)
+
+[node name="PlatformTiny22" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 5)
+
+[node name="PlatformTiny23" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 5)
+
+[node name="PlatformTiny24" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 5)
+
+[node name="PlatformTiny25" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 3)
+
+[node name="PlatformTiny26" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="PlatformTiny27" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="PlatformTiny28" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2)
+
+[node name="PlatformTiny29" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 3.00965)
+
+[node name="PlatformTiny30" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 1.00965)
+
+[node name="PlatformTiny31" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -0.990352)
+
+[node name="PlatformTiny32" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -2.99035)
+
+[node name="PlatformTiny33" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -4.99035)
+
+[node name="PlatformTiny34" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -6.99035)
+
+[node name="PlatformTiny35" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21)
+
+[node name="PlatformTiny36" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 23)
+
+[node name="PlatformTiny37" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 23)
+
+[node name="PlatformTiny38" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 21)
+
+[node name="PlatformTiny39" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 19)
+
+[node name="PlatformTiny40" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+
+[node name="PlatformTiny41" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 19)
+
+[node name="PlatformTiny42" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 23)
+
+[node name="PlatformTiny43" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 21)
+
+[node name="PlatformTiny44" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 13)
+
+[node name="PlatformTiny45" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 17)
+
+[node name="PlatformTiny46" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 15)
+
+[node name="PlatformTiny47" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 17)
+
+[node name="PlatformTiny48" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="PlatformTiny49" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 17)
+
+[node name="PlatformTiny50" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 15)
+
+[node name="PlatformTiny51" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
+
+[node name="PlatformTiny52" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 13)
+
+[node name="PlatformTiny53" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 24)
+
+[node name="PlatformTiny54" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 17)
+
+[node name="PlatformTiny55" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 15)
+
+[node name="PlatformShortRamp3" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 24)
+
+[node name="PlatformShortRamp4" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 29)
+
+[node name="PlatformTiny56" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 26)
+
+[node name="PlatformTiny57" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 26)
+
+[node name="PlatformTiny58" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 26)
+
+[node name="PlatformTiny59" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 24)
+
+[node name="PlatformTiny60" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 23)
+
+[node name="PlatformTiny61" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 21)
+
+[node name="PlatformTiny62" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 19)
+
+[node name="PlatformTiny63" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 24.0097)
+
+[node name="PlatformTiny64" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 22.0097)
+
+[node name="PlatformTiny65" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 20.0097)
+
+[node name="PlatformTiny66" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 18.0097)
+
+[node name="PlatformTiny67" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 16.0097)
+
+[node name="PlatformTiny68" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 14.0097)
+
+[node name="PlatformTiny69" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42)
+
+[node name="PlatformTiny70" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44)
+
+[node name="PlatformTiny71" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 44)
+
+[node name="PlatformTiny72" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 42)
+
+[node name="PlatformTiny73" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 40)
+
+[node name="PlatformTiny74" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+
+[node name="PlatformTiny75" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 40)
+
+[node name="PlatformTiny76" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 44)
+
+[node name="PlatformTiny77" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 42)
+
+[node name="PlatformTiny78" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 34)
+
+[node name="PlatformTiny79" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 38)
+
+[node name="PlatformTiny80" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 36)
+
+[node name="PlatformTiny81" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 38)
+
+[node name="PlatformTiny82" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36)
+
+[node name="PlatformTiny83" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 38)
+
+[node name="PlatformTiny84" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 36)
+
+[node name="PlatformTiny85" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34)
+
+[node name="PlatformTiny86" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 34)
+
+[node name="PlatformTiny87" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 45)
+
+[node name="PlatformTiny88" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 38)
+
+[node name="PlatformTiny89" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 36)
+
+[node name="PlatformShortRamp5" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10.5, 45)
+
+[node name="PlatformShortRamp6" parent="Environment/Geometry3" instance=ExtResource("3_72r3t")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 12.5, 50)
+
+[node name="PlatformTiny90" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 47)
+
+[node name="PlatformTiny91" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 47)
+
+[node name="PlatformTiny92" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 47)
+
+[node name="PlatformTiny93" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 45)
+
+[node name="PlatformTiny94" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 44)
+
+[node name="PlatformTiny95" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 42)
+
+[node name="PlatformTiny96" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 40)
+
+[node name="PlatformTiny97" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 45.0097)
+
+[node name="PlatformTiny98" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 43.0097)
+
+[node name="PlatformTiny99" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 41.0097)
+
+[node name="PlatformTiny100" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 39.0097)
+
+[node name="PlatformTiny101" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 37.0097)
+
+[node name="PlatformTiny102" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 35.0097)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 2, 4.29904, -10.75)
+use_collision = true
+size = Vector3(3, 1, 13)
+material = ExtResource("4_q1q1c")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+use_collision = true
+radius = 2.0
+material = ExtResource("4_q1q1c")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -37)
+use_collision = true
+size = Vector3(200, 1, 200)
+material = ExtResource("4_q1q1c")
+
+[node name="HitDummy" parent="." instance=ExtResource("5_j5jx5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2)
+use_collision = true
+size = Vector3(4, 4, 4)
+material = ExtResource("4_q1q1c")

@@ -1,0 +1,49 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://yg0s3jj47eq8"]
+
+[ext_resource type="Texture2D" uid="uid://de74hb3ytv7c2" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame1.png" id="1_h5xcn"]
+[ext_resource type="Texture2D" uid="uid://cj63yogtadax0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame2.png" id="2_b72id"]
+[ext_resource type="Texture2D" uid="uid://btktv285glljj" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame3.png" id="3_v7ajo"]
+[ext_resource type="Texture2D" uid="uid://cjdka2q1fq4bm" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame4.png" id="4_uc80o"]
+[ext_resource type="Texture2D" uid="uid://cfgluqdj4oph0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame5.png" id="5_g1b7u"]
+[ext_resource type="Texture2D" uid="uid://cx65k36uyawog" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame6.png" id="6_vshw1"]
+[ext_resource type="Texture2D" uid="uid://bcjao81cat034" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame7.png" id="7_au7w8"]
+[ext_resource type="Texture2D" uid="uid://5vbgybqkd1mr" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame8.png" id="8_13ijh"]
+[ext_resource type="Texture2D" uid="uid://bwfkp4wbqu42j" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame9.png" id="9_wxe2w"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h5xcn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_b72id")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v7ajo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uc80o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g1b7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vshw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_au7w8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_13ijh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wxe2w")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"slash",
+"speed": 30.0
+}]

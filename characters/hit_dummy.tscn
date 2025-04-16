@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b80wl20isuajj"]
+
+[ext_resource type="PackedScene" uid="uid://bhfcxlvqytu1b" path="res://characters/player/bat/bat_knight.fbx" id="1_0qvtl"]
+[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/Enemy.cs" id="1_3ybtb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3ybtb"]
+height = 1.5
+radius = 0.15
+
+[node name="HitDummy" type="CharacterBody3D"]
+script = ExtResource("1_3ybtb")
+
+[node name="Bat" parent="." instance=ExtResource("1_0qvtl")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CylinderShape3D_3ybtb")
