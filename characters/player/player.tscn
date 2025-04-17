@@ -63,7 +63,6 @@ collision_mask = 3
 script = ExtResource("1_mxv5h")
 CameraHorizontalSpeed = 3.0
 CameraVerticalSpeed = 3.0
-GroundAcceleration = 15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
