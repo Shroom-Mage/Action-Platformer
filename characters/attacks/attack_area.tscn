@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b80mqcvfdrtae"]
+
+[ext_resource type="Script" uid="uid://d3ipv08l4he2d" path="res://characters/attacks/AttackArea.cs" id="1_tqarv"]
+
+[node name="AttackArea" type="Area3D"]
+script = ExtResource("1_tqarv")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

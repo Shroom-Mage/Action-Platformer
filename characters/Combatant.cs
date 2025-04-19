@@ -72,8 +72,6 @@ namespace ActionPlatformer {
         private Vector3 _forward = Vector3.Forward;
         private Vector3 _right = Vector3.Right;
         private float _tilt = 0.0f;
-        private bool _bIsAttackReady = false;
-        //private Vector3 _slashRotationDefault;
         private double _slamTime = 0.0f;
         private bool _bIsSlamming = false;
         private uint _swordHopCount = 0;
@@ -83,11 +81,8 @@ namespace ActionPlatformer {
 			_model = GetNode<Node3D>("Model");
 			_dust = GetNode<GpuParticles3D>("Model/Dust");
 			_dust.Emitting = false;
-			//_slash = GetNode<AnimatedSprite3D>("Model/Slash");
-			//_slashRotationDefault = _slash.Rotation;
 			_slam = GetNode<GpuParticles3D>("Model/Slam");
 			_attack = GetNode<Attack>("Model/StandingSlash");
-            //_slashRotationDefault = _attack.SpriteRotation;
             _camera = GetNode<Camera3D>("CameraPivot/CameraArm/Camera3D");
         }
 
@@ -100,39 +95,15 @@ namespace ActionPlatformer {
             float velocityY = Velocity.Y;
             bool bIsOnGround = IsOnFloor();
             bool bIsOnWall = IsOnWallOnly();
+            bool bSwordHop = false;
 
             // Attack
-            bool bSwordHop = false;
-            bool bIsAttacking = _attack.IsPlaying();
             bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_bIsSlamming && _slamTime <= 0.0f;
-            if (input.bAttackPress && bIsAttacking && bCanAttack) {
-                _bIsAttackReady = true;
-            }
-            if (bIsAttacking) {
-                input.bAttackPress = false;
-            }
             if (input.bAttackPress && bCanAttack) {
-                // First slash
-                _attack.Sprite.Frame = 0;
-                //_attack.SpriteRotation = _slashRotationDefault;
-                _attack.Sprite.FlipH = false;
-                _attack.Play();
-                _attack.DamageTargets(5.0f);
-                bIsAttacking = true;
-                _bIsAttackReady = false;
-                bSwordHop = true;
+                _attack.Perform();
             }
-            else if (_bIsAttackReady && !bIsAttacking && !(bIsOnWall && velocityY < 0.0f)) {
-                // Followup slash
-                _attack.Sprite.Frame = 0;
-                //_attack.SpriteRotation = new Vector3(_attack.Rotation.X, _attack.Rotation.Y, -_attack.Rotation.Z);
-                _attack.Sprite.FlipH = !_attack.Sprite.FlipH;
-                _attack.Play();
-                _attack.DamageTargets(5.0f);
-                bIsAttacking = true;
-                _bIsAttackReady = false;
-                bSwordHop = true;
-            }
+            bool bIsAttacking = _attack.IsPerforming();
+            bSwordHop = _attack.JustPerformed();
 
             // Ground reset
             if (bIsOnGround) {

@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://mogtn7b53tmx"]
-
-[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="1_p6t74"]
-
-[node name="Slash" type="AnimatedSprite3D"]
-axis = 1
-sprite_frames = ExtResource("1_p6t74")
-animation = &"slash"
-frame = 9

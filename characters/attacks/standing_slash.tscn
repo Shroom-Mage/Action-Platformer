@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx0l3cy5mpp56"]
+
+[ext_resource type="Script" uid="uid://dx0820href4x1" path="res://characters/attacks/StandingSlash.cs" id="1_neits"]
+[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_3thin"]
+[ext_resource type="PackedScene" uid="uid://b80mqcvfdrtae" path="res://characters/attacks/attack_area.tscn" id="2_8vi83"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1sc6n"]
+
+[node name="StandingSlash" type="Node3D"]
+script = ExtResource("1_neits")
+metadata/_custom_type_script = "uid://bfm1026m4yuac"
+
+[node name="AttackArea" parent="." instance=ExtResource("2_8vi83")]
+
+[node name="Collider" type="CollisionShape3D" parent="AttackArea"]
+shape = SubResource("SphereShape3D_1sc6n")
+
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
+flip_v = true
+axis = 1
+sprite_frames = ExtResource("2_3thin")
+animation = &"slash"
+frame = 9
