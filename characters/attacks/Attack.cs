@@ -5,23 +5,34 @@ namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Attack : Node3D {
         private AttackArea _area = null;
+        private bool _bIsAttackReady = false;
+        private bool _bIsPerforming = false;
+        private bool _bJustPerformed = false;
+
+        public bool IsAttackReady {
+            get { return _bIsAttackReady; }
+            protected set { _bIsAttackReady = value; }
+        }
+
+        public bool IsPerforming {
+            get { return _bIsPerforming; }
+            protected set { _bIsPerforming = value; }
+        }
+
+        public bool JustPerformed {
+            get { return _bJustPerformed; }
+            protected set { _bJustPerformed = value; }
+        }
 
         public override void _Ready() {
             _area = GetNode<AttackArea>("AttackArea");
         }
 
-        public virtual void Perform() {
+        public void Perform() {
+            _bIsAttackReady = true;
         }
 
-        public virtual bool IsPerforming() {
-            return false;
-        }
-
-        public virtual bool JustPerformed() {
-            return false;
-        }
-
-        public virtual void HitTargets(float damage) {
+        public void HitTargets(float damage) {
             foreach (Combatant body in _area.Targets) {
                 body.TakeDamage(damage);
             }

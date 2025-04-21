@@ -15,10 +15,10 @@ namespace ActionPlatformer {
     [GlobalClass]
     public partial class Combatant : CharacterBody3D {
         private Node3D _model = null;
-        private Attack _attack = null;
+        private StandingSlash _neutralSlash = null;
+        private AirSlam _airSlam = null;
         private Camera3D _camera = null;
         private GpuParticles3D _dust = null;
-        private GpuParticles3D _slam = null;
 
         [Export, ExportGroup("Combat")]
         public float Power = 1.0f;
@@ -26,7 +26,9 @@ namespace ActionPlatformer {
         public float Life = 1.0f;
 
         [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
-        public float RunSpeed = 7.5f;
+        public float GroundSpeed = 7.5f;
+        [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
+        public float AirSpeed = 7.5f;
         [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
         public float JumpSpeed = 15.0f;
         [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
@@ -60,29 +62,17 @@ namespace ActionPlatformer {
         [Export(PropertyHint.Range, "0,10"), ExportGroup("Movement")]
         public float WallKickJumpMult = 0.8f;
 
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Attacks")]
-        public float SwordHopSpeed = 5.0f;
-        [Export(PropertyHint.Range, "0,1"), ExportGroup("Attacks")]
-        public float SwordHopCountMult = 0.5f;
-        [Export(PropertyHint.Range, "0,10"), ExportGroup("Attacks")]
-        public double SlamTime = 0.5;
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Attacks")]
-        public float SlamSpeed = 10.0f;
-
         private Vector3 _forward = Vector3.Forward;
         private Vector3 _right = Vector3.Right;
         private float _tilt = 0.0f;
-        private double _slamTime = 0.0f;
-        private bool _bIsSlamming = false;
-        private uint _swordHopCount = 0;
 
         public override void _Ready() {
             base._Ready();
 			_model = GetNode<Node3D>("Model");
 			_dust = GetNode<GpuParticles3D>("Model/Dust");
 			_dust.Emitting = false;
-			_slam = GetNode<GpuParticles3D>("Model/Slam");
-			_attack = GetNode<Attack>("Model/StandingSlash");
+			_neutralSlash = GetNode<StandingSlash>("Model/StandingSlash");
+			_airSlam = GetNode<AirSlam>("Model/AirSlam");
             _camera = GetNode<Camera3D>("CameraPivot/CameraArm/Camera3D");
         }
 
@@ -98,18 +88,22 @@ namespace ActionPlatformer {
             bool bSwordHop = false;
 
             // Attack
-            bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_bIsSlamming && _slamTime <= 0.0f;
+            bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_airSlam.IsPerforming;
             if (input.bAttackPress && bCanAttack) {
-                _attack.Perform();
+                _neutralSlash.Perform();
             }
-            bool bIsAttacking = _attack.IsPerforming();
-            bSwordHop = _attack.JustPerformed();
+            bool bIsAttacking = _neutralSlash.IsPerforming;
+            bSwordHop = _neutralSlash.JustPerformed;
+
+            // Slam
+            if (!bIsOnGround && input.bCrouchPress && bCanAttack) {
+                _airSlam.Perform();
+            }
 
             // Ground reset
             if (bIsOnGround) {
-                _swordHopCount = 0;
-                _bIsSlamming = false;
-                _slam.Emitting = false;
+                _neutralSlash.TouchGround();
+                _airSlam.TouchGround();
             }
 
             // Find movement direction
@@ -123,7 +117,7 @@ namespace ActionPlatformer {
             directionXZ *= bIsAttacking ? 0.0f : moveSpeed;
 
             // Set target velocity
-            Vector2 velocityTarget = directionXZ * RunSpeed;
+            Vector2 velocityTarget = directionXZ * (bIsOnGround ? GroundSpeed : AirSpeed);
 
             bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
             _dust.Emitting = false;
@@ -137,7 +131,7 @@ namespace ActionPlatformer {
                     _forward = new Vector3(velocityXZ.X, 0.0f, velocityXZ.Y).Normalized();
                     _right = _forward.Cross(Vector3.Up);
                     _tilt = _right.Dot(directionXYZ);
-                    _model.Call("move", velocityXZ.Length() / RunSpeed);
+                    _model.Call("move", velocityXZ.Length() / GroundSpeed);
                     _model.Set("run_tilt", _tilt);
                 }
                 else {
@@ -177,23 +171,17 @@ namespace ActionPlatformer {
             if (!bIsOnGround) {
                 // Sword Hop
                 if (bSwordHop) {
-                    _swordHopCount++;
-                    velocityY += SwordHopSpeed - (velocityY / _swordHopCount);
+                    velocityY += _neutralSlash.SwordHopSpeed - (velocityY / _neutralSlash.SwordHopCount);
                 }
-                // Slam Down
-                else if (_slamTime > 0.0) {
-                    _slamTime -= delta;
-                    if (_slamTime <= 0.0) {
-                        velocityY = -SlamSpeed;
-                        _bIsSlamming = true;
-                        _slam.Emitting = true;
-                    }
-                }
-                // Slam Start
-                else if (input.bCrouchPress && bCanAttack) {
+                // Slam Startup
+                else if (_airSlam.IsInStartup) {
                     velocityXZ = Vector2.Zero;
                     velocityY = 0.0f;
-                    _slamTime = SlamTime;
+                }
+                // Slam Start
+                else if (_airSlam.IsDescending) {
+                    velocityXZ = Vector2.Zero;
+                    velocityY = -_airSlam.SlamSpeed;
                 }
                 // Rising
                 else if (velocityY > 0.0f) {
@@ -224,7 +212,7 @@ namespace ActionPlatformer {
                         if (input.bJumpPress) {
                             _forward = -_forward;
                             velocityY = JumpSpeed * WallKickJumpMult;
-                            velocityXZ = new Vector2(_forward.X, _forward.Z) * RunSpeed * WallKickSpeedMult;
+                            velocityXZ = new Vector2(_forward.X, _forward.Z) * GroundSpeed * WallKickSpeedMult;
                             _model.Call("jump");
                         }
                     }
@@ -235,16 +223,16 @@ namespace ActionPlatformer {
                 if (bIsSkidding) {
                     // Side flip
                     velocityY = JumpSpeed * FlipJumpMult;
-                    velocityXZ = directionXZ * RunSpeed * FlipSpeedMult;
+                    velocityXZ = directionXZ * AirSpeed * FlipSpeedMult;
                 }
                 else if (input.bCrouchHold) {
                     // Back flip
                     velocityY = JumpSpeed * FlipJumpMult;
-                    velocityXZ = new Vector2(_forward.X, _forward.Z) * -RunSpeed * FlipSpeedMult;
+                    velocityXZ = new Vector2(_forward.X, _forward.Z) * -AirSpeed * FlipSpeedMult;
                 }
                 else {
                     // Standard jump
-                    velocityY = Mathf.Lerp(JumpSpeed * StandingJumpMult, JumpSpeed, velocityXZ.Length() / RunSpeed);
+                    velocityY = Mathf.Lerp(JumpSpeed * StandingJumpMult, JumpSpeed, velocityXZ.Length() / GroundSpeed);
                 }
                 _model.Call("jump");
 

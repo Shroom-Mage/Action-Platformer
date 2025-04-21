@@ -4,29 +4,32 @@ using System;
 namespace ActionPlatformer {
 	public partial class StandingSlash : Attack {
         private AnimatedSprite3D _sprite = null;
-        private bool _bIsPerforming = false;
-        private bool _bJustPerformed = false;
-        private bool _bIsAttackReady = false;
         private bool _bIsFollowUp = false;
         private Vector3 _rotationDefault;
+        private uint _swordHopCount = 0;
 
-        public AnimatedSprite3D Sprite {
-            get { return _sprite; }
+        [Export(PropertyHint.Range, "0,100")]
+        public float SwordHopSpeed = 5.0f;
+        [Export(PropertyHint.Range, "0,1")]
+        public float SwordHopCountMult = 0.5f;
+
+        public uint SwordHopCount {
+            get { return _swordHopCount; }
         }
 
         public override void _Ready() {
             base._Ready();
-            _sprite = GetNode<AnimatedSprite3D>("Sprite");
+            _sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
             _rotationDefault = _sprite.Rotation;
         }
 
         public override void _PhysicsProcess(double delta) {
-            _bIsPerforming = _sprite.IsPlaying();
-            _bJustPerformed = false;
+            IsPerforming = _sprite.IsPlaying();
+            JustPerformed = false;
 
-            if (_bIsAttackReady) {
+            if (IsAttackReady) {
                 // Attempt to attack
-                if (!_bIsPerforming) {
+                if (!IsPerforming) {
                     // Perform attack
                     if (!_bIsFollowUp) {
                         _sprite.FlipH = false;
@@ -39,8 +42,10 @@ namespace ActionPlatformer {
                     _sprite.Frame = 0;
                     _sprite.Play();
                     HitTargets(5.0f);
-                    _bIsAttackReady = false;
-                    _bJustPerformed = true;
+                    _swordHopCount++;
+                    IsAttackReady = false;
+                    JustPerformed = true;
+                    _bIsFollowUp = false;
                 }
                 else {
                     // Next attack will follow up
@@ -49,16 +54,8 @@ namespace ActionPlatformer {
             }
         }
 
-        public override void Perform() {
-            _bIsAttackReady = true;
-        }
-
-        public override bool IsPerforming() {
-            return _bIsPerforming;
-        }
-
-        public override bool JustPerformed() {
-            return _bJustPerformed;
+        public void TouchGround() {
+            _swordHopCount = 0;
         }
     }
 }

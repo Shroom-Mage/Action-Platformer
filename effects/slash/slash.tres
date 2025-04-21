@@ -1,9 +1,14 @@
-[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://yg0s3jj47eq8"]
+[gd_resource type="SpriteFrames" load_steps=15 format=3 uid="uid://yg0s3jj47eq8"]
 
 [ext_resource type="Texture2D" uid="uid://de74hb3ytv7c2" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame1.png" id="1_h5xcn"]
+[ext_resource type="Texture2D" uid="uid://8ceg3w1yfw8m" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame4.png" id="1_vshw1"]
+[ext_resource type="Texture2D" uid="uid://tt7yr3iorr8c" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame5.png" id="2_au7w8"]
 [ext_resource type="Texture2D" uid="uid://cj63yogtadax0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame2.png" id="2_b72id"]
+[ext_resource type="Texture2D" uid="uid://d1spcc3g0oikc" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame6.png" id="3_13ijh"]
 [ext_resource type="Texture2D" uid="uid://btktv285glljj" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame3.png" id="3_v7ajo"]
 [ext_resource type="Texture2D" uid="uid://cjdka2q1fq4bm" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame4.png" id="4_uc80o"]
+[ext_resource type="Texture2D" uid="uid://doed3mgxjubwh" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame7.png" id="4_wxe2w"]
+[ext_resource type="Texture2D" uid="uid://d0m8om4iubw0b" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame8.png" id="5_27fag"]
 [ext_resource type="Texture2D" uid="uid://cfgluqdj4oph0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame5.png" id="5_g1b7u"]
 [ext_resource type="Texture2D" uid="uid://cx65k36uyawog" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame6.png" id="6_vshw1"]
 [ext_resource type="Texture2D" uid="uid://bcjao81cat034" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame7.png" id="7_au7w8"]
@@ -12,6 +17,29 @@
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vshw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_au7w8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_13ijh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wxe2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_27fag")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"slam",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_h5xcn")

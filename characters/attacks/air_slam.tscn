@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8crwdhvej248"]
+
+[ext_resource type="Script" uid="uid://3dqk0iwe3crv" path="res://characters/attacks/AirSlam.cs" id="1_oerjn"]
+[ext_resource type="PackedScene" uid="uid://b80mqcvfdrtae" path="res://characters/attacks/attack_area.tscn" id="2_2dy0r"]
+[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="3_2dy0r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_43w6b"]
+
+[sub_resource type="Curve" id="Curve_tsn3t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5dc8e"]
+curve = SubResource("Curve_tsn3t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ktaxo"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_5dc8e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6leb"]
+transparency = 1
+albedo_color = Color(1, 0.4, 0.2, 0.8)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vphp4"]
+material = SubResource("StandardMaterial3D_c6leb")
+
+[node name="AirSlam" type="Node3D"]
+script = ExtResource("1_oerjn")
+
+[node name="AttackArea" parent="." instance=ExtResource("2_2dy0r")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea"]
+shape = SubResource("SphereShape3D_43w6b")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ktaxo")
+draw_pass_1 = SubResource("SphereMesh_vphp4")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.215, 0.1, -0.665)
+axis = 1
+sprite_frames = ExtResource("3_2dy0r")
+animation = &"slam"
+frame = 5

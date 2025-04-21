@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://bfm1026m4yuac"
 [node name="Collider" type="CollisionShape3D" parent="AttackArea"]
 shape = SubResource("SphereShape3D_1sc6n")
 
-[node name="Sprite" type="AnimatedSprite3D" parent="."]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
 flip_v = true
 axis = 1
