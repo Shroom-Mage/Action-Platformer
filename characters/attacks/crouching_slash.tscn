@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0rulkfhdwbc5"]
+
+[ext_resource type="Script" uid="uid://52kfy0llgpog" path="res://characters/attacks/CrouchingSlash.cs" id="1_oqe72"]
+[ext_resource type="PackedScene" uid="uid://b80mqcvfdrtae" path="res://characters/attacks/attack_area.tscn" id="2_gv7s1"]
+[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="3_6m7a6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1sc6n"]
+
+[node name="CrouchingSlash" type="Node3D"]
+script = ExtResource("1_oqe72")
+metadata/_custom_type_script = "uid://bfm1026m4yuac"
+
+[node name="AttackArea" parent="." instance=ExtResource("2_gv7s1")]
+
+[node name="Collider" type="CollisionShape3D" parent="AttackArea"]
+shape = SubResource("SphereShape3D_1sc6n")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
+flip_v = true
+axis = 1
+sprite_frames = ExtResource("3_6m7a6")
+animation = &"slash_low"
+frame = 11
+frame_progress = 1.0

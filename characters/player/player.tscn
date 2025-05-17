@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://buu8wl23agswh"]
+[gd_scene load_steps=13 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://characters/player/sophia_skin/sophia_skin.tscn" id="1_3cb50"]
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
 [ext_resource type="PackedScene" uid="uid://bx0l3cy5mpp56" path="res://characters/attacks/standing_slash.tscn" id="3_exd8k"]
 [ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="4_5dc8e"]
+[ext_resource type="PackedScene" uid="uid://d0rulkfhdwbc5" path="res://characters/attacks/crouching_slash.tscn" id="4_ixbpm"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6jjan"]
 height = 1.6
@@ -66,7 +67,11 @@ draw_pass_1 = SubResource("SphereMesh_fbwp3")
 [node name="StandingSlash" parent="Model" instance=ExtResource("3_exd8k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
 
+[node name="CrouchingSlash" parent="Model" instance=ExtResource("4_ixbpm")]
+
 [node name="AirSlam" parent="Model" instance=ExtResource("4_5dc8e")]
+SlamStartTime = 0.25
+SlamSpeed = 15.0
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

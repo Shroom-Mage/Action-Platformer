@@ -2,8 +2,8 @@ using Godot;
 using System;
 
 namespace ActionPlatformer {
-    [GlobalClass]
-    public partial class Enemy : Combatant {
+	[GlobalClass]
+	public partial class Enemy : Combatant {
 		// Called when the node enters the scene tree for the first time.
 		public override void _Ready() {
 		}

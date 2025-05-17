@@ -7,12 +7,12 @@ namespace ActionPlatformer {
 		private Node3D _cameraPivot = null;
 		private SpringArm3D _cameraArm = null;
 		private Camera3D _camera = null;
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Camera")]
-        public float CameraHorizontalSpeed = 5.0f;
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Camera")]
-        public float CameraVerticalSpeed = 5.0f;
-        [Export, ExportGroup("Camera")]
-        public float CameraUpperLimit = -45.0f;
+		[Export(PropertyHint.Range, "0,100"), ExportGroup("Camera")]
+		public float CameraHorizontalSpeed = 5.0f;
+		[Export(PropertyHint.Range, "0,100"), ExportGroup("Camera")]
+		public float CameraVerticalSpeed = 5.0f;
+		[Export, ExportGroup("Camera")]
+		public float CameraUpperLimit = -45.0f;
 		[Export, ExportGroup("Camera")]
 		public float CameraLowerLimit = 0.0f;
 
@@ -24,30 +24,30 @@ namespace ActionPlatformer {
 		}
 
 		public override void _PhysicsProcess(double delta) {
-            // Get input
-            CombatInput input;
-            input.movement = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-            input.bJumpPress = Input.IsActionJustPressed("jump");
-            input.bJumpHold = Input.IsActionPressed("jump");
-            input.bCrouchPress = Input.IsActionJustPressed("crouch");
-            input.bCrouchHold = Input.IsActionPressed("crouch");
-            input.bAttackPress = Input.IsActionJustPressed("attack");
-            input.bAttackHold = Input.IsActionPressed("attack");
+			// Get input
+			CombatInput input;
+			input.movement = Input.GetVector("move_left", "move_right", "move_up", "move_down");
+			input.bJumpPress = Input.IsActionJustPressed("jump");
+			input.bJumpHold = Input.IsActionPressed("jump");
+			input.bCrouchPress = Input.IsActionJustPressed("crouch");
+			input.bCrouchHold = Input.IsActionPressed("crouch");
+			input.bAttackPress = Input.IsActionJustPressed("attack");
+			input.bAttackHold = Input.IsActionPressed("attack");
 
-            // Move and attack
-            MoveAndAttack(input, delta);
+			// Move and attack
+			MoveAndAttack(input, delta);
 
 			// Get look input
-            Vector2 lookInput = Input.GetVector("look_left", "look_right", "look_up", "look_down");
+			Vector2 lookInput = Input.GetVector("look_left", "look_right", "look_up", "look_down");
 
 			// Rotate camera
-            _cameraPivot.RotateObjectLocal(new Vector3(0.0f, 1.0f, 0.0f), -lookInput.X * CameraHorizontalSpeed * (float)delta);
-            _cameraArm.RotateObjectLocal(new Vector3(1.0f, 0.0f, 0.0f), -lookInput.Y * CameraVerticalSpeed * (float)delta);
-            _cameraArm.Rotation = new Vector3(Mathf.Clamp(_cameraArm.Rotation.X, Mathf.DegToRad(CameraUpperLimit), Mathf.DegToRad(CameraLowerLimit)), _cameraArm.Rotation.Y, _cameraArm.Rotation.Z);
-        }
+			_cameraPivot.RotateObjectLocal(new Vector3(0.0f, 1.0f, 0.0f), -lookInput.X * CameraHorizontalSpeed * (float)delta);
+			_cameraArm.RotateObjectLocal(new Vector3(1.0f, 0.0f, 0.0f), -lookInput.Y * CameraVerticalSpeed * (float)delta);
+			_cameraArm.Rotation = new Vector3(Mathf.Clamp(_cameraArm.Rotation.X, Mathf.DegToRad(CameraUpperLimit), Mathf.DegToRad(CameraLowerLimit)), _cameraArm.Rotation.Y, _cameraArm.Rotation.Z);
+		}
 
-        public override string ToString() {
+		public override string ToString() {
 			return Name;
-        }
-    }
+		}
+	}
 }

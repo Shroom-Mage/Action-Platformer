@@ -3,59 +3,59 @@ using System;
 
 namespace ActionPlatformer {
 	public partial class StandingSlash : Attack {
-        private AnimatedSprite3D _sprite = null;
-        private bool _bIsFollowUp = false;
-        private Vector3 _rotationDefault;
-        private uint _swordHopCount = 0;
+		private AnimatedSprite3D _sprite = null;
+		private bool _bIsFollowUp = false;
+		private Vector3 _rotationDefault;
+		private uint _swordHopCount = 0;
 
-        [Export(PropertyHint.Range, "0,100")]
-        public float SwordHopSpeed = 5.0f;
-        [Export(PropertyHint.Range, "0,1")]
-        public float SwordHopCountMult = 0.5f;
+		[Export(PropertyHint.Range, "0,100")]
+		public float SwordHopSpeed = 5.0f;
+		[Export(PropertyHint.Range, "0,1")]
+		public float SwordHopCountMult = 0.5f;
 
-        public uint SwordHopCount {
-            get { return _swordHopCount; }
-        }
+		public uint SwordHopCount {
+			get { return _swordHopCount; }
+		}
 
-        public override void _Ready() {
-            base._Ready();
-            _sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
-            _rotationDefault = _sprite.Rotation;
-        }
+		public override void _Ready() {
+			base._Ready();
+			_sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
+			_rotationDefault = _sprite.Rotation;
+		}
 
-        public override void _PhysicsProcess(double delta) {
-            IsPerforming = _sprite.IsPlaying();
-            JustPerformed = false;
+		public override void _PhysicsProcess(double delta) {
+			IsPerforming = _sprite.IsPlaying();
+			JustPerformed = false;
 
-            if (IsAttackReady) {
-                // Attempt to attack
-                if (!IsPerforming) {
-                    // Perform attack
-                    if (!_bIsFollowUp) {
-                        _sprite.FlipH = false;
-                        _sprite.Rotation = _rotationDefault;
-                    }
-                    else {
-                        _sprite.FlipH = !_sprite.FlipH;
-                        _sprite.Rotation = new Vector3(_sprite.Rotation.X, _sprite.Rotation.Y, -_sprite.Rotation.Z);
-                    }
-                    _sprite.Frame = 0;
-                    _sprite.Play();
-                    HitTargets(5.0f);
-                    _swordHopCount++;
-                    IsAttackReady = false;
-                    JustPerformed = true;
-                    _bIsFollowUp = false;
-                }
-                else {
-                    // Next attack will follow up
-                    _bIsFollowUp = true;
-                }
-            }
-        }
+			if (IsAttackReady) {
+				// Attempt to attack
+				if (!IsPerforming) {
+					// Perform attack
+					if (!_bIsFollowUp) {
+						_sprite.FlipH = false;
+						_sprite.Rotation = _rotationDefault;
+					}
+					else {
+						_sprite.FlipH = !_sprite.FlipH;
+						_sprite.Rotation = new Vector3(_sprite.Rotation.X, _sprite.Rotation.Y, -_sprite.Rotation.Z);
+					}
+					_sprite.Frame = 0;
+					_sprite.Play();
+					HitTargets(5.0f);
+					_swordHopCount++;
+					IsAttackReady = false;
+					JustPerformed = true;
+					_bIsFollowUp = false;
+				}
+				else {
+					// Next attack will follow up
+					_bIsFollowUp = true;
+				}
+			}
+		}
 
-        public void TouchGround() {
-            _swordHopCount = 0;
-        }
-    }
+		public void TouchGround() {
+			_swordHopCount = 0;
+		}
+	}
 }

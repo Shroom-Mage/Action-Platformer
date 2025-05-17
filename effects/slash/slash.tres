@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=15 format=3 uid="uid://yg0s3jj47eq8"]
+[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://yg0s3jj47eq8"]
 
 [ext_resource type="Texture2D" uid="uid://de74hb3ytv7c2" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame1.png" id="1_h5xcn"]
 [ext_resource type="Texture2D" uid="uid://8ceg3w1yfw8m" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame4.png" id="1_vshw1"]
@@ -14,6 +14,15 @@
 [ext_resource type="Texture2D" uid="uid://bcjao81cat034" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame7.png" id="7_au7w8"]
 [ext_resource type="Texture2D" uid="uid://5vbgybqkd1mr" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame8.png" id="8_13ijh"]
 [ext_resource type="Texture2D" uid="uid://bwfkp4wbqu42j" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame9.png" id="9_wxe2w"]
+[ext_resource type="Texture2D" uid="uid://c6dc7b3yqmnqb" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame1.png" id="15_584hv"]
+[ext_resource type="Texture2D" uid="uid://ctffexr50wxw8" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame2.png" id="16_tp5by"]
+[ext_resource type="Texture2D" uid="uid://p3f0qaqracum" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame3.png" id="17_cykbx"]
+[ext_resource type="Texture2D" uid="uid://cngti7tctk6l0" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame4.png" id="18_r5vv5"]
+[ext_resource type="Texture2D" uid="uid://b0csmsnkif7hk" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame5.png" id="19_wj51l"]
+[ext_resource type="Texture2D" uid="uid://bibtuw2wmdcvw" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame6.png" id="20_pa6q6"]
+[ext_resource type="Texture2D" uid="uid://cjhq2haacv72a" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame7.png" id="21_klhy6"]
+[ext_resource type="Texture2D" uid="uid://d2agspt8aqrnt" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame8.png" id="22_xrvws"]
+[ext_resource type="Texture2D" uid="uid://yumph3aapcbs" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame9.png" id="23_rowsg"]
 
 [resource]
 animations = [{
@@ -73,5 +82,46 @@ animations = [{
 }],
 "loop": false,
 "name": &"slash",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_584hv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_tp5by")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_cykbx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_r5vv5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_wj51l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_pa6q6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_klhy6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_xrvws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_rowsg")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"slash_low",
 "speed": 30.0
 }]

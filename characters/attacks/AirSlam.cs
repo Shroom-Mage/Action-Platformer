@@ -6,15 +6,20 @@ namespace ActionPlatformer {
 		private GpuParticles3D _particles = null;
 		private AnimatedSprite3D _sprite = null;
 		private double _startupTimeRemaining = 0.0;
+		private bool _bJustStartedDescent = false;
 		private bool _bIsDescending = false;
 
-        [Export(PropertyHint.Range, "0,10")]
-        public double SlamStartTime = 0.5;
-        [Export(PropertyHint.Range, "0,100")]
-        public float SlamSpeed = 10.0f;
+		[Export(PropertyHint.Range, "0,10")]
+		public double SlamStartTime = 0.5;
+		[Export(PropertyHint.Range, "0,100")]
+		public float SlamSpeed = 10.0f;
 
-        public bool IsInStartup {
+		public bool IsInStartup {
 			get { return _startupTimeRemaining > 0.0; }
+		}
+
+		public bool JustStartedDescent {
+			get { return _bJustStartedDescent; }
 		}
 
 		public bool IsDescending {
@@ -30,11 +35,12 @@ namespace ActionPlatformer {
 
 		public override void _PhysicsProcess(double delta) {
 			JustPerformed = false;
+			_bJustStartedDescent = false;
 
 			if (IsAttackReady) {
 				IsPerforming = true;
 				_startupTimeRemaining = SlamStartTime;
-                _particles.Emitting = true;
+				_particles.Emitting = true;
 				IsAttackReady = false;
 				JustPerformed = true;
 			}
@@ -43,6 +49,7 @@ namespace ActionPlatformer {
 				_startupTimeRemaining -= delta;
 				if (_startupTimeRemaining <= 0.0) {
 					_bIsDescending = true;
+					_bJustStartedDescent = true;
 				}
 			}
 
@@ -59,8 +66,8 @@ namespace ActionPlatformer {
 			IsPerforming = false;
 			_bIsDescending = false;
 			_particles.Emitting = false;
-            _sprite.Frame = 0;
-            _sprite.Play();
-        }
+			_sprite.Frame = 0;
+			_sprite.Play();
+		}
 	}
 }
