@@ -65,9 +65,10 @@ process_material = SubResource("ParticleProcessMaterial_oj4oi")
 draw_pass_1 = SubResource("SphereMesh_fbwp3")
 
 [node name="StandingSlash" parent="Model" instance=ExtResource("3_exd8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0.75, 0.5)
 
 [node name="CrouchingSlash" parent="Model" instance=ExtResource("4_ixbpm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
 
 [node name="AirSlam" parent="Model" instance=ExtResource("4_5dc8e")]
 SlamStartTime = 0.25

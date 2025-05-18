@@ -20,7 +20,7 @@ namespace ActionPlatformer {
 		public override void _Ready() {
 			base._Ready();
 			_sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
-			_rotationDefault = _sprite.Rotation;
+			_rotationDefault = Rotation;
 		}
 
 		public override void _PhysicsProcess(double delta) {
@@ -33,11 +33,11 @@ namespace ActionPlatformer {
 					// Perform attack
 					if (!_bIsFollowUp) {
 						_sprite.FlipH = false;
-						_sprite.Rotation = _rotationDefault;
+						Rotation = _rotationDefault;
 					}
 					else {
 						_sprite.FlipH = !_sprite.FlipH;
-						_sprite.Rotation = new Vector3(_sprite.Rotation.X, _sprite.Rotation.Y, -_sprite.Rotation.Z);
+						Rotation = new Vector3(Rotation.X, Rotation.Y, -Rotation.Z);
 					}
 					_sprite.Frame = 0;
 					_sprite.Play();
