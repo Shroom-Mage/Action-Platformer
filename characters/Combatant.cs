@@ -14,11 +14,10 @@ namespace ActionPlatformer {
 
 	[GlobalClass]
 	public partial class Combatant : CharacterBody3D {
-		private Node3D _model = null;
+		private Node3D _pivot = null;
 		private StandingSlash _neutralSlash = null;
 		private CrouchingSlash _crouchingSlash = null;
 		private AirSlam _airSlam = null;
-		private Camera3D _camera = null;
 		private GpuParticles3D _dust = null;
 
 		[Export, ExportGroup("Combat")]
@@ -65,17 +64,45 @@ namespace ActionPlatformer {
 
 		private Vector3 _forward = Vector3.Forward;
 		private Vector3 _right = Vector3.Right;
-		private float _tilt = 0.0f;
+		private Basis _space;
 
-		public override void _Ready() {
+		public Basis Space {
+			get { return _space; }
+			set { _space = value; }
+        }
+
+        public override string ToString() {
+            return Name;
+        }
+
+        public override void _Ready() {
 			base._Ready();
-			_model = GetNode<Node3D>("Model");
-			_dust = GetNode<GpuParticles3D>("Model/Dust");
-			_dust.Emitting = false;
-			_neutralSlash = GetNode<StandingSlash>("Model/StandingSlash");
-			_crouchingSlash = GetNode<CrouchingSlash>("Model/CrouchingSlash");
-			_airSlam = GetNode<AirSlam>("Model/AirSlam");
-			_camera = GetNode<Camera3D>("CameraPivot/CameraArm/Camera3D");
+			_pivot = GetNode<Node3D>("Pivot");
+			if (HasNode("Pivot/Dust")) {
+				_dust = GetNode<GpuParticles3D>("Pivot/Dust");
+				_dust.Emitting = false;
+			}
+			else {
+				_dust = new GpuParticles3D();
+			}
+            if (HasNode("Pivot/StandingSlash")) {
+				_neutralSlash = GetNode<StandingSlash>("Pivot/StandingSlash");
+			}
+            else {
+				_neutralSlash = new StandingSlash();
+			}
+            if (HasNode("Pivot/CrouchingSlash")) {
+				_crouchingSlash = GetNode<CrouchingSlash>("Pivot/CrouchingSlash");
+			}
+            else {
+				_crouchingSlash = new CrouchingSlash();
+			}
+            if (HasNode("Pivot/AirSlam")) {
+				_airSlam = GetNode<AirSlam>("Pivot/AirSlam");
+			}
+            else {
+				_airSlam = new AirSlam();
+			}
 		}
 
 		public void TakeDamage(float damage) {
@@ -118,7 +145,7 @@ namespace ActionPlatformer {
 			if (input.movement.Length() > 1.0f)
 				input.movement = input.movement.Normalized();
 			float moveSpeed = input.movement.Length();
-			Vector3 directionXYZ = _camera.GlobalBasis * new Vector3(input.movement.X, 0, input.movement.Y);
+			Vector3 directionXYZ = _space * new Vector3(input.movement.X, 0, input.movement.Y);
 			Vector2 directionXZ = new Vector2(directionXYZ.X, directionXYZ.Z);
 			directionXYZ.Y = 0.0f;
 			directionXZ = directionXZ.Normalized();
@@ -138,9 +165,7 @@ namespace ActionPlatformer {
 					velocityXZ = velocityXZ.MoveToward(velocityTarget, GroundAcceleration * (float)delta);
 					_forward = new Vector3(velocityXZ.X, 0.0f, velocityXZ.Y).Normalized();
 					_right = _forward.Cross(Vector3.Up);
-					_tilt = _right.Dot(directionXYZ);
-					_model.Call("move", velocityXZ.Length() / GroundSpeed);
-					_model.Set("run_tilt", _tilt);
+					PlayMove(velocityXZ.Length(), _right.Dot(directionXYZ));
 				}
 				else {
 					// In air
@@ -154,18 +179,18 @@ namespace ActionPlatformer {
 					if (!input.bCrouchHold) {
 						// Standing halt
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, GroundDeceleration * (float)delta);
-						_model.Call("idle");
+						PlayIdle();
 					}
 					else {
 						// Slide
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, SlideDeceleration * (float)delta);
-						_model.Call("crouch");
+						PlayCrouch();
 						if (velocityXZ != Vector2.Zero) {
 							_dust.Emitting = true;
 						}
 					}
 					if (bIsSkidding) {
-						_model.Call("skid");
+						PlaySkid();
 						_dust.Emitting = true;
 					}
 				}
@@ -208,20 +233,20 @@ namespace ActionPlatformer {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
-						_model.Call("fall");
+						PlayFall();
 					}
 					else {
 						// Sliding on wall
 						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
 						velocityXZ = Vector2.Zero;
-						_model.Call("wall_slide");
+						PlaySlide();
 						_forward = -GetWallNormal();
 						_dust.Emitting = true;
 						if (input.bJumpPress) {
 							_forward = -_forward;
 							velocityY = JumpSpeed * WallKickJumpMult;
 							velocityXZ = new Vector2(_forward.X, _forward.Z) * GroundSpeed * WallKickSpeedMult;
-							_model.Call("jump");
+							PlayJump();
 						}
 					}
 				}
@@ -242,20 +267,44 @@ namespace ActionPlatformer {
 					// Standard jump
 					velocityY = Mathf.Lerp(JumpSpeed * StandingJumpMult, JumpSpeed, velocityXZ.Length() / GroundSpeed);
 				}
-				_model.Call("jump");
+				PlayJump();
 
 			}
 
 			Velocity = new Vector3(velocityXZ.X, velocityY, velocityXZ.Y);
-			_model.GlobalRotation = new Vector3(_model.GlobalRotation.X,
+			_pivot.GlobalRotation = new Vector3(_pivot.GlobalRotation.X,
 				Vector3.Back.SignedAngleTo(_forward, Vector3.Up),
-				_model.GlobalRotation.Z);
+				_pivot.GlobalRotation.Z);
 
 			return MoveAndSlide();
 		}
 
-		public override string ToString() {
-			return Name;
-		}
+        protected virtual void PlayIdle() {
+            
+        }
+
+        protected virtual void PlayCrouch() {
+            
+        }
+
+        protected virtual void PlayMove(float speed, float tilt) {
+            
+        }
+
+        protected virtual void PlayJump() {
+            
+        }
+
+        protected virtual void PlayFall() {
+            
+        }
+
+        protected virtual void PlaySkid() {
+            
+        }
+
+        protected virtual void PlaySlide() {
+            
+        }
 	}
 }

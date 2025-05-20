@@ -33,20 +33,20 @@ namespace ActionPlatformer {
 		public bool JustPerformed {
 			get { return _bJustPerformed; }
 			protected set { _bJustPerformed = value; }
-        }
-        private Array<Combatant> _targets;
+		}
+		private Array<Combatant> _targets;
 
-        public Array<Combatant> Targets {
-            get { return _targets; }
-        }
+		public Array<Combatant> Targets {
+			get { return _targets; }
+		}
 
-        public Attack() {
-            _targets = new Array<Combatant>();
-        }
+		public Attack() {
+			_targets = new Array<Combatant>();
+		}
 
-        public override void _Ready() {
-            Monitoring = true;
-        }
+		public override void _Ready() {
+			Monitoring = true;
+		}
 
 		public void Perform() {
 			_bIsAttackReady = true;
@@ -58,26 +58,26 @@ namespace ActionPlatformer {
 			}
 		}
 
-        private void OnBodyEntered(Node3D node) {
-            Combatant target = node as Combatant;
-            if (target == null) {
-                return;
-            }
+		private void OnBodyEntered(Node3D node) {
+			Combatant target = node as Combatant;
+			if (target == null) {
+				return;
+			}
 
-            _targets.Add(target);
+			_targets.Add(target);
 
-            GD.Print(_targets);
-        }
+			GD.Print(_targets);
+		}
 
-        private void OnBodyExited(Node3D node) {
-            Combatant target = node as Combatant;
-            if (target == null) {
-                return;
-            }
+		private void OnBodyExited(Node3D node) {
+			Combatant target = node as Combatant;
+			if (target == null) {
+				return;
+			}
 
-            _targets.Remove(target);
+			_targets.Remove(target);
 
-            GD.Print(_targets);
-        }
+			GD.Print(_targets);
+		}
 	}
 }

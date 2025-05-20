@@ -23,22 +23,28 @@ length = 0.1
 
 [node name="Dropper" type="CharacterBody3D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_uvmt3")
+GravityUpMult = 0.0
+GravityDownMult = 0.0
+QuickFallMult = 0.0
 metadata/_custom_type_script = "uid://57agccgqswpg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CylinderShape3D_djh48")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Model" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.25, 0)
 layers = 2
 cast_shadow = 0
 mesh = SubResource("PrismMesh_nrakn")
+skeleton = NodePath("../..")
 
-[node name="AirSlam" parent="MeshInstance3D" instance=ExtResource("2_uvmt3")]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0.5, -4.37114e-08)
+[node name="AirSlam" parent="Pivot" instance=ExtResource("2_uvmt3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 4
 collision_mask = 2
 
