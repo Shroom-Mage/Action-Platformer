@@ -4,15 +4,15 @@ using System;
 
 namespace ActionPlatformer {
 	[GlobalClass]
-	public partial class AttackArea : Area3D {
-		private Array<Combatant> _targets;
+	public partial class VisionArea : Area3D {
+		private Array<Player> _targets;
 
-		public Array<Combatant> Targets {
+		public Array<Player> Targets {
 			get { return _targets; }
 		}
 
-		public AttackArea() {
-			_targets = new Array<Combatant>();
+		public VisionArea() {
+			_targets = new Array<Player>();
 		}
 
 		public override void _Ready() {
@@ -20,7 +20,7 @@ namespace ActionPlatformer {
 		}
 
 		private void OnBodyEntered(Node3D node) {
-			Combatant target = node as Combatant;
+			Player target = node as Player;
 			if (target == null) {
 				return;
 			}
@@ -31,7 +31,7 @@ namespace ActionPlatformer {
 		}
 
 		private void OnBodyExited(Node3D node) {
-			Combatant target = node as Combatant;
+			Player target = node as Player;
 			if (target == null) {
 				return;
 			}

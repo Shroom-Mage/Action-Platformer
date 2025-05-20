@@ -17,7 +17,6 @@ metadata/_custom_type_script = "uid://bfm1026m4yuac"
 shape = SubResource("CylinderShape3D_neits")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 flip_v = true
 axis = 1
 sprite_frames = ExtResource("2_3thin")

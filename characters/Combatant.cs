@@ -204,7 +204,7 @@ namespace ActionPlatformer {
 				}
 				// Falling
 				else if (velocityY <= 0.0f) {
-					if (!bIsOnWall) {
+					if (!bIsOnWall || _airSlam.IsPerforming) {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
@@ -252,6 +252,10 @@ namespace ActionPlatformer {
 				_model.GlobalRotation.Z);
 
 			return MoveAndSlide();
+		}
+
+		public override string ToString() {
+			return Name;
 		}
 	}
 }

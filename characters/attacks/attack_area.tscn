@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://d3ipv08l4he2d" path="res://characters/attacks/AttackArea.cs" id="1_tqarv"]
 
 [node name="AttackArea" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_tqarv")
+metadata/_custom_type_script = "uid://d3ipv08l4he2d"
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

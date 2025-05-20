@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6f3cdxk2epg0"]
+[gd_scene load_steps=10 format=3 uid="uid://b6f3cdxk2epg0"]
 
 [ext_resource type="PackedScene" uid="uid://buu8wl23agswh" path="res://characters/player/player.tscn" id="1_ewdoh"]
 [ext_resource type="PackedScene" uid="uid://b38vahcwqubi0" path="res://environment/tutorial/platforms/platform_tiny.tscn" id="2_jedxc"]
 [ext_resource type="PackedScene" uid="uid://j2ksih2r28a3" path="res://environment/tutorial/platforms/platform_short_ramp.tscn" id="3_72r3t"]
 [ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/terrain/grass.tres" id="4_q1q1c"]
 [ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/hit_dummy.tscn" id="5_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper.tscn" id="6_lpvoh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5stkp"]
 sky_top_color = Color(0.2, 0.2, 0.4, 1)
@@ -156,6 +157,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -4.99035)
 
 [node name="PlatformTiny34" parent="Environment/Geometry" instance=ExtResource("2_jedxc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, -6.99035)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 2, 14.799, -10.75)
+use_collision = true
+size = Vector3(3, 1, 13)
+material = ExtResource("4_q1q1c")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Environment/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 10.5, 0)
+use_collision = true
+radius = 2.0
+material = ExtResource("4_q1q1c")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -37)
+use_collision = true
+size = Vector3(200, 1, 200)
+material = ExtResource("4_q1q1c")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Environment/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 11.5, 2)
+use_collision = true
+size = Vector3(4, 4, 4)
+material = ExtResource("4_q1q1c")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Environment/Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 11.5, 0)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = ExtResource("4_q1q1c")
 
 [node name="Geometry2" type="Node3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -72)
@@ -811,35 +842,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 37.0097)
 [node name="PlatformTiny102" parent="Environment/Geometry3" instance=ExtResource("2_jedxc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.00977, 8, 35.0097)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 2, 4.29904, -10.75)
-use_collision = true
-size = Vector3(3, 1, 13)
-material = ExtResource("4_q1q1c")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
-use_collision = true
-radius = 2.0
-material = ExtResource("4_q1q1c")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -37)
-use_collision = true
-size = Vector3(200, 1, 200)
-material = ExtResource("4_q1q1c")
-
 [node name="HitDummy" parent="." instance=ExtResource("5_j5jx5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 2)
-use_collision = true
-size = Vector3(4, 4, 4)
-material = ExtResource("4_q1q1c")
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
-use_collision = true
-size = Vector3(2, 2, 2)
-material = ExtResource("4_q1q1c")
+[node name="Dropper" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, -2)

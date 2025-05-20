@@ -14,7 +14,7 @@ radius = 0.44
 _data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_oyjle"]
+[sub_resource type="CurveTexture" id="CurveTexture_ixbpm"]
 width = 32
 curve = SubResource("Curve_ic4db")
 
@@ -30,13 +30,13 @@ tangential_accel_min = -2.23517e-06
 tangential_accel_max = 0.199998
 scale_min = 0.2
 scale_max = 0.4
-scale_curve = SubResource("CurveTexture_oyjle")
+scale_curve = SubResource("CurveTexture_ixbpm")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyafj"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6leb"]
 shading_mode = 2
 
 [sub_resource type="SphereMesh" id="SphereMesh_fbwp3"]
-material = SubResource("StandardMaterial3D_jyafj")
+material = SubResource("StandardMaterial3D_c6leb")
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o7dro"]
 length = 0.1
@@ -94,4 +94,4 @@ spring_length = 10.0
 
 [node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
 light_negative = true
-omni_range = 0.4
+omni_range = 0.5

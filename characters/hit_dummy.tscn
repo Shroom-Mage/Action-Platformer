@@ -1,7 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b80wl20isuajj"]
+[gd_scene load_steps=9 format=3 uid="uid://b80wl20isuajj"]
 
 [ext_resource type="PackedScene" uid="uid://bhfcxlvqytu1b" path="res://characters/player/bat/bat_knight.fbx" id="1_0qvtl"]
-[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/Enemy.cs" id="1_3ybtb"]
+[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_3ybtb"]
+
+[sub_resource type="Curve" id="Curve_3ybtb"]
+_data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oyjle"]
+width = 32
+curve = SubResource("Curve_3ybtb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_schho"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(1, 1, 0)
+spread = 90.0
+initial_velocity_min = 0.1
+initial_velocity_max = 0.35
+gravity = Vector3(0, 0.5, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = 0.199998
+scale_min = 0.2
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_oyjle")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyafj"]
+shading_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_7wfy4"]
+material = SubResource("StandardMaterial3D_jyafj")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3ybtb"]
 height = 1.6
@@ -10,8 +38,18 @@ radius = 0.15
 [node name="HitDummy" type="CharacterBody3D"]
 script = ExtResource("1_3ybtb")
 
-[node name="Bat" parent="." instance=ExtResource("1_0qvtl")]
+[node name="Model" parent="." instance=ExtResource("1_0qvtl")]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
+
+[node name="Dust" type="GPUParticles3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+layers = 4
+cast_shadow = 0
+gi_mode = 0
+emitting = false
+explosiveness = 0.05
+process_material = SubResource("ParticleProcessMaterial_schho")
+draw_pass_1 = SubResource("SphereMesh_7wfy4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)

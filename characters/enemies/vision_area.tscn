@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgbqjd8kkka3"]
+
+[ext_resource type="Script" uid="uid://dorrl3thc0fie" path="res://characters/enemies/VisionArea.cs" id="1_1tslr"]
+
+[node name="VisionArea" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_1tslr")
+metadata/_custom_type_script = "uid://dorrl3thc0fie"
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]
