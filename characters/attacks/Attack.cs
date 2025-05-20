@@ -1,10 +1,10 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 namespace ActionPlatformer {
 	[GlobalClass]
-	public partial class Attack : Node3D {
-		private AttackArea _area = null;
+	public partial class Attack : Area3D {
 		private bool _bCanPerform = false;
 		private bool _bIsAttackReady = false;
 		private bool _bIsPerforming = false;
@@ -33,20 +33,51 @@ namespace ActionPlatformer {
 		public bool JustPerformed {
 			get { return _bJustPerformed; }
 			protected set { _bJustPerformed = value; }
-		}
+        }
+        private Array<Combatant> _targets;
 
-		public override void _Ready() {
-			_area = GetNode<AttackArea>("AttackArea");
-		}
+        public Array<Combatant> Targets {
+            get { return _targets; }
+        }
+
+        public Attack() {
+            _targets = new Array<Combatant>();
+        }
+
+        public override void _Ready() {
+            Monitoring = true;
+        }
 
 		public void Perform() {
 			_bIsAttackReady = true;
 		}
 
 		public void HitTargets(float damage) {
-			foreach (Combatant body in _area.Targets) {
+			foreach (Combatant body in Targets) {
 				body.TakeDamage(damage);
 			}
 		}
+
+        private void OnBodyEntered(Node3D node) {
+            Combatant target = node as Combatant;
+            if (target == null) {
+                return;
+            }
+
+            _targets.Add(target);
+
+            GD.Print(_targets);
+        }
+
+        private void OnBodyExited(Node3D node) {
+            Combatant target = node as Combatant;
+            if (target == null) {
+                return;
+            }
+
+            _targets.Remove(target);
+
+            GD.Print(_targets);
+        }
 	}
 }

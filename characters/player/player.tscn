@@ -43,7 +43,7 @@ length = 0.1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_mxv5h")
 CameraHorizontalSpeed = 3.0
 CameraVerticalSpeed = 3.0
@@ -66,11 +66,17 @@ draw_pass_1 = SubResource("SphereMesh_fbwp3")
 
 [node name="StandingSlash" parent="Model" instance=ExtResource("3_exd8k")]
 transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0.75, 0.5)
+collision_layer = 2
+collision_mask = 4
 
 [node name="CrouchingSlash" parent="Model" instance=ExtResource("4_ixbpm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
+collision_layer = 2
+collision_mask = 4
 
 [node name="AirSlam" parent="Model" instance=ExtResource("4_5dc8e")]
+collision_layer = 2
+collision_mask = 4
 SlamStartTime = 0.25
 SlamSpeed = 15.0
 

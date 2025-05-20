@@ -39,6 +39,8 @@ mesh = SubResource("PrismMesh_nrakn")
 
 [node name="AirSlam" parent="MeshInstance3D" instance=ExtResource("2_uvmt3")]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0.5, -4.37114e-08)
+collision_layer = 4
+collision_mask = 2
 
 [node name="VisionArea" parent="." instance=ExtResource("3_nrakn")]
 collision_layer = 4
