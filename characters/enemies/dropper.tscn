@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6cc053xun42n"]
+[gd_scene load_steps=22 format=3 uid="uid://b6cc053xun42n"]
 
-[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_uvmt3"]
+[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_nrakn"]
 [ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="2_uvmt3"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://characters/enemies/vision_area.tscn" id="3_nrakn"]
+[ext_resource type="Script" uid="uid://x1nwvb2wsd6m" path="res://ai/tasks/SelectTarget.cs" id="4_7qims"]
+[ext_resource type="Script" uid="uid://ct73oiuw6jo7f" path="res://ai/tasks/MoveTowardDestination.cs" id="5_3x5wn"]
+[ext_resource type="Script" uid="uid://cyaeaaisulrpq" path="res://ai/tasks/Wander.cs" id="6_lt5yy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_djh48"]
 height = 0.5
@@ -16,18 +19,62 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nrakn"]
 height = 10.0
-radius = 5.0
+radius = 15.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_nrakn"]
 length = 0.1
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3x5wn"]
+var/targets/name = &"targets"
+var/targets/type = 28
+var/targets/value = []
+var/targets/hint = 0
+var/targets/hint_string = ""
+var/destination/name = &"destination"
+var/destination/type = 9
+var/destination/value = Vector3(0, 0, 0)
+var/destination/hint = 0
+var/destination/hint_string = ""
+binding/targets = NodePath("VisionArea:Targets")
+
+[sub_resource type="BTAction" id="BTAction_lt5yy"]
+script = ExtResource("4_7qims")
+
+[sub_resource type="BTAction" id="BTAction_jvsr4"]
+script = ExtResource("5_3x5wn")
+
+[sub_resource type="BTSequence" id="BTSequence_u5s4i"]
+children = [SubResource("BTAction_lt5yy"), SubResource("BTAction_jvsr4")]
+
+[sub_resource type="BTAction" id="BTAction_u5s4i"]
+script = ExtResource("6_lt5yy")
+RangeMin = 10.0
+RangeMax = 10.0
+
+[sub_resource type="BTAction" id="BTAction_kxsj2"]
+script = ExtResource("5_3x5wn")
+
+[sub_resource type="BTSequence" id="BTSequence_bo1wb"]
+children = [SubResource("BTAction_u5s4i"), SubResource("BTAction_kxsj2")]
+
+[sub_resource type="BTSelector" id="BTSelector_gokq3"]
+children = [SubResource("BTSequence_u5s4i"), SubResource("BTSequence_bo1wb")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_h4kay"]
+blackboard_plan = SubResource("BlackboardPlan_3x5wn")
+root_task = SubResource("BTSelector_gokq3")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_84xd5"]
+
 [node name="Dropper" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 5
-script = ExtResource("1_uvmt3")
+script = ExtResource("1_nrakn")
+GroundSpeed = 5.0
+AirSpeed = 5.0
+AirAcceleration = 10.0
 GravityUpMult = 0.0
 GravityDownMult = 0.0
-QuickFallMult = 0.0
 metadata/_custom_type_script = "uid://57agccgqswpg"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -63,3 +110,7 @@ spring_length = 10.0
 [node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
 light_negative = true
 omni_range = 0.3
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = SubResource("BehaviorTree_h4kay")
+blackboard_plan = SubResource("BlackboardPlan_84xd5")

@@ -65,8 +65,6 @@ namespace ActionPlatformer {
 			}
 
 			_targets.Add(target);
-
-			GD.Print(_targets);
 		}
 
 		private void OnBodyExited(Node3D node) {
@@ -76,8 +74,6 @@ namespace ActionPlatformer {
 			}
 
 			_targets.Remove(target);
-
-			GD.Print(_targets);
 		}
 	}
 }

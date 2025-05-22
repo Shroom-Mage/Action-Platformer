@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dorrl3thc0fie" path="res://characters/enemies/VisionArea.cs" id="1_1tslr"]
 
-[node name="VisionArea" type="Area3D"]
+[node name="VisionArea" type="Area3D" node_paths=PackedStringArray("Targets")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_1tslr")
+Targets = []
 metadata/_custom_type_script = "uid://dorrl3thc0fie"
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

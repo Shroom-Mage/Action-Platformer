@@ -5,14 +5,16 @@ using System;
 namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class VisionArea : Area3D {
-		private Array<Player> _targets;
+		private Array<Node3D> _targets;
 
-		public Array<Player> Targets {
+		[Export]
+		public Array<Node3D> Targets {
 			get { return _targets; }
+			set { }
 		}
 
 		public VisionArea() {
-			_targets = new Array<Player>();
+			_targets = new Array<Node3D>();
 		}
 
 		public override void _Ready() {
@@ -20,25 +22,19 @@ namespace ActionPlatformer {
 		}
 
 		private void OnBodyEntered(Node3D node) {
-			Player target = node as Player;
-			if (target == null) {
+			if (node == null) {
 				return;
 			}
 
-			_targets.Add(target);
-
-			GD.Print(_targets);
+			_targets.Add(node);
 		}
 
 		private void OnBodyExited(Node3D node) {
-			Player target = node as Player;
-			if (target == null) {
+			if (node == null) {
 				return;
 			}
 
-			_targets.Remove(target);
-
-			GD.Print(_targets);
+			_targets.Remove(node);
 		}
 	}
 }

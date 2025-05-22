@@ -4,17 +4,17 @@ using System;
 namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Enemy : Combatant {
-		private Combatant _target;
+		private VisionArea _vision = null;
 
-		[Export]
-		public Combatant Target {
-			get { return _target; }
-			set { _target = value; }
-		}
-
+		public CombatInput Input;
+		
 		public override void _Ready() {
 			base._Ready();
+			_vision = GetNode<VisionArea>("VisionArea");
+		}
 
+		public override void _PhysicsProcess(double delta) {
+			MoveAndAttack(Input, delta);
 		}
 	}
 }

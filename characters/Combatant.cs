@@ -69,14 +69,14 @@ namespace ActionPlatformer {
 		public Basis Space {
 			get { return _space; }
 			set { _space = value; }
-        }
+		}
 
-        public override string ToString() {
-            return Name;
-        }
+		public override string ToString() {
+			return Name;
+		}
 
-        public override void _Ready() {
-			base._Ready();
+		public override void _Ready() {
+			Space = GlobalBasis;
 			_pivot = GetNode<Node3D>("Pivot");
 			if (HasNode("Pivot/Dust")) {
 				_dust = GetNode<GpuParticles3D>("Pivot/Dust");
@@ -85,22 +85,22 @@ namespace ActionPlatformer {
 			else {
 				_dust = new GpuParticles3D();
 			}
-            if (HasNode("Pivot/StandingSlash")) {
+			if (HasNode("Pivot/StandingSlash")) {
 				_neutralSlash = GetNode<StandingSlash>("Pivot/StandingSlash");
 			}
-            else {
+			else {
 				_neutralSlash = new StandingSlash();
 			}
-            if (HasNode("Pivot/CrouchingSlash")) {
+			if (HasNode("Pivot/CrouchingSlash")) {
 				_crouchingSlash = GetNode<CrouchingSlash>("Pivot/CrouchingSlash");
 			}
-            else {
+			else {
 				_crouchingSlash = new CrouchingSlash();
 			}
-            if (HasNode("Pivot/AirSlam")) {
+			if (HasNode("Pivot/AirSlam")) {
 				_airSlam = GetNode<AirSlam>("Pivot/AirSlam");
 			}
-            else {
+			else {
 				_airSlam = new AirSlam();
 			}
 		}
@@ -238,7 +238,7 @@ namespace ActionPlatformer {
 					else {
 						// Sliding on wall
 						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
-						velocityXZ = Vector2.Zero;
+						//velocityXZ = Vector2.Zero;
 						PlaySlide();
 						_forward = -GetWallNormal();
 						_dust.Emitting = true;
@@ -279,32 +279,32 @@ namespace ActionPlatformer {
 			return MoveAndSlide();
 		}
 
-        protected virtual void PlayIdle() {
-            
-        }
+		protected virtual void PlayIdle() {
+			
+		}
 
-        protected virtual void PlayCrouch() {
-            
-        }
+		protected virtual void PlayCrouch() {
+			
+		}
 
-        protected virtual void PlayMove(float speed, float tilt) {
-            
-        }
+		protected virtual void PlayMove(float speed, float tilt) {
+			
+		}
 
-        protected virtual void PlayJump() {
-            
-        }
+		protected virtual void PlayJump() {
+			
+		}
 
-        protected virtual void PlayFall() {
-            
-        }
+		protected virtual void PlayFall() {
+			
+		}
 
-        protected virtual void PlaySkid() {
-            
-        }
+		protected virtual void PlaySkid() {
+			
+		}
 
-        protected virtual void PlaySlide() {
-            
-        }
+		protected virtual void PlaySlide() {
+			
+		}
 	}
 }
