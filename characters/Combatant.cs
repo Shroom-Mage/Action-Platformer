@@ -43,7 +43,9 @@ namespace ActionPlatformer {
 		public float AirAcceleration = 2.5f;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float AirDeceleration = 5.0f;
-		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
+		[Export, ExportGroup("Movement")]
+		public bool CanWallSlide = false;
+        [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float SlideDeceleration = 10.0f;
 		[Export(PropertyHint.Range, "0,10"), ExportGroup("Movement")]
 		public float GravityUpMult = 3.0f;
@@ -249,13 +251,13 @@ namespace ActionPlatformer {
 				}
 				// Falling
 				else if (velocityY < 0.0f) {
-					if (!bIsOnWall || _airSlam.IsPerforming) {
+					if (!bIsOnWall || !CanWallSlide || _airSlam.IsPerforming) {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
 						PlayFall();
 					}
-					else {
+					else if (CanWallSlide) {
 						// Sliding on wall
 						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
 						velocityXZ = Vector2.Zero;

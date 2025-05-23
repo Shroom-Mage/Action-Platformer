@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://x1nwvb2wsd6m" path="res://ai/tasks/SelectTarget.cs" id="2_tx7yv"]
 [ext_resource type="Script" uid="uid://ct73oiuw6jo7f" path="res://ai/tasks/MoveToDestination.cs" id="3_tx7yv"]
 [ext_resource type="Script" uid="uid://cyaeaaisulrpq" path="res://ai/tasks/Wander.cs" id="4_80nr3"]
-[ext_resource type="Script" uid="uid://djojtxwh4s0iu" path="res://ai/tasks/JumpToDestination.cs" id="4_tx7yv"]
+[ext_resource type="Script" uid="uid://djojtxwh4s0iu" path="res://ai/tasks/FlyToHeight.cs" id="4_tx7yv"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_3x5wn"]
 var/targets/name = &"targets"
@@ -36,7 +36,7 @@ Duration = 0.1
 
 [sub_resource type="BTAction" id="BTAction_y13vc"]
 script = ExtResource("4_tx7yv")
-Height = 5.0
+Height = 3.0
 
 [sub_resource type="BTSequence" id="BTSequence_u5s4i"]
 custom_name = "Seek Target"
@@ -53,7 +53,7 @@ Duration = 1.0
 
 [sub_resource type="BTAction" id="BTAction_tx7yv"]
 script = ExtResource("4_tx7yv")
-Height = 0.0
+Height = 3.0
 
 [sub_resource type="BTSequence" id="BTSequence_bo1wb"]
 custom_name = "Wander"
