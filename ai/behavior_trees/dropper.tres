@@ -1,0 +1,67 @@
+[gd_resource type="BehaviorTree" load_steps=18 format=3 uid="uid://5tgh3r65dmi6"]
+
+[ext_resource type="Script" uid="uid://d3tr30oy75hpm" path="res://ai/tasks/DropAttack.cs" id="1_ls1gr"]
+[ext_resource type="Script" uid="uid://x1nwvb2wsd6m" path="res://ai/tasks/SelectTarget.cs" id="2_tx7yv"]
+[ext_resource type="Script" uid="uid://ct73oiuw6jo7f" path="res://ai/tasks/MoveToDestination.cs" id="3_tx7yv"]
+[ext_resource type="Script" uid="uid://cyaeaaisulrpq" path="res://ai/tasks/Wander.cs" id="4_80nr3"]
+[ext_resource type="Script" uid="uid://djojtxwh4s0iu" path="res://ai/tasks/JumpToDestination.cs" id="4_tx7yv"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3x5wn"]
+var/targets/name = &"targets"
+var/targets/type = 28
+var/targets/value = []
+var/targets/hint = 0
+var/targets/hint_string = ""
+var/destination/name = &"destination"
+var/destination/type = 9
+var/destination/value = Vector3(0, 0, 0)
+var/destination/hint = 0
+var/destination/hint_string = ""
+binding/targets = NodePath("Pivot/Vision:Targets")
+
+[sub_resource type="BTAction" id="BTAction_bo1wb"]
+script = ExtResource("1_ls1gr")
+Distance = 10.0
+
+[sub_resource type="BTSequence" id="BTSequence_gokq3"]
+custom_name = "Attack"
+children = [SubResource("BTAction_bo1wb")]
+
+[sub_resource type="BTAction" id="BTAction_lt5yy"]
+script = ExtResource("2_tx7yv")
+
+[sub_resource type="BTAction" id="BTAction_jvsr4"]
+script = ExtResource("3_tx7yv")
+Duration = 0.1
+
+[sub_resource type="BTAction" id="BTAction_y13vc"]
+script = ExtResource("4_tx7yv")
+Height = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_u5s4i"]
+custom_name = "Seek Target"
+children = [SubResource("BTAction_lt5yy"), SubResource("BTAction_jvsr4"), SubResource("BTAction_y13vc")]
+
+[sub_resource type="BTAction" id="BTAction_u5s4i"]
+script = ExtResource("4_80nr3")
+RangeMin = 1.0
+RangeMax = 2.0
+
+[sub_resource type="BTAction" id="BTAction_kxsj2"]
+script = ExtResource("3_tx7yv")
+Duration = 1.0
+
+[sub_resource type="BTAction" id="BTAction_tx7yv"]
+script = ExtResource("4_tx7yv")
+Height = 0.0
+
+[sub_resource type="BTSequence" id="BTSequence_bo1wb"]
+custom_name = "Wander"
+children = [SubResource("BTAction_u5s4i"), SubResource("BTAction_kxsj2"), SubResource("BTAction_tx7yv")]
+
+[sub_resource type="BTSelector" id="BTSelector_lt5yy"]
+children = [SubResource("BTSequence_gokq3"), SubResource("BTSequence_u5s4i"), SubResource("BTSequence_bo1wb")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_3x5wn")
+root_task = SubResource("BTSelector_lt5yy")

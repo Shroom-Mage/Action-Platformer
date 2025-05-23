@@ -1,14 +1,14 @@
 using Godot;
 using Godot.Collections;
 using System;
-using ActionPlatformer;
 
 [Tool]
-public partial class SelectTarget : BTAction
-{
+public partial class SelectTarget : BTAction {
+	public override string _GenerateName() {
+		return "Select nearest target within Vision.";
+	}
 	public override Status _Tick(double delta) {
-
-		// Get all visible targets
+		Node3D self = Agent as Node3D;
 		Array<Node3D> targets = (Array<Node3D>)Blackboard.GetVar("targets");
 
 		// Return failure if no targets within vision
@@ -17,7 +17,6 @@ public partial class SelectTarget : BTAction
 		}
 
 		// Find the closest target
-		Node3D self = Agent as Node3D;
 		Vector3 destination = targets[0].GlobalPosition;
 		float closestDistance = (self.GlobalPosition - destination).Length();
 

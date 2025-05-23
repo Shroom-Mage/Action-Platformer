@@ -22,6 +22,8 @@ albedo_color = Color(1, 0.4, 0.2, 0.8)
 
 [sub_resource type="SphereMesh" id="SphereMesh_vphp4"]
 material = SubResource("StandardMaterial3D_c6leb")
+radius = 0.1
+height = 0.2
 
 [node name="AirSlam" type="Area3D"]
 script = ExtResource("1_oerjn")

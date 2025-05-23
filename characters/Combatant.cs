@@ -29,6 +29,8 @@ namespace ActionPlatformer {
 		public float GroundSpeed = 7.5f;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float AirSpeed = 7.5f;
+		[Export, ExportGroup("Movement")]
+		public bool JumpNeedsGround = true;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float JumpSpeed = 15.0f;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
@@ -132,7 +134,7 @@ namespace ActionPlatformer {
 			else if (input.bCrouchPress && _airSlam.CanPerform) {
 				_airSlam.Perform();
 			}
-			bool bIsAttacking = _neutralSlash.IsPerforming || _crouchingSlash.IsPerforming;
+			bool bIsAttacking = _neutralSlash.IsPerforming || _crouchingSlash.IsPerforming || _airSlam.IsPerforming;
 			bSwordHop = _neutralSlash.JustPerformed;
 
 			// Ground reset
@@ -201,57 +203,7 @@ namespace ActionPlatformer {
 			}
 
 			// Calculate vertical velocity
-			if (!bIsOnGround) {
-				// Sword Hop
-				if (bSwordHop) {
-					velocityY += _neutralSlash.SwordHopSpeed - (velocityY / _neutralSlash.SwordHopCount);
-				}
-				// Slam Startup
-				else if (_airSlam.IsInStartup) {
-					velocityXZ = Vector2.Zero;
-					velocityY = 0.0f;
-				}
-				// Slam Start
-				else if (_airSlam.JustStartedDescent) {
-					velocityXZ = Vector2.Zero;
-					velocityY = -_airSlam.SlamSpeed;
-				}
-				// Rising
-				else if (velocityY > 0.0f) {
-					if (input.bJumpHold) {
-						// Jump
-						velocityY += GetGravity().Y * GravityUpMult * (float)delta;
-					}
-					else {
-						// Short hop
-						velocityY += GetGravity().Y * GravityUpMult * QuickFallMult * (float)delta;
-					}
-				}
-				// Falling
-				else if (velocityY <= 0.0f) {
-					if (!bIsOnWall || _airSlam.IsPerforming) {
-						// Falling in air
-						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
-						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
-						PlayFall();
-					}
-					else {
-						// Sliding on wall
-						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
-						//velocityXZ = Vector2.Zero;
-						PlaySlide();
-						_forward = -GetWallNormal();
-						_dust.Emitting = true;
-						if (input.bJumpPress) {
-							_forward = -_forward;
-							velocityY = JumpSpeed * WallKickJumpMult;
-							velocityXZ = new Vector2(_forward.X, _forward.Z) * GroundSpeed * WallKickSpeedMult;
-							PlayJump();
-						}
-					}
-				}
-			}
-			else if (input.bJumpPress && !bIsAttacking) {
+			if (input.bJumpPress && !bIsAttacking && (bIsOnGround || !JumpNeedsGround) && velocityY <= 0.0f) {
 				// Jump
 				if (bIsSkidding) {
 					// Side flip
@@ -268,7 +220,56 @@ namespace ActionPlatformer {
 					velocityY = Mathf.Lerp(JumpSpeed * StandingJumpMult, JumpSpeed, velocityXZ.Length() / GroundSpeed);
 				}
 				PlayJump();
-
+			}
+			else if (!bIsOnGround) {
+				// Sword Hop
+				if (bSwordHop) {
+					velocityY += _neutralSlash.SwordHopSpeed - (velocityY / _neutralSlash.SwordHopCount);
+				}
+				// Slam Startup
+				else if (_airSlam.IsInStartup) {
+					velocityXZ = Vector2.Zero;
+					velocityY = 0.0f;
+				}
+				// Slam Start
+				else if (_airSlam.JustStartedDescent) {
+					velocityXZ = Vector2.Zero;
+					velocityY = -_airSlam.SlamSpeed;
+				}
+				// Rising
+				else if (velocityY >= 0.0f) {
+					if (input.bJumpHold) {
+						// Jump
+						velocityY += GetGravity().Y * GravityUpMult * (float)delta;
+					}
+					else {
+						// Short hop
+						velocityY += GetGravity().Y * GravityUpMult * QuickFallMult * (float)delta;
+					}
+				}
+				// Falling
+				else if (velocityY < 0.0f) {
+					if (!bIsOnWall || _airSlam.IsPerforming) {
+						// Falling in air
+						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
+						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
+						PlayFall();
+					}
+					else {
+						// Sliding on wall
+						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
+						velocityXZ = Vector2.Zero;
+						PlaySlide();
+						_forward = -GetWallNormal();
+						_dust.Emitting = true;
+						if (input.bJumpPress) {
+							_forward = -_forward;
+							velocityY = JumpSpeed * WallKickJumpMult;
+							velocityXZ = new Vector2(_forward.X, _forward.Z) * GroundSpeed * WallKickSpeedMult;
+							PlayJump();
+						}
+					}
+				}
 			}
 
 			Velocity = new Vector3(velocityXZ.X, velocityY, velocityXZ.Y);

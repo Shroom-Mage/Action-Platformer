@@ -4,7 +4,7 @@ using System;
 
 namespace ActionPlatformer {
 	[GlobalClass]
-	public partial class VisionArea : Area3D {
+	public partial class Vision : Area3D {
 		private Array<Node3D> _targets;
 
 		[Export]
@@ -13,7 +13,7 @@ namespace ActionPlatformer {
 			set { }
 		}
 
-		public VisionArea() {
+		public Vision() {
 			_targets = new Array<Node3D>();
 		}
 

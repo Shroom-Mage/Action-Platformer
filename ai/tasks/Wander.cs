@@ -1,7 +1,8 @@
-using ActionPlatformer;
 using Godot;
 using Godot.Collections;
 using System;
+using ActionPlatformer;
+
 
 [Tool]
 public partial class Wander : BTAction {
@@ -9,6 +10,10 @@ public partial class Wander : BTAction {
 	public float RangeMin = 10.0f;
 	[Export]
 	public float RangeMax = 10.0f;
+
+	public override string _GenerateName() {
+		return "Wander between " + RangeMin + " and " + RangeMax + " meters.";
+	}
 
 	public override Status _Tick(double delta) {
 		Enemy self = Agent as Enemy;
