@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://yg0s3jj47eq8"]
+[gd_resource type="SpriteFrames" load_steps=34 format=3 uid="uid://yg0s3jj47eq8"]
 
 [ext_resource type="Texture2D" uid="uid://de74hb3ytv7c2" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame1.png" id="1_h5xcn"]
 [ext_resource type="Texture2D" uid="uid://8ceg3w1yfw8m" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame4.png" id="1_vshw1"]
@@ -23,6 +23,16 @@
 [ext_resource type="Texture2D" uid="uid://cjhq2haacv72a" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame7.png" id="21_klhy6"]
 [ext_resource type="Texture2D" uid="uid://d2agspt8aqrnt" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame8.png" id="22_xrvws"]
 [ext_resource type="Texture2D" uid="uid://yumph3aapcbs" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame9.png" id="23_rowsg"]
+[ext_resource type="Texture2D" uid="uid://bt82kn3l30hd0" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame1.png" id="24_71x6t"]
+[ext_resource type="Texture2D" uid="uid://djj0whosyjv2o" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame2.png" id="25_0ty78"]
+[ext_resource type="Texture2D" uid="uid://vas21sqpofmm" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame3.png" id="26_gpc0h"]
+[ext_resource type="Texture2D" uid="uid://dtcerphb5xayt" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame4.png" id="27_lcypn"]
+[ext_resource type="Texture2D" uid="uid://djhdog1yi5ems" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame5.png" id="28_b86ao"]
+[ext_resource type="Texture2D" uid="uid://cr21uwmndyuso" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame6.png" id="29_rj2bk"]
+[ext_resource type="Texture2D" uid="uid://dxp6s60aul2km" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame7.png" id="30_sunsd"]
+[ext_resource type="Texture2D" uid="uid://d2vcwubpyaxjc" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame8.png" id="31_tkrjp"]
+[ext_resource type="Texture2D" uid="uid://buconymn4xy64" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame9.png" id="32_n6bwv"]
+[ext_resource type="Texture2D" uid="uid://bdyl8m2305rh0" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame10.png" id="33_ndwx7"]
 
 [resource]
 animations = [{
@@ -123,5 +133,43 @@ animations = [{
 }],
 "loop": false,
 "name": &"slash_low",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_71x6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_0ty78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_gpc0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lcypn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_b86ao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_rj2bk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_sunsd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_tkrjp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_n6bwv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_ndwx7")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"spin",
 "speed": 30.0
 }]

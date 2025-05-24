@@ -15,8 +15,10 @@ namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Combatant : CharacterBody3D {
 		private Node3D _pivot = null;
-		private StandingSlash _neutralSlash = null;
+		private StandingSlash _standingSlash = null;
+		private AerialSlash _aerialSlash = null;
 		private CrouchingSlash _crouchingSlash = null;
+		private Whirl _whirl = null;
 		private AirSlam _airSlam = null;
 		private GpuParticles3D _dust = null;
 
@@ -81,7 +83,9 @@ namespace ActionPlatformer {
 
 		public override void _Ready() {
 			Space = GlobalBasis;
+			// Get Pivot Node
 			_pivot = GetNode<Node3D>("Pivot");
+			// Get Dust Node if it exists
 			if (HasNode("Pivot/Dust")) {
 				_dust = GetNode<GpuParticles3D>("Pivot/Dust");
 				_dust.Emitting = false;
@@ -89,19 +93,36 @@ namespace ActionPlatformer {
 			else {
 				_dust = new GpuParticles3D();
 			}
+			// Get StandingSlash Node if it exists
 			if (HasNode("Pivot/StandingSlash")) {
-				_neutralSlash = GetNode<StandingSlash>("Pivot/StandingSlash");
+				_standingSlash = GetNode<StandingSlash>("Pivot/StandingSlash");
 			}
 			else {
-				_neutralSlash = new StandingSlash();
+				_standingSlash = new StandingSlash();
 			}
+			// Get AerialSlash Node if it exists
+			if (HasNode("Pivot/AerialSlash")) {
+				_aerialSlash = GetNode<AerialSlash>("Pivot/AerialSlash");
+			}
+			else {
+				_aerialSlash = new AerialSlash();
+			}
+			// Get CrouchingSlash Node if it exists
 			if (HasNode("Pivot/CrouchingSlash")) {
 				_crouchingSlash = GetNode<CrouchingSlash>("Pivot/CrouchingSlash");
 			}
 			else {
 				_crouchingSlash = new CrouchingSlash();
-			}
-			if (HasNode("Pivot/AirSlam")) {
+            }
+            // Get CrouchingSlash Node if it exists
+            if (HasNode("Pivot/Whirl")) {
+                _whirl = GetNode<Whirl>("Pivot/Whirl");
+            }
+            else {
+                _whirl = new Whirl();
+            }
+            // Get AirSlam Node if it exists
+            if (HasNode("Pivot/AirSlam")) {
 				_airSlam = GetNode<AirSlam>("Pivot/AirSlam");
 			}
 			else {
@@ -119,29 +140,11 @@ namespace ActionPlatformer {
 			bool bIsOnGround = IsOnFloor();
 			bool bIsOnWall = IsOnWallOnly();
 			bool bSwordHop = false;
-
-			// Check attack validity
-			bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_airSlam.IsPerforming;
-			_neutralSlash.CanPerform = bCanAttack && !input.bCrouchHold;
-			_crouchingSlash.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
-			_airSlam.CanPerform = bCanAttack && !bIsOnGround;
-
-			// Attack
-			if (input.bAttackPress && _crouchingSlash.CanPerform) {
-				_crouchingSlash.Perform();
-			}
-			else if (input.bAttackPress && _neutralSlash.CanPerform) {
-				_neutralSlash.Perform();
-			}
-			else if (input.bCrouchPress && _airSlam.CanPerform) {
-				_airSlam.Perform();
-			}
-			bool bIsAttacking = _neutralSlash.IsPerforming || _crouchingSlash.IsPerforming || _airSlam.IsPerforming;
-			bSwordHop = _neutralSlash.JustPerformed;
+			_dust.Emitting = false;
 
 			// Ground reset
 			if (bIsOnGround) {
-				_neutralSlash.TouchGround();
+				_aerialSlash.TouchGround();
 				_airSlam.TouchGround();
 			}
 
@@ -153,13 +156,39 @@ namespace ActionPlatformer {
 			Vector2 directionXZ = new Vector2(directionXYZ.X, directionXYZ.Z);
 			directionXYZ.Y = 0.0f;
 			directionXZ = directionXZ.Normalized();
+
+			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
+
+			// Check attack validity
+			bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_airSlam.IsPerforming;
+			_standingSlash.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
+			_aerialSlash.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
+			_crouchingSlash.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
+			_whirl.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
+			_airSlam.CanPerform = bCanAttack && !bIsOnGround;
+
+			// Attack
+			if (input.bAttackPress && _crouchingSlash.CanPerform) {
+				_crouchingSlash.Perform();
+            }
+            else if (input.bAttackPress && _whirl.CanPerform) {
+                _whirl.Perform();
+            }
+            else if (input.bAttackPress && _aerialSlash.CanPerform) {
+				_aerialSlash.Perform();
+			}
+			else if (input.bAttackPress && _standingSlash.CanPerform) {
+				_standingSlash.Perform();
+			}
+			else if (input.bCrouchPress && _airSlam.CanPerform) {
+				_airSlam.Perform();
+			}
+			bool bIsAttacking = _standingSlash.IsPerforming || _aerialSlash.IsPerforming || _crouchingSlash.IsPerforming || _whirl.IsPerforming || _airSlam.IsPerforming;
+			bSwordHop = _aerialSlash.JustPerformed;
 			directionXZ *= bIsAttacking ? 0.0f : moveSpeed;
 
 			// Set target velocity
 			Vector2 velocityTarget = directionXZ * (bIsOnGround ? GroundSpeed : AirSpeed);
-
-			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
-			_dust.Emitting = false;
 
 			// Calculate horizontal velocity
 			if (velocityTarget != Vector2.Zero && !bIsSkidding && !(input.bCrouchHold && bIsOnGround)) {
@@ -226,7 +255,7 @@ namespace ActionPlatformer {
 			else if (!bIsOnGround) {
 				// Sword Hop
 				if (bSwordHop) {
-					velocityY += _neutralSlash.SwordHopSpeed - (velocityY / _neutralSlash.SwordHopCount);
+					velocityY += _aerialSlash.SwordHopSpeed - (velocityY / _aerialSlash.SwordHopCount);
 				}
 				// Slam Startup
 				else if (_airSlam.IsInStartup) {

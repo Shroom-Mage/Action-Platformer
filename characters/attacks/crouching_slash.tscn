@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="3_6m7a6"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_oqe72"]
-height = 0.1
+height = 0.25
 
 [node name="CrouchingSlash" type="Area3D"]
 script = ExtResource("1_oqe72")

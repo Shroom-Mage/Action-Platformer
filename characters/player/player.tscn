@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://buu8wl23agswh"]
+[gd_scene load_steps=15 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="PackedScene" uid="uid://prh35jb6tjtd" path="res://characters/player/sophia_skin/sophia_skin.tscn" id="1_3cb50"]
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
 [ext_resource type="PackedScene" uid="uid://bx0l3cy5mpp56" path="res://characters/attacks/standing_slash.tscn" id="3_exd8k"]
 [ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="4_5dc8e"]
+[ext_resource type="PackedScene" uid="uid://7vb32v8odnx4" path="res://characters/attacks/aerial_slash.tscn" id="4_c6leb"]
 [ext_resource type="PackedScene" uid="uid://d0rulkfhdwbc5" path="res://characters/attacks/crouching_slash.tscn" id="4_ixbpm"]
+[ext_resource type="PackedScene" uid="uid://c480d1uanarxr" path="res://characters/attacks/whirl.tscn" id="6_dirf7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6jjan"]
 height = 1.6
@@ -67,18 +69,29 @@ process_material = SubResource("ParticleProcessMaterial_oj4oi")
 draw_pass_1 = SubResource("SphereMesh_fbwp3")
 
 [node name="StandingSlash" parent="Pivot" instance=ExtResource("3_exd8k")]
-transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0.75, 0.5)
+transform = Transform3D(1.29904, -0.75, 0, 0.75, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.5)
+collision_layer = 2
+collision_mask = 4
+
+[node name="AerialSlash" parent="Pivot" instance=ExtResource("4_c6leb")]
+transform = Transform3D(1.29904, 0.75, 0, -0.75, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.5)
 collision_layer = 2
 collision_mask = 4
 
 [node name="CrouchingSlash" parent="Pivot" instance=ExtResource("4_ixbpm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.25, 0.5)
+collision_layer = 2
+collision_mask = 4
+
+[node name="Whirl" parent="Pivot" instance=ExtResource("6_dirf7")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
 collision_layer = 2
 collision_mask = 4
 
 [node name="AirSlam" parent="Pivot" instance=ExtResource("4_5dc8e")]
 collision_layer = 2
 collision_mask = 4
+SlamRecoveryTime = 0.25
 SlamSpeed = 15.0
 
 [node name="CameraPivot" type="Node3D" parent="."]
@@ -86,7 +99,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="CameraArm" type="SpringArm3D" parent="CameraPivot"]
 unique_name_in_owner = true
-transform = Transform3D(-1, 6.18172e-08, -6.18172e-08, 0, 0.707107, 0.707107, 8.74228e-08, 0.707107, -0.707107, 0, 0, 0)
+transform = Transform3D(1, -1.04308e-07, 1.04308e-07, 0, 0.707107, 0.707107, -1.78814e-07, -0.707107, 0.707107, 0, 0, 0)
 collision_mask = 0
 spring_length = 20.0
 
@@ -100,5 +113,6 @@ shape = SubResource("SeparationRayShape3D_o7dro")
 spring_length = 10.0
 
 [node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
+visible = false
 light_negative = true
 omni_range = 0.5
