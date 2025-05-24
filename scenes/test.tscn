@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6f3cdxk2epg0"]
+[gd_scene load_steps=7 format=3 uid="uid://b6f3cdxk2epg0"]
 
 [ext_resource type="PackedScene" uid="uid://buu8wl23agswh" path="res://characters/player/player.tscn" id="1_ewdoh"]
 [ext_resource type="PackedScene" uid="uid://bu3h7s8pjrkfv" path="res://environment/env_grass.tscn" id="2_at5dv"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://j2ksih2r28a3" path="res://environment/tutorial/platforms/platform_short_ramp.tscn" id="3_72r3t"]
 [ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/terrain/grass.tres" id="4_q1q1c"]
 [ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/hit_dummy.tscn" id="5_j5jx5"]
-[ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper.tscn" id="6_lpvoh"]
 
 [node name="Test" type="Node3D"]
 
@@ -16,9 +15,6 @@
 
 [node name="HitDummy" parent="." instance=ExtResource("5_j5jx5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -7)
-
-[node name="Dropper" parent="." instance=ExtResource("6_lpvoh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -3)
 
 [node name="Geometry" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)

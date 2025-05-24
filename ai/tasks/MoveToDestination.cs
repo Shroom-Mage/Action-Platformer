@@ -23,7 +23,7 @@ public partial class MoveToDestination : BTAction {
 
 		// Calculate direction
 		Vector3 direction = (destination - self.GlobalPosition);
-		self.Input.movement = new Vector2(direction.X, direction.Z);
+		self.PressMovement(new Vector2(direction.X, direction.Z));
 
 		if (_timePassed < Duration) {
 			_timePassed += delta;

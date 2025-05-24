@@ -6,7 +6,11 @@ namespace ActionPlatformer {
 	public partial class Enemy : Combatant {
 		private Vision _vision = null;
 
-		public CombatInput Input;
+		private CombatInput _input;
+		private bool _bHoldingMovement = false;
+		private bool _bHoldingJump = false;
+		private bool _bHoldingCrouch = false;
+		private bool _bHoldingAttack = false;
 		
 		public override void _Ready() {
 			base._Ready();
@@ -14,8 +18,79 @@ namespace ActionPlatformer {
 		}
 
 		public override void _PhysicsProcess(double delta) {
-			MoveAndAttack(Input, delta);
-			Input = new CombatInput();
+			MoveAndAttack(_input, delta);
+			if (!_bHoldingMovement)
+				_input.movement = Vector2.Zero;
+			_input.bJumpPress = false;
+			_input.bJumpHold = _bHoldingJump;
+			_input.bCrouchPress = false;
+			_input.bCrouchHold = _bHoldingCrouch;
+			_input.bAttackPress = false;
+			_input.bAttackHold = _bHoldingAttack;
+		}
+
+		public void PressMovement(Vector2 direction) {
+			_input.movement = direction;
+		}
+
+		public void HoldMovement(Vector2 direction) {
+			_input.movement = direction;
+			_bHoldingMovement = true;
+		}
+
+		public void ReleaseMovement() {
+			_input.movement = Vector2.Zero;
+			_bHoldingMovement = false;
+		}
+		public void PressJump() {
+			_input.bJumpPress = true;
+			_input.bJumpHold = true;
+		}
+
+		public void HoldJump() {
+			if (!_bHoldingJump)
+				_input.bJumpPress = true;
+			_input.bJumpHold = true;
+			_bHoldingJump = true;
+		}
+
+		public void ReleaseJump() {
+			_input.bJumpHold = false;
+			_bHoldingJump = false;
+		}
+
+		public void PressCrouch() {
+			_input.bCrouchPress = true;
+			_input.bCrouchHold = true;
+		}
+
+		public void HoldCrouch() {
+			if (!_bHoldingCrouch)
+				_input.bCrouchPress = true;
+			_input.bCrouchHold = true;
+			_bHoldingCrouch = true;
+		}
+
+		public void ReleaseCrouch() {
+			_input.bJumpHold = false;
+			_bHoldingCrouch = false;
+		}
+
+		public void PressAttack() {
+			_input.bAttackPress = true;
+			_input.bAttackHold = true;
+		}
+
+		public void HoldAttack() {
+			if (!_bHoldingCrouch)
+				_input.bCrouchPress = true;
+			_input.bAttackHold = true;
+			_bHoldingAttack = true;
+		}
+
+		public void ReleaseAttack() {
+			_input.bAttackHold = false;
+			_bHoldingAttack = false;
 		}
 	}
 }

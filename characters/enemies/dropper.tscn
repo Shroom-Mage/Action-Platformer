@@ -53,6 +53,7 @@ skeleton = NodePath("../..")
 [node name="AirSlam" parent="Pivot" instance=ExtResource("2_uvmt3")]
 collision_layer = 4
 collision_mask = 2
+SlamStartupTime = 0.25
 
 [node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
 collision_layer = 4

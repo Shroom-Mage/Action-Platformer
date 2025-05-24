@@ -32,7 +32,7 @@ script = ExtResource("2_tx7yv")
 
 [sub_resource type="BTAction" id="BTAction_jvsr4"]
 script = ExtResource("3_tx7yv")
-Duration = 0.1
+Duration = 0.0
 
 [sub_resource type="BTAction" id="BTAction_y13vc"]
 script = ExtResource("4_tx7yv")
@@ -49,7 +49,7 @@ RangeMax = 2.0
 
 [sub_resource type="BTAction" id="BTAction_kxsj2"]
 script = ExtResource("3_tx7yv")
-Duration = 1.0
+Duration = 0.0
 
 [sub_resource type="BTAction" id="BTAction_tx7yv"]
 script = ExtResource("4_tx7yv")

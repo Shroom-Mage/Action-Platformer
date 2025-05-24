@@ -21,7 +21,7 @@ public partial class DropAttack : BTAction {
 		Dictionary result = space.IntersectRay(parameters);
 
 		if (result.Count > 0) {
-			self.Input.bCrouchPress = true;
+			self.PressCrouch();
 			return Status.Success;
 		}
 

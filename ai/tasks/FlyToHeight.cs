@@ -34,7 +34,7 @@ public partial class FlyToHeight : BTAction
 		// If above offset destination...
 		if (self.GlobalPosition.Y < destination.Y + Height) {
 			// Ascend from the ground
-			self.Input.bJumpPress = true;
+			self.PressJump();
 		}
 
 		return Status.Success;

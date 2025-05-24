@@ -45,7 +45,7 @@ namespace ActionPlatformer {
 		public float AirDeceleration = 5.0f;
 		[Export, ExportGroup("Movement")]
 		public bool CanWallSlide = false;
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
+		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float SlideDeceleration = 10.0f;
 		[Export(PropertyHint.Range, "0,10"), ExportGroup("Movement")]
 		public float GravityUpMult = 3.0f;
