@@ -1,8 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://b80wl20isuajj"]
+[gd_scene load_steps=12 format=3 uid="uid://b80wl20isuajj"]
 
 [ext_resource type="PackedScene" uid="uid://bhfcxlvqytu1b" path="res://characters/player/bat/bat_knight.fbx" id="1_0qvtl"]
 [ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_3ybtb"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://characters/enemies/vision.tscn" id="3_schho"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3ybtb"]
+height = 1.6
+radius = 0.3
 
 [sub_resource type="Curve" id="Curve_3ybtb"]
 _data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -36,9 +40,8 @@ material = SubResource("StandardMaterial3D_jyafj")
 height = 10.0
 radius = 5.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_3ybtb"]
-height = 1.6
-radius = 0.15
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_xbqjv"]
+length = 0.1
 
 [node name="HitDummy" type="CharacterBody3D"]
 collision_layer = 4
@@ -47,10 +50,17 @@ script = ExtResource("1_3ybtb")
 GroundSpeed = 0.0
 AirSpeed = 0.0
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CylinderShape3D_3ybtb")
+
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="Model" parent="Pivot" instance=ExtResource("1_0qvtl")]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
+
+[node name="Extract2" parent="Pivot/Model/root/GeneralSkeleton" index="0"]
+layers = 4
 
 [node name="Dust" type="GPUParticles3D" parent="Pivot"]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0.272)
@@ -68,6 +78,20 @@ collision_layer = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
 shape = SubResource("CylinderShape3D_7wfy4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
-shape = SubResource("CylinderShape3D_3ybtb")
+[node name="ShadowArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_xbqjv")
+spring_length = 10.0
+
+[node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_size = 1.0
+light_negative = true
+light_specular = 0.0
+light_bake_mode = 0
+light_cull_mask = 4293918721
+omni_range = 0.3
+omni_attenuation = 10.0
+
+[editable path="Pivot/Model"]

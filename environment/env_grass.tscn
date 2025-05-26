@@ -31,4 +31,5 @@ environment = SubResource("Environment_txidm")
 transform = Transform3D(0.965926, 0.183013, -0.183013, 0.258819, -0.683013, 0.683013, -6.68001e-09, -0.707107, -0.707107, 0, 0, 0)
 light_color = Color(0.4, 0.4, 0.4, 1)
 shadow_enabled = true
+shadow_caster_mask = 4293918721
 directional_shadow_mode = 0

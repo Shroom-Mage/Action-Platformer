@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6cc053xun42n"]
+[gd_scene load_steps=12 format=3 uid="uid://b6cc053xun42n"]
 
 [ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_nrakn"]
 [ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="2_uvmt3"]
@@ -7,6 +7,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_djh48"]
 height = 0.5
+radius = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvmt3"]
 albedo_color = Color(0.8, 0.6, 0.2, 1)
@@ -14,6 +15,9 @@ albedo_color = Color(0.8, 0.6, 0.2, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_nrakn"]
 material = SubResource("StandardMaterial3D_uvmt3")
 size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7qims"]
+radius = 0.25
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nrakn"]
 height = 16.0
@@ -46,7 +50,6 @@ shape = SubResource("CylinderShape3D_djh48")
 [node name="Model" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.25, 0)
 layers = 4
-cast_shadow = 0
 mesh = SubResource("PrismMesh_nrakn")
 skeleton = NodePath("../..")
 
@@ -54,6 +57,10 @@ skeleton = NodePath("../..")
 collision_layer = 4
 collision_mask = 2
 SlamStartupTime = 0.25
+
+[node name="CollisionShape3D" parent="Pivot/AirSlam" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("SphereShape3D_7qims")
 
 [node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
 collision_layer = 4
@@ -68,9 +75,18 @@ shape = SubResource("SeparationRayShape3D_nrakn")
 spring_length = 10.0
 
 [node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_size = 1.0
 light_negative = true
+light_specular = 0.0
+light_bake_mode = 0
+light_cull_mask = 4293918721
 omni_range = 0.3
+omni_attenuation = 10.0
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("4_7qims")
 blackboard_plan = SubResource("BlackboardPlan_84xd5")
+
+[editable path="Pivot/AirSlam"]

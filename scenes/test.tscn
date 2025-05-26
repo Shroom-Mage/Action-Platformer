@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b38vahcwqubi0" path="res://environment/tutorial/platforms/platform_tiny.tscn" id="2_jedxc"]
 [ext_resource type="PackedScene" uid="uid://j2ksih2r28a3" path="res://environment/tutorial/platforms/platform_short_ramp.tscn" id="3_72r3t"]
 [ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/terrain/grass.tres" id="4_q1q1c"]
-[ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/hit_dummy.tscn" id="5_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/enemies/hit_dummy.tscn" id="5_j5jx5"]
 
 [node name="Test" type="Node3D"]
 
