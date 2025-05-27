@@ -1,0 +1,44 @@
+[gd_resource type="BehaviorTree" load_steps=11 format=3 uid="uid://6d7v4guddh2k"]
+
+[ext_resource type="Script" uid="uid://18s8lrr1f2pv" path="res://ai/tasks/PerformStandingAttack.cs" id="1_wmnp3"]
+[ext_resource type="Script" uid="uid://x1nwvb2wsd6m" path="res://ai/tasks/SelectTarget.cs" id="2_x1rml"]
+[ext_resource type="Script" uid="uid://ct73oiuw6jo7f" path="res://ai/tasks/MoveToDestination.cs" id="3_mo0ue"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_tx7yv"]
+var/targets/name = &"targets"
+var/targets/type = 28
+var/targets/value = []
+var/targets/hint = 0
+var/targets/hint_string = ""
+var/destination/name = &"destination"
+var/destination/type = 9
+var/destination/value = Vector3(0, 0, 0)
+var/destination/hint = 0
+var/destination/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_vpp7r"]
+script = ExtResource("1_wmnp3")
+Range = 1.5
+
+[sub_resource type="BTSequence" id="BTSequence_rnmiw"]
+custom_name = "Attack"
+children = [SubResource("BTAction_vpp7r")]
+
+[sub_resource type="BTAction" id="BTAction_lt5yy"]
+script = ExtResource("2_x1rml")
+
+[sub_resource type="BTAction" id="BTAction_jvsr4"]
+script = ExtResource("3_mo0ue")
+Duration = 0.0
+
+[sub_resource type="BTSequence" id="BTSequence_u5s4i"]
+custom_name = "Seek Target"
+children = [SubResource("BTAction_lt5yy"), SubResource("BTAction_jvsr4")]
+
+[sub_resource type="BTSelector" id="BTSelector_lt5yy"]
+children = [SubResource("BTSequence_rnmiw"), SubResource("BTSequence_u5s4i")]
+
+[resource]
+resource_name = "BTGuard"
+blackboard_plan = SubResource("BlackboardPlan_tx7yv")
+root_task = SubResource("BTSelector_lt5yy")

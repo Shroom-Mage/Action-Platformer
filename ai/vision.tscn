@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgbqjd8kkka3"]
 
-[ext_resource type="Script" uid="uid://dorrl3thc0fie" path="res://characters/enemies/Vision.cs" id="1_0xqg4"]
+[ext_resource type="Script" uid="uid://dorrl3thc0fie" path="res://ai/Vision.cs" id="1_0xqg4"]
 
 [node name="Vision" type="Area3D" node_paths=PackedStringArray("Targets")]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_0xqg4")
 Targets = []

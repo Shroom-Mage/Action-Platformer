@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bhfcxlvqytu1b" path="res://characters/player/bat/bat_knight.fbx" id="1_0qvtl"]
 [ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_3ybtb"]
-[ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://characters/enemies/vision.tscn" id="3_schho"]
+[ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_schho"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3ybtb"]
 height = 1.6

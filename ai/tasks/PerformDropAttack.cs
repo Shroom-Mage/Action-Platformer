@@ -1,13 +1,14 @@
-using ActionPlatformer;
 using Godot;
 using Godot.Collections;
 using System;
+using ActionPlatformer;
 
-public partial class DropAttack : BTAction {
+[Tool]
+public partial class PerformDropAttack : BTAction {
 	[Export]
 	public float Distance = 10.0f;
 	public override string _GenerateName() {
-		return base._GenerateName();
+		return "Perform a Drop Attack on a player up to " + Distance + " meters below.";
 	}
 
 	public override Status _Tick(double delta) {

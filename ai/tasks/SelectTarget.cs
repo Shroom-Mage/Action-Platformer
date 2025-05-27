@@ -17,15 +17,33 @@ public partial class SelectTarget : BTAction {
 		}
 
 		// Find the closest target
-		Vector3 destination = targets[0].GlobalPosition;
-		float closestDistance = (self.GlobalPosition - destination).Length();
+		Node3D closest = null;
+		float closestDistance = 1000.0f;
 
-		for (int i = 1; i < targets.Count; i++) {
-			if ((self.GlobalPosition - targets[i].GlobalPosition).Length() < closestDistance) {
-				destination = targets[i].GlobalPosition;
+		for (int i = 0; i < targets.Count; i++) {
+			// Check if closer
+			if ((self.GlobalPosition - targets[i].GlobalPosition).Length() >= closestDistance) {
+				continue;
 			}
+			// Check for line of sight
+			Vector3 start = self.GlobalPosition;
+			Vector3 end = start + targets[i].GlobalPosition;
+			PhysicsDirectSpaceState3D space = self.GetWorld3D().DirectSpaceState;
+			PhysicsRayQueryParameters3D parameters = PhysicsRayQueryParameters3D.Create(start, end, 0b1);
+			Dictionary result = space.IntersectRay(parameters);
+			if (result.Count > 0) {
+				continue;
+			}
+			// Update closest
+			closest = targets[i];
 		}
-		Blackboard.SetVar("destination", destination);
+
+		// Return failure if no targets were in sight
+		if (closest == null) {
+			return Status.Failure;
+		}
+
+		Blackboard.SetVar("destination", closest.GlobalPosition);
 
 		// Return success if closest target found
 		return Status.Success;

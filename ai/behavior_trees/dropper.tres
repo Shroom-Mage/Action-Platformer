@@ -1,12 +1,12 @@
 [gd_resource type="BehaviorTree" load_steps=18 format=3 uid="uid://5tgh3r65dmi6"]
 
-[ext_resource type="Script" uid="uid://d3tr30oy75hpm" path="res://ai/tasks/DropAttack.cs" id="1_ls1gr"]
+[ext_resource type="Script" uid="uid://d3tr30oy75hpm" path="res://ai/tasks/PerformDropAttack.cs" id="1_tx7yv"]
 [ext_resource type="Script" uid="uid://x1nwvb2wsd6m" path="res://ai/tasks/SelectTarget.cs" id="2_tx7yv"]
 [ext_resource type="Script" uid="uid://ct73oiuw6jo7f" path="res://ai/tasks/MoveToDestination.cs" id="3_tx7yv"]
 [ext_resource type="Script" uid="uid://cyaeaaisulrpq" path="res://ai/tasks/Wander.cs" id="4_80nr3"]
 [ext_resource type="Script" uid="uid://djojtxwh4s0iu" path="res://ai/tasks/FlyToHeight.cs" id="4_tx7yv"]
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_3x5wn"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_tx7yv"]
 var/targets/name = &"targets"
 var/targets/type = 28
 var/targets/value = []
@@ -17,10 +17,9 @@ var/destination/type = 9
 var/destination/value = Vector3(0, 0, 0)
 var/destination/hint = 0
 var/destination/hint_string = ""
-binding/targets = NodePath("Pivot/Vision:Targets")
 
 [sub_resource type="BTAction" id="BTAction_bo1wb"]
-script = ExtResource("1_ls1gr")
+script = ExtResource("1_tx7yv")
 Distance = 10.0
 
 [sub_resource type="BTSequence" id="BTSequence_gokq3"]
@@ -63,5 +62,6 @@ children = [SubResource("BTAction_u5s4i"), SubResource("BTAction_kxsj2"), SubRes
 children = [SubResource("BTSequence_gokq3"), SubResource("BTSequence_u5s4i"), SubResource("BTSequence_bo1wb")]
 
 [resource]
-blackboard_plan = SubResource("BlackboardPlan_3x5wn")
+resource_name = "BTDropper"
+blackboard_plan = SubResource("BlackboardPlan_tx7yv")
 root_task = SubResource("BTSelector_lt5yy")

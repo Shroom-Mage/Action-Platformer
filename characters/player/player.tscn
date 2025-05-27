@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://buu8wl23agswh"]
+[gd_scene load_steps=14 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
 [ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/char/char.tscn" id="2_dirf7"]
@@ -39,9 +39,6 @@ shading_mode = 2
 
 [sub_resource type="SphereMesh" id="SphereMesh_fbwp3"]
 material = SubResource("StandardMaterial3D_c6leb")
-
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_o7dro"]
-length = 0.1
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -106,19 +103,3 @@ spring_length = 20.0
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/CameraArm"]
 current = true
 fov = 30.0
-
-[node name="ShadowArm" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
-shape = SubResource("SeparationRayShape3D_o7dro")
-spring_length = 10.0
-
-[node name="Shadow" type="OmniLight3D" parent="ShadowArm"]
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_size = 1.0
-light_negative = true
-light_specular = 0.0
-light_bake_mode = 0
-light_cull_mask = 4293918721
-omni_range = 0.44
-omni_attenuation = 10.0
