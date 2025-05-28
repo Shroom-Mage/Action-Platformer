@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0hnhn7wxn2yr"]
+
+[ext_resource type="Script" uid="uid://cg4i84raov52t" path="res://effects/lights/TorchLight.cs" id="1_relrv"]
+
+[node name="TorchLight" type="OmniLight3D"]
+light_color = Color(0.6, 0.4, 0, 1)
+light_energy = 8.0
+light_specular = 8.0
+shadow_enabled = true
+shadow_caster_mask = 4293918721
+omni_range = 16.0
+script = ExtResource("1_relrv")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b38vahcwqubi0"]
+
+[ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/m_grass.tres" id="1_vgnso"]
+
+[node name="PlatformTiny" type="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)
+material_override = ExtResource("1_vgnso")
+use_collision = true
+size = Vector3(2, 21, 2)

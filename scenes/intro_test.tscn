@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dothmij3agqqi"]
+[gd_scene load_steps=7 format=3 uid="uid://dothmij3agqqi"]
 
 [ext_resource type="PackedScene" uid="uid://buu8wl23agswh" path="res://characters/player/player.tscn" id="1_cf3ey"]
 [ext_resource type="PackedScene" uid="uid://pbe5scdtayhf" path="res://environment/env_cave.tscn" id="1_x6pcg"]
 [ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper.tscn" id="3_7uuc0"]
-[ext_resource type="Material" uid="uid://dev1jbqj8tdgy" path="res://environment/terrain/stone.tres" id="3_mbhx0"]
+[ext_resource type="Material" uid="uid://dev1jbqj8tdgy" path="res://environment/m_stone.tres" id="3_mbhx0"]
+[ext_resource type="PackedScene" uid="uid://b0hnhn7wxn2yr" path="res://effects/lights/torch_light.tscn" id="4_mr1je"]
 [ext_resource type="PackedScene" uid="uid://1tgqyy0vap4u" path="res://characters/enemies/guard.tscn" id="5_wbirl"]
 
 [node name="IntroTest" type="Node3D"]
@@ -27,16 +28,11 @@ material_override = ExtResource("3_mbhx0")
 use_collision = true
 size = Vector3(1, 7, 14)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="TorchLight" parent="." instance=ExtResource("4_mr1je")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, 0)
-light_color = Color(0.6, 0.4, 0, 1)
-light_energy = 8.0
-light_specular = 8.0
-shadow_enabled = true
-shadow_caster_mask = 4293918721
 
 [node name="Guard" parent="." instance=ExtResource("5_wbirl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 6)
 
 [node name="Dropper" parent="." instance=ExtResource("3_7uuc0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 7, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -7)
