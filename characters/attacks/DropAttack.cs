@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace ActionPlatformer {
-	public partial class AirSlam : Attack {
+	public partial class DropAttack : Attack {
 		private GpuParticles3D _particles = null;
 		private AnimatedSprite3D _sprite = null;
 		private double _startupTimeRemaining = 0.0;
@@ -12,11 +12,11 @@ namespace ActionPlatformer {
 		private bool _bTouchedGround = false;
 
 		[Export(PropertyHint.Range, "0,10")]
-		public double SlamStartupTime = 0.5;
+		public double DropStartupTime = 0.25;
 		[Export(PropertyHint.Range, "0,10")]
-		public double SlamRecoveryTime = 0.5;
+		public double DropRecoveryTime = 0.25;
 		[Export(PropertyHint.Range, "0,100")]
-		public float SlamSpeed = 10.0f;
+		public float DropSpeed = 15.0f;
 
 		public bool IsInStartup {
 			get { return _startupTimeRemaining > 0.0; }
@@ -49,8 +49,8 @@ namespace ActionPlatformer {
 				IsAttackReady = false;
 				IsPerforming = true;
 				JustPerformed = true;
-				_startupTimeRemaining = SlamStartupTime;
-				_recoveryTimeRemaining = SlamRecoveryTime;
+				_startupTimeRemaining = DropStartupTime;
+				_recoveryTimeRemaining = DropRecoveryTime;
 				_bTouchedGround = false;
 				_particles.Emitting = true;
 			}

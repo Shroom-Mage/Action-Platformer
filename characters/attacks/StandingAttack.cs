@@ -2,20 +2,10 @@ using Godot;
 using System;
 
 namespace ActionPlatformer {
-	public partial class AerialSlash : Attack {
+	public partial class StandingAttack : Attack {
 		private AnimatedSprite3D _sprite = null;
 		private bool _bIsFollowUp = false;
 		private Vector3 _rotationDefault;
-		private uint _swordHopCount = 0;
-
-		[Export(PropertyHint.Range, "0,100")]
-		public float SwordHopSpeed = 5.0f;
-		[Export(PropertyHint.Range, "0,1")]
-		public float SwordHopCountMult = 0.5f;
-
-		public uint SwordHopCount {
-			get { return _swordHopCount; }
-		}
 
 		public override void _Ready() {
 			base._Ready();
@@ -32,15 +22,16 @@ namespace ActionPlatformer {
 				if (!IsPerforming) {
 					// Perform attack
 					if (!_bIsFollowUp) {
+						_sprite.FlipH = false;
 						Rotation = _rotationDefault;
 					}
 					else {
+						_sprite.FlipH = !_sprite.FlipH;
 						Rotation = new Vector3(Rotation.X, Rotation.Y, -Rotation.Z);
 					}
 					_sprite.Frame = 0;
 					_sprite.Play();
 					HitTargets(5.0f);
-					_swordHopCount++;
 					IsAttackReady = false;
 					JustPerformed = true;
 					_bIsFollowUp = false;
@@ -50,10 +41,6 @@ namespace ActionPlatformer {
 					_bIsFollowUp = true;
 				}
 			}
-		}
-
-		public void TouchGround() {
-			_swordHopCount = 0;
 		}
 	}
 }

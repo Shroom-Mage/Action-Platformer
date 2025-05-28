@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 
 namespace ActionPlatformer {
@@ -15,11 +15,11 @@ namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Combatant : CharacterBody3D {
 		private Node3D _pivot = null;
-		private StandingSlash _standingSlash = null;
-		private AerialSlash _aerialSlash = null;
-		private CrouchingSlash _crouchingSlash = null;
-		private Whirl _whirl = null;
-		private AirSlam _airSlam = null;
+		private StandingAttack _standingAttack = null;
+		private AerialAttack _aerialAttack = null;
+		private LowAttack _lowAttack = null;
+		private WhirlAttack _whirlAttack = null;
+		private DropAttack _dropAttack = null;
 		private GpuParticles3D _dust = null;
 
 		[Export, ExportGroup("Combat")]
@@ -68,9 +68,25 @@ namespace ActionPlatformer {
 		[Export(PropertyHint.Range, "0,10"), ExportGroup("Movement")]
 		public float WallKickJumpMult = 0.8f;
 
-		private Vector3 _forward = Vector3.Forward;
+		public Vector3 _forward = Vector3.Forward;
 		private Vector3 _right = Vector3.Right;
 		private Basis _space;
+
+		public Vector2 Forward {
+			get { return new Vector2(_forward.X, _forward.Z); }
+			set {
+				_forward = new Vector3(value.X, 0.0f, value.Y).Normalized();
+				_right = _forward.Cross(Vector3.Up);
+			}
+		}
+
+		public Vector2 Right {
+			get { return new Vector2(_right.X, _right.Z); }
+			set {
+				_right = new Vector3(value.X, 0.0f, value.Y).Normalized();
+				_forward = -_right.Cross(Vector3.Up);
+			}
+		}
 
 		public Basis Space {
 			get { return _space; }
@@ -85,6 +101,7 @@ namespace ActionPlatformer {
 			Space = GlobalBasis;
 			// Get Pivot Node
 			_pivot = GetNode<Node3D>("Pivot");
+			//Forward = new Vector2(_pivot.Rotation.Z, _pivot.Rotation.X);
 			// Get Dust Node if it exists
 			if (HasNode("Pivot/Dust")) {
 				_dust = GetNode<GpuParticles3D>("Pivot/Dust");
@@ -93,40 +110,40 @@ namespace ActionPlatformer {
 			else {
 				_dust = new GpuParticles3D();
 			}
-			// Get StandingSlash Node if it exists
-			if (HasNode("Pivot/StandingSlash")) {
-				_standingSlash = GetNode<StandingSlash>("Pivot/StandingSlash");
+			// Get StandingAttack Node if it exists
+			if (HasNode("Pivot/StandingAttack")) {
+				_standingAttack = GetNode<StandingAttack>("Pivot/StandingAttack");
 			}
 			else {
-				_standingSlash = new StandingSlash();
+				_standingAttack = new StandingAttack();
 			}
-			// Get AerialSlash Node if it exists
-			if (HasNode("Pivot/AerialSlash")) {
-				_aerialSlash = GetNode<AerialSlash>("Pivot/AerialSlash");
-			}
-			else {
-				_aerialSlash = new AerialSlash();
-			}
-			// Get CrouchingSlash Node if it exists
-			if (HasNode("Pivot/CrouchingSlash")) {
-				_crouchingSlash = GetNode<CrouchingSlash>("Pivot/CrouchingSlash");
+			// Get AerialAttack Node if it exists
+			if (HasNode("Pivot/AerialAttack")) {
+				_aerialAttack = GetNode<AerialAttack>("Pivot/AerialAttack");
 			}
 			else {
-				_crouchingSlash = new CrouchingSlash();
-            }
-            // Get CrouchingSlash Node if it exists
-            if (HasNode("Pivot/Whirl")) {
-                _whirl = GetNode<Whirl>("Pivot/Whirl");
-            }
-            else {
-                _whirl = new Whirl();
-            }
-            // Get AirSlam Node if it exists
-            if (HasNode("Pivot/AirSlam")) {
-				_airSlam = GetNode<AirSlam>("Pivot/AirSlam");
+				_aerialAttack = new AerialAttack();
+			}
+			// Get LowAttack Node if it exists
+			if (HasNode("Pivot/LowAttack")) {
+				_lowAttack = GetNode<LowAttack>("Pivot/LowAttack");
 			}
 			else {
-				_airSlam = new AirSlam();
+				_lowAttack = new LowAttack();
+			}
+			// Get CrouchingSWhirlAttacklash Node if it exists
+			if (HasNode("Pivot/WhirlAttack")) {
+				_whirlAttack = GetNode<WhirlAttack>("Pivot/WhirlAttack");
+			}
+			else {
+				_whirlAttack = new WhirlAttack();
+			}
+			// Get DropAttack Node if it exists
+			if (HasNode("Pivot/DropAttack")) {
+				_dropAttack = GetNode<DropAttack>("Pivot/DropAttack");
+			}
+			else {
+				_dropAttack = new DropAttack();
 			}
 		}
 
@@ -144,8 +161,8 @@ namespace ActionPlatformer {
 
 			// Ground reset
 			if (bIsOnGround) {
-				_aerialSlash.TouchGround();
-				_airSlam.TouchGround();
+				_aerialAttack.TouchGround();
+				_dropAttack.TouchGround();
 			}
 
 			// Find movement direction
@@ -160,31 +177,31 @@ namespace ActionPlatformer {
 			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
 
 			// Check attack validity
-			bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_airSlam.IsPerforming;
-			_standingSlash.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
-			_aerialSlash.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
-			_crouchingSlash.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
-			_whirl.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
-			_airSlam.CanPerform = bCanAttack && !bIsOnGround;
+			bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_dropAttack.IsPerforming;
+			_standingAttack.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
+			_lowAttack.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
+			_aerialAttack.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
+			_dropAttack.CanPerform = bCanAttack && !bIsOnGround;
+			_whirlAttack.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
 
 			// Attack
-			if (input.bAttackPress && _crouchingSlash.CanPerform) {
-				_crouchingSlash.Perform();
-            }
-            else if (input.bAttackPress && _whirl.CanPerform) {
-                _whirl.Perform();
-            }
-            else if (input.bAttackPress && _aerialSlash.CanPerform) {
-				_aerialSlash.Perform();
+			if (input.bAttackPress && _lowAttack.CanPerform) {
+				_lowAttack.Perform();
 			}
-			else if (input.bAttackPress && _standingSlash.CanPerform) {
-				_standingSlash.Perform();
+			else if (input.bAttackPress && _whirlAttack.CanPerform) {
+				_whirlAttack.Perform();
 			}
-			else if (input.bCrouchPress && _airSlam.CanPerform) {
-				_airSlam.Perform();
+			else if (input.bAttackPress && _aerialAttack.CanPerform) {
+				_aerialAttack.Perform();
 			}
-			bool bIsAttacking = _standingSlash.IsPerforming || _aerialSlash.IsPerforming || _crouchingSlash.IsPerforming || _whirl.IsPerforming || _airSlam.IsPerforming;
-			bSwordHop = _aerialSlash.JustPerformed;
+			else if (input.bAttackPress && _standingAttack.CanPerform) {
+				_standingAttack.Perform();
+			}
+			else if (input.bCrouchPress && _dropAttack.CanPerform) {
+				_dropAttack.Perform();
+			}
+			bool bIsAttacking = _standingAttack.IsPerforming || _aerialAttack.IsPerforming || _lowAttack.IsPerforming || _whirlAttack.IsPerforming || _dropAttack.IsPerforming;
+			bSwordHop = _aerialAttack.JustPerformed;
 			directionXZ *= bIsAttacking ? 0.0f : moveSpeed;
 
 			// Set target velocity
@@ -196,8 +213,7 @@ namespace ActionPlatformer {
 				if (bIsOnGround && !input.bCrouchHold) {
 					// On ground
 					velocityXZ = velocityXZ.MoveToward(velocityTarget, GroundAcceleration * (float)delta);
-					_forward = new Vector3(velocityXZ.X, 0.0f, velocityXZ.Y).Normalized();
-					_right = _forward.Cross(Vector3.Up);
+					Forward = velocityXZ;
 					PlayMove(velocityXZ.Length(), _right.Dot(directionXYZ));
 				}
 				else {
@@ -244,7 +260,7 @@ namespace ActionPlatformer {
 				else if (input.bCrouchHold) {
 					// Back flip
 					velocityY = JumpSpeed * FlipJumpMult;
-					velocityXZ = new Vector2(_forward.X, _forward.Z) * -AirSpeed * FlipSpeedMult;
+					velocityXZ = Forward * -AirSpeed * FlipSpeedMult;
 				}
 				else {
 					// Standard jump
@@ -255,17 +271,17 @@ namespace ActionPlatformer {
 			else if (!bIsOnGround) {
 				// Sword Hop
 				if (bSwordHop) {
-					velocityY += _aerialSlash.SwordHopSpeed - (velocityY / _aerialSlash.SwordHopCount);
+					velocityY += _aerialAttack.SwordHopSpeed - (velocityY / _aerialAttack.SwordHopCount);
 				}
 				// Slam Startup
-				else if (_airSlam.IsInStartup) {
+				else if (_dropAttack.IsInStartup) {
 					velocityXZ = Vector2.Zero;
 					velocityY = 0.0f;
 				}
 				// Slam Start
-				else if (_airSlam.JustStartedDescent) {
+				else if (_dropAttack.JustStartedDescent) {
 					velocityXZ = Vector2.Zero;
-					velocityY = -_airSlam.SlamSpeed;
+					velocityY = -_dropAttack.DropSpeed;
 				}
 				// Rising
 				else if (velocityY >= 0.0f) {
@@ -280,7 +296,7 @@ namespace ActionPlatformer {
 				}
 				// Falling
 				else if (velocityY < 0.0f) {
-					if (!bIsOnWall || !CanWallSlide || _airSlam.IsPerforming) {
+					if (!bIsOnWall || !CanWallSlide || _dropAttack.IsPerforming) {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
@@ -291,12 +307,13 @@ namespace ActionPlatformer {
 						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
 						velocityXZ = Vector2.Zero;
 						PlaySlide();
-						_forward = -GetWallNormal();
+						Vector3 wallNormal = GetWallNormal();
+						Forward = -new Vector2(wallNormal.X, wallNormal.Z);
 						_dust.Emitting = true;
 						if (input.bJumpPress) {
-							_forward = -_forward;
+							Forward = -Forward;
 							velocityY = JumpSpeed * WallKickJumpMult;
-							velocityXZ = new Vector2(_forward.X, _forward.Z) * GroundSpeed * WallKickSpeedMult;
+							velocityXZ = Forward * GroundSpeed * WallKickSpeedMult;
 							PlayJump();
 						}
 					}

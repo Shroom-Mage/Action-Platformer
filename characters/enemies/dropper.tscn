@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b6cc053xun42n"]
 
-[ext_resource type="Script" uid="uid://bw67ru2uktjdc" path="res://characters/enemies/Enemy.cs" id="1_nrakn"]
-[ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="2_uvmt3"]
+[ext_resource type="Script" uid="uid://1sko3n6uteub" path="res://characters/enemies/Dropper.cs" id="1_7qims"]
+[ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/drop_attack.tscn" id="2_uvmt3"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_nrakn"]
 [ext_resource type="BehaviorTree" uid="uid://5tgh3r65dmi6" path="res://ai/behavior_trees/dropper.tres" id="4_7qims"]
 
@@ -31,7 +31,7 @@ binding/targets = NodePath("../Pivot/Vision:Targets")
 
 [node name="Dropper" type="CharacterBody3D"]
 collision_layer = 4
-script = ExtResource("1_nrakn")
+script = ExtResource("1_7qims")
 GroundSpeed = 5.0
 AirSpeed = 5.0
 JumpNeedsGround = false
@@ -75,12 +75,13 @@ omni_attenuation = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 shape = SubResource("CylinderShape3D_nrakn")
 
-[node name="AirSlam" parent="Pivot" instance=ExtResource("2_uvmt3")]
+[node name="DropAttack" parent="Pivot" instance=ExtResource("2_uvmt3")]
 collision_layer = 4
 collision_mask = 2
-SlamStartupTime = 0.25
+DropRecoveryTime = 0.5
+DropSpeed = 10.0
 
-[node name="CollisionShape3D" parent="Pivot/AirSlam" index="0"]
+[node name="CollisionShape3D" parent="Pivot/DropAttack" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("SphereShape3D_7qims")
 
@@ -88,4 +89,4 @@ shape = SubResource("SphereShape3D_7qims")
 behavior_tree = ExtResource("4_7qims")
 blackboard_plan = SubResource("BlackboardPlan_xr0x2")
 
-[editable path="Pivot/AirSlam"]
+[editable path="Pivot/DropAttack"]

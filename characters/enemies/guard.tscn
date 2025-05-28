@@ -1,13 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://1tgqyy0vap4u"]
+[gd_scene load_steps=14 format=3 uid="uid://1tgqyy0vap4u"]
 
 [ext_resource type="Script" uid="uid://l0wj82aga8fk" path="res://characters/enemies/Guard.cs" id="1_ps64d"]
 [ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/char/char.tscn" id="2_p32lx"]
-[ext_resource type="PackedScene" uid="uid://bx0l3cy5mpp56" path="res://characters/attacks/standing_slash.tscn" id="3_h42f4"]
+[ext_resource type="PackedScene" uid="uid://bx0l3cy5mpp56" path="res://characters/attacks/standing_attack.tscn" id="3_h42f4"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_ps64d"]
-[ext_resource type="PackedScene" uid="uid://7vb32v8odnx4" path="res://characters/attacks/aerial_slash.tscn" id="4_ps64d"]
-[ext_resource type="PackedScene" uid="uid://d0rulkfhdwbc5" path="res://characters/attacks/crouching_slash.tscn" id="5_m4qf5"]
-[ext_resource type="PackedScene" uid="uid://c480d1uanarxr" path="res://characters/attacks/whirl.tscn" id="6_ncmt4"]
-[ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/air_slam.tscn" id="7_sqd6g"]
 [ext_resource type="BehaviorTree" uid="uid://6d7v4guddh2k" path="res://ai/behavior_trees/guard.tres" id="10_m4qf5"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_p32lx"]
@@ -79,31 +75,10 @@ draw_pass_1 = SubResource("SphereMesh_xkffx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 shape = SubResource("BoxShape3D_ps64d")
 
-[node name="StandingSlash" parent="Pivot" instance=ExtResource("3_h42f4")]
+[node name="StandingAttack" parent="Pivot" instance=ExtResource("3_h42f4")]
 transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.5)
 collision_layer = 4
 collision_mask = 2
-
-[node name="AerialSlash" parent="Pivot" instance=ExtResource("4_ps64d")]
-transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.5)
-collision_layer = 4
-collision_mask = 2
-
-[node name="CrouchingSlash" parent="Pivot" instance=ExtResource("5_m4qf5")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.25, 0.5)
-collision_layer = 4
-collision_mask = 2
-
-[node name="Whirl" parent="Pivot" instance=ExtResource("6_ncmt4")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
-collision_layer = 4
-collision_mask = 2
-
-[node name="AirSlam" parent="Pivot" instance=ExtResource("7_sqd6g")]
-collision_layer = 4
-collision_mask = 2
-SlamRecoveryTime = 0.25
-SlamSpeed = 15.0
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("10_m4qf5")

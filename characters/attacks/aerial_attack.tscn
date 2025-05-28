@@ -1,22 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx0l3cy5mpp56"]
+[gd_scene load_steps=4 format=3 uid="uid://7vb32v8odnx4"]
 
-[ext_resource type="Script" uid="uid://dx0820href4x1" path="res://characters/attacks/StandingSlash.cs" id="1_neits"]
-[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_3thin"]
+[ext_resource type="Script" uid="uid://bxejpgq5tsgv4" path="res://characters/attacks/AerialAttack.cs" id="1_lwpjt"]
+[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_uit1i"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_neits"]
 height = 0.25
 
-[node name="StandingSlash" type="Area3D"]
-script = ExtResource("1_neits")
+[node name="AerialAttack" type="Area3D"]
+script = ExtResource("1_lwpjt")
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CylinderShape3D_neits")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+flip_h = true
 flip_v = true
-axis = 1
-sprite_frames = ExtResource("2_3thin")
+axis = 0
+sprite_frames = ExtResource("2_uit1i")
 animation = &"slash"
 frame = 9
 

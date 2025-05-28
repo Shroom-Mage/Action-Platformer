@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace ActionPlatformer {
-	public partial class Whirl : Attack {
+	public partial class WhirlAttack : Attack {
         private AnimatedSprite3D _sprite = null;
 
         public override void _Ready() {

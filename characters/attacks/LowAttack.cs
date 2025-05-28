@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace ActionPlatformer {
-	public partial class CrouchingSlash : Attack {
+	public partial class LowAttack : Attack {
 		private AnimatedSprite3D _sprite = null;
 
 		public override void _Ready() {
