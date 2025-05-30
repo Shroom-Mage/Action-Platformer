@@ -8,6 +8,7 @@ height = 0.25
 
 [node name="LowAttack" type="Area3D"]
 script = ExtResource("1_oqe72")
+IsBlockedLow = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

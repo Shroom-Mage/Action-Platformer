@@ -66,28 +66,38 @@ process_material = SubResource("ParticleProcessMaterial_oj4oi")
 draw_pass_1 = SubResource("SphereMesh_fbwp3")
 
 [node name="StandingAttack" parent="Pivot" instance=ExtResource("3_exd8k")]
-transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.5)
+transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.44)
 collision_layer = 2
 collision_mask = 4
+Damage = 5.0
+Force = 5.0
 
 [node name="LowAttack" parent="Pivot" instance=ExtResource("4_ixbpm")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.25, 0.5)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.25, 0.44)
 collision_layer = 2
 collision_mask = 4
+Damage = 5.0
+Force = 5.0
 
 [node name="AerialAttack" parent="Pivot" instance=ExtResource("4_c6leb")]
-transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.5)
+transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.44)
 collision_layer = 2
 collision_mask = 4
+Damage = 5.0
+Force = 10.0
 
 [node name="DropAttack" parent="Pivot" instance=ExtResource("4_5dc8e")]
 collision_layer = 2
 collision_mask = 4
+Damage = 10.0
+Force = 10.0
 
 [node name="WhirlAttack" parent="Pivot" instance=ExtResource("6_dirf7")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
 collision_layer = 2
 collision_mask = 4
+Damage = 15.0
+Force = 15.0
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

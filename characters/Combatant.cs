@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static Godot.TextServer;
 
 namespace ActionPlatformer {
 	public struct CombatInput {
@@ -10,6 +11,8 @@ namespace ActionPlatformer {
 		public bool bCrouchHold;
 		public bool bAttackPress;
 		public bool bAttackHold;
+		public bool bBlockPress;
+		public bool bBlockHold;
 	}
 
 	[GlobalClass]
@@ -23,9 +26,15 @@ namespace ActionPlatformer {
 		private GpuParticles3D _dust = null;
 
 		[Export, ExportGroup("Combat")]
+		public float Life = 1.0f;
+		[Export, ExportGroup("Combat")]
 		public float Power = 1.0f;
 		[Export, ExportGroup("Combat")]
-		public float Life = 1.0f;
+		public float Impact = 1.0f;
+		[Export, ExportGroup("Combat")]
+		public float Defense = 1.0f;
+		[Export, ExportGroup("Combat")]
+		public float Poise = 1.0f;
 
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float GroundSpeed = 7.5f;
@@ -71,6 +80,9 @@ namespace ActionPlatformer {
 		public Vector3 _forward = Vector3.Forward;
 		private Vector3 _right = Vector3.Right;
 		private Basis _space;
+
+		private bool _bIsBlocking = false;
+		private bool _bIsStunned = false;
 
 		public Vector2 Forward {
 			get { return new Vector2(_forward.X, _forward.Z); }
@@ -147,10 +159,6 @@ namespace ActionPlatformer {
 			}
 		}
 
-		public void TakeDamage(float damage) {
-			GD.Print(ToString() + " takes " + damage + " damage.");
-		}
-
 		public bool MoveAndAttack(CombatInput input, double delta) {
 			Vector2 velocityXZ = new Vector2(Velocity.X, Velocity.Z);
 			float velocityY = Velocity.Y;
@@ -174,10 +182,20 @@ namespace ActionPlatformer {
 			directionXYZ.Y = 0.0f;
 			directionXZ = directionXZ.Normalized();
 
+			// Sharp turn
 			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
 
+			// End stun on ground
+			_bIsStunned = bIsOnGround ? false : _bIsStunned;
+
+			// Block
+			_bIsBlocking = bIsOnGround && input.bBlockHold;
+
 			// Check attack validity
-			bool bCanAttack = !(bIsOnWall && velocityY < 0.0f) && !_dropAttack.IsPerforming;
+			bool bCanAttack = !_bIsBlocking &&
+				!_bIsStunned &&
+				!(CanWallSlide && bIsOnWall &&
+				velocityY < 0.0f) && !_dropAttack.IsPerforming;
 			_standingAttack.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
 			_lowAttack.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
 			_aerialAttack.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
@@ -186,23 +204,23 @@ namespace ActionPlatformer {
 
 			// Attack
 			if (input.bAttackPress && _lowAttack.CanPerform) {
-				_lowAttack.Perform();
+				_lowAttack.Perform(this);
 			}
 			else if (input.bAttackPress && _whirlAttack.CanPerform) {
-				_whirlAttack.Perform();
+				_whirlAttack.Perform(this);
 			}
 			else if (input.bAttackPress && _aerialAttack.CanPerform) {
-				_aerialAttack.Perform();
+				_aerialAttack.Perform(this);
 			}
 			else if (input.bAttackPress && _standingAttack.CanPerform) {
-				_standingAttack.Perform();
+				_standingAttack.Perform(this);
 			}
 			else if (input.bCrouchPress && _dropAttack.CanPerform) {
-				_dropAttack.Perform();
+				_dropAttack.Perform(this);
 			}
 			bool bIsAttacking = _standingAttack.IsPerforming || _aerialAttack.IsPerforming || _lowAttack.IsPerforming || _whirlAttack.IsPerforming || _dropAttack.IsPerforming;
 			bSwordHop = _aerialAttack.JustPerformed;
-			directionXZ *= bIsAttacking ? 0.0f : moveSpeed;
+			directionXZ *= bIsAttacking || _bIsStunned ? 0.0f : moveSpeed;
 
 			// Set target velocity
 			Vector2 velocityTarget = directionXZ * (bIsOnGround ? GroundSpeed : AirSpeed);
@@ -213,7 +231,8 @@ namespace ActionPlatformer {
 				if (bIsOnGround && !input.bCrouchHold) {
 					// On ground
 					velocityXZ = velocityXZ.MoveToward(velocityTarget, GroundAcceleration * (float)delta);
-					Forward = velocityXZ;
+					if (!_bIsBlocking)
+						Forward = velocityXZ;
 					PlayMove(velocityXZ.Length(), _right.Dot(directionXYZ));
 				}
 				else {
@@ -250,7 +269,7 @@ namespace ActionPlatformer {
 			}
 
 			// Calculate vertical velocity
-			if (input.bJumpPress && !bIsAttacking && (bIsOnGround || !JumpNeedsGround) && velocityY <= 0.0f) {
+			if (input.bJumpPress && !bIsAttacking && !_bIsStunned && (bIsOnGround || !JumpNeedsGround) && velocityY <= 0.0f) {
 				// Jump
 				if (bIsSkidding) {
 					// Side flip
@@ -328,6 +347,23 @@ namespace ActionPlatformer {
 			return MoveAndSlide();
 		}
 
+		public void TakeDamage(Combatant attacker, Attack attack) {
+			// Check both attack position and attacker facing
+			if (_bIsBlocking && _forward.Dot(attack.GlobalPosition - GlobalPosition) > 0.0f)
+			{
+				GD.Print(ToString() + " blocks the attack from " + attacker + ".");
+			}
+			else {
+				// DamageTaken = AttackDamage * WeaponPower / ArmorDefense
+				float damageTaken = attack.Damage * attacker.Power / Defense;
+				// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
+				float forceTaken = attack.Force * attacker.Impact / Poise;
+				Velocity = new Vector3(attacker.Forward.X, 1.0f, attacker.Forward.Y).Normalized() * forceTaken;
+				_bIsStunned = true;
+				GD.Print(ToString() + " takes " + damageTaken + " damage from " + attacker + ".");
+			}
+		}
+
 		protected virtual void PlayIdle() {
 			
 		}
@@ -353,7 +389,11 @@ namespace ActionPlatformer {
 		}
 
 		protected virtual void PlaySlide() {
-			
+
+		}
+
+		protected virtual void PlayBlock() {
+
 		}
 	}
 }

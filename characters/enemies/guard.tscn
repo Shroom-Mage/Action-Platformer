@@ -10,6 +10,9 @@
 height = 1.5
 radius = 0.44
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ps64d"]
+size = Vector3(8, 16, 16)
+
 [sub_resource type="Curve" id="Curve_l60n4"]
 _data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -38,9 +41,6 @@ shading_mode = 2
 [sub_resource type="SphereMesh" id="SphereMesh_xkffx"]
 material = SubResource("StandardMaterial3D_c6leb")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ps64d"]
-size = Vector3(8, 16, 16)
-
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ncmt4"]
 binding/targets = NodePath("../Pivot/Vision:Targets")
 
@@ -59,6 +59,19 @@ shape = SubResource("CylinderShape3D_p32lx")
 
 [node name="Model" parent="Pivot" instance=ExtResource("2_p32lx")]
 
+[node name="StandingAttack" parent="Pivot" instance=ExtResource("3_h42f4")]
+transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+collision_layer = 4
+collision_mask = 2
+Damage = 5.0
+Force = 5.0
+
+[node name="Vision" parent="Pivot" instance=ExtResource("3_ps64d")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+shape = SubResource("BoxShape3D_ps64d")
+
 [node name="Dust" type="GPUParticles3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
 layers = 4
@@ -68,17 +81,6 @@ emitting = false
 explosiveness = 0.05
 process_material = SubResource("ParticleProcessMaterial_vhper")
 draw_pass_1 = SubResource("SphereMesh_xkffx")
-
-[node name="Vision" parent="Pivot" instance=ExtResource("3_ps64d")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-shape = SubResource("BoxShape3D_ps64d")
-
-[node name="StandingAttack" parent="Pivot" instance=ExtResource("3_h42f4")]
-transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.5)
-collision_layer = 4
-collision_mask = 2
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("10_m4qf5")

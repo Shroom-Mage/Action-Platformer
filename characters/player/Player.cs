@@ -35,6 +35,8 @@ namespace ActionPlatformer {
 			input.bCrouchHold = Input.IsActionPressed("crouch");
 			input.bAttackPress = Input.IsActionJustPressed("attack");
 			input.bAttackHold = Input.IsActionPressed("attack");
+			input.bBlockPress = Input.IsActionJustPressed("block");
+			input.bBlockHold = Input.IsActionPressed("block");
 
 			// Get look input
 			Vector2 lookInput = Input.GetVector("look_left", "look_right", "look_up", "look_down");

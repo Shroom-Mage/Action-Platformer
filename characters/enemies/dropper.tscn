@@ -19,12 +19,12 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_nrakn"]
 length = 0.1
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_7qims"]
+radius = 0.25
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nrakn"]
 height = 5.0
 radius = 15.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_7qims"]
-radius = 0.25
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_xr0x2"]
 binding/targets = NodePath("../Pivot/Vision:Targets")
@@ -69,21 +69,23 @@ light_cull_mask = 4293918721
 omni_range = 0.3
 omni_attenuation = 10.0
 
-[node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-shape = SubResource("CylinderShape3D_nrakn")
-
 [node name="DropAttack" parent="Pivot" instance=ExtResource("2_uvmt3")]
 collision_layer = 4
 collision_mask = 2
 DropRecoveryTime = 0.5
 DropSpeed = 10.0
+Damage = 1.0
+Force = 10.0
 
 [node name="CollisionShape3D" parent="Pivot/DropAttack" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("SphereShape3D_7qims")
+
+[node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+shape = SubResource("CylinderShape3D_nrakn")
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("4_7qims")
