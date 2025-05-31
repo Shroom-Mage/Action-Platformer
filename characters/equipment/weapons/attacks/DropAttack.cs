@@ -42,7 +42,8 @@ namespace ActionPlatformer {
 		}
 
 		public override void _PhysicsProcess(double delta) {
-			JustPerformed = false;
+            base._PhysicsProcess(delta);
+            JustPerformed = false;
 			_bJustStartedDescent = false;
 
 			if (IsAttackReady) {
@@ -64,7 +65,7 @@ namespace ActionPlatformer {
 			}
 
 			if (_bIsDescending) {
-				HitTargets(10.0f);
+				HitTargets();
 			}
 
 			if (_recoveryTimeRemaining > 0.0 && _bTouchedGround) {

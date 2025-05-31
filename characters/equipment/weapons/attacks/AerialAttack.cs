@@ -24,7 +24,8 @@ namespace ActionPlatformer {
 		}
 
 		public override void _PhysicsProcess(double delta) {
-			IsPerforming = _sprite.IsPlaying();
+            base._PhysicsProcess(delta);
+            IsPerforming = _sprite.IsPlaying();
 			JustPerformed = false;
 
 			if (IsAttackReady) {
@@ -39,7 +40,7 @@ namespace ActionPlatformer {
 					}
 					_sprite.Frame = 0;
 					_sprite.Play();
-					HitTargets(5.0f);
+					HitTargets();
 					_swordHopCount++;
 					IsAttackReady = false;
 					JustPerformed = true;

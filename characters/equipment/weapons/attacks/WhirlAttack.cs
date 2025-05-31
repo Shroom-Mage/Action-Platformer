@@ -11,6 +11,7 @@ namespace ActionPlatformer {
         }
 
         public override void _PhysicsProcess(double delta) {
+            base._PhysicsProcess(delta);
             IsPerforming = _sprite.IsPlaying();
             JustPerformed = false;
 
@@ -18,7 +19,7 @@ namespace ActionPlatformer {
                 // Attempt to attack
                 _sprite.Frame = 0;
                 _sprite.Play();
-                HitTargets(10.0f);
+                HitTargets();
                 IsAttackReady = false;
                 JustPerformed = true;
             }

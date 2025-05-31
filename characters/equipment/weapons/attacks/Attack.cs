@@ -13,33 +13,24 @@ namespace ActionPlatformer {
 		private bool _bIsPerforming = false;
 		private bool _bJustPerformed = false;
 
-		private float _damage = 0.0f;
-		private float _force = 0.0f;
-		private bool _bIsBlockedHigh = false;
-		private bool _bIsBlockedLow = false;
+		private double _time = 0.0;
 
 		[Export]
-		public float Damage {
-			get { return _damage; }
-			set { _damage = value; }
-		}
+		public float Damage { get; set; } = 0.0f;
 		[Export]
-		public float Force {
-			get { return _force; }
-			set { _force = value; }
-		}
-		[Export]
-		public bool IsBlockedHigh {
-			get { return _bIsBlockedHigh; }
-			set { _bIsBlockedHigh = value; }
-		}
-		[Export]
-		public bool IsBlockedLow {
-			get { return _bIsBlockedLow; }
-			set { _bIsBlockedLow = value; }
-		}
+		public float Force { get; set; } = 0.0f;
+        [Export]
+        public float Startup { get; set; } = 0.0f;
+        [Export]
+        public float Active { get; set; } = 0.0f;
+        [Export]
+        public float Recovery { get; set; } = 0.0f;
+        [Export]
+		public bool IsBlockedHigh { get; set; } = false;
+        [Export]
+		public bool IsBlockedLow { get; set; } = false;
 
-		public Array<Combatant> Targets {
+        public Array<Combatant> Targets {
 			get { return _targets; }
 		}
 
@@ -76,12 +67,19 @@ namespace ActionPlatformer {
 			Monitoring = true;
 		}
 
+        public override void _PhysicsProcess(double delta) {
+			if (IsPerforming) {
+				_time += delta;
+			}
+        }
+
 		public void Perform(Combatant attacker) {
 			_bIsAttackReady = true;
 			_attacker = attacker;
+			_time = 0.0;
 		}
 
-		public void HitTargets(float damage) {
+		public void HitTargets() {
 			foreach (Combatant body in Targets) {
 				body.TakeDamage(_attacker, this);
 			}
