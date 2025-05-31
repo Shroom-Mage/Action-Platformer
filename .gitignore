@@ -13,6 +13,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.blend1
+*autosave.blend
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
