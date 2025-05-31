@@ -18,25 +18,19 @@ namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Combatant : CharacterBody3D {
 		private Node3D _pivot = null;
-		private StandingAttack _standingAttack = null;
-		private AerialAttack _aerialAttack = null;
-		private LowAttack _lowAttack = null;
-		private WhirlAttack _whirlAttack = null;
-		private DropAttack _dropAttack = null;
+		private Weapon _weapon = null;
 		private GpuParticles3D _dust = null;
 
-		[Export, ExportGroup("Combat")]
+        [Export, ExportGroup("Combat")]
 		public float Life = 1.0f;
-		[Export, ExportGroup("Combat")]
-		public float Power = 1.0f;
-		[Export, ExportGroup("Combat")]
-		public float Impact = 1.0f;
 		[Export, ExportGroup("Combat")]
 		public float Defense = 1.0f;
 		[Export, ExportGroup("Combat")]
 		public float Poise = 1.0f;
+		[Export, ExportGroup("Combat")]
+		public PackedScene DeathBurst = null;
 
-		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
+        [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float GroundSpeed = 7.5f;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float AirSpeed = 7.5f;
@@ -83,6 +77,7 @@ namespace ActionPlatformer {
 
 		private bool _bIsBlocking = false;
 		private bool _bIsStunned = false;
+		private bool _bJustStunned = false;
 
 		public Vector2 Forward {
 			get { return new Vector2(_forward.X, _forward.Z); }
@@ -113,7 +108,8 @@ namespace ActionPlatformer {
 			Space = GlobalBasis;
 			// Get Pivot Node
 			_pivot = GetNode<Node3D>("Pivot");
-			//Forward = new Vector2(_pivot.Rotation.Z, _pivot.Rotation.X);
+			// Get Weapon Node
+			_weapon = GetNode<Weapon>("Pivot/Weapon");
 			// Get Dust Node if it exists
 			if (HasNode("Pivot/Dust")) {
 				_dust = GetNode<GpuParticles3D>("Pivot/Dust");
@@ -121,43 +117,8 @@ namespace ActionPlatformer {
 			}
 			else {
 				_dust = new GpuParticles3D();
-			}
-			// Get StandingAttack Node if it exists
-			if (HasNode("Pivot/StandingAttack")) {
-				_standingAttack = GetNode<StandingAttack>("Pivot/StandingAttack");
-			}
-			else {
-				_standingAttack = new StandingAttack();
-			}
-			// Get AerialAttack Node if it exists
-			if (HasNode("Pivot/AerialAttack")) {
-				_aerialAttack = GetNode<AerialAttack>("Pivot/AerialAttack");
-			}
-			else {
-				_aerialAttack = new AerialAttack();
-			}
-			// Get LowAttack Node if it exists
-			if (HasNode("Pivot/LowAttack")) {
-				_lowAttack = GetNode<LowAttack>("Pivot/LowAttack");
-			}
-			else {
-				_lowAttack = new LowAttack();
-			}
-			// Get CrouchingSWhirlAttacklash Node if it exists
-			if (HasNode("Pivot/WhirlAttack")) {
-				_whirlAttack = GetNode<WhirlAttack>("Pivot/WhirlAttack");
-			}
-			else {
-				_whirlAttack = new WhirlAttack();
-			}
-			// Get DropAttack Node if it exists
-			if (HasNode("Pivot/DropAttack")) {
-				_dropAttack = GetNode<DropAttack>("Pivot/DropAttack");
-			}
-			else {
-				_dropAttack = new DropAttack();
-			}
-		}
+            }
+        }
 
 		public bool MoveAndAttack(CombatInput input, double delta) {
 			Vector2 velocityXZ = new Vector2(Velocity.X, Velocity.Z);
@@ -169,8 +130,8 @@ namespace ActionPlatformer {
 
 			// Ground reset
 			if (bIsOnGround) {
-				_aerialAttack.TouchGround();
-				_dropAttack.TouchGround();
+				_weapon.Aerial.TouchGround();
+				_weapon.Drop.TouchGround();
 			}
 
 			// Find movement direction
@@ -186,7 +147,17 @@ namespace ActionPlatformer {
 			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
 
 			// End stun on ground
-			_bIsStunned = bIsOnGround ? false : _bIsStunned;
+			if (_bIsStunned && bIsOnGround && !_bJustStunned) {
+				_bIsStunned = false;
+				if (Life <= 0) {
+                    GpuParticles3D burst = (GpuParticles3D)DeathBurst.Instantiate();
+					GetParent().AddChild(burst);
+					burst.GlobalPosition = GlobalPosition;
+                    burst.Restart();
+                    QueueFree();
+				}
+			}
+			if (_bJustStunned) _bJustStunned = false;
 
 			// Block
 			_bIsBlocking = bIsOnGround && input.bBlockHold;
@@ -195,32 +166,36 @@ namespace ActionPlatformer {
 			bool bCanAttack = !_bIsBlocking &&
 				!_bIsStunned &&
 				!(CanWallSlide && bIsOnWall &&
-				velocityY < 0.0f) && !_dropAttack.IsPerforming;
-			_standingAttack.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
-			_lowAttack.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
-			_aerialAttack.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
-			_dropAttack.CanPerform = bCanAttack && !bIsOnGround;
-			_whirlAttack.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
+				velocityY < 0.0f) && !_weapon.Drop.IsPerforming;
+			_weapon.Standing.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
+			_weapon.Low.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
+			_weapon.Aerial.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
+			_weapon.Drop.CanPerform = bCanAttack && !bIsOnGround;
+			_weapon.Whirl.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
 
 			// Attack
-			if (input.bAttackPress && _lowAttack.CanPerform) {
-				_lowAttack.Perform(this);
+			if (input.bAttackPress && _weapon.Low.CanPerform) {
+				_weapon.Low.Perform(this);
 			}
-			else if (input.bAttackPress && _whirlAttack.CanPerform) {
-				_whirlAttack.Perform(this);
+			else if (input.bAttackPress && _weapon.Whirl.CanPerform) {
+				_weapon.Whirl.Perform(this);
 			}
-			else if (input.bAttackPress && _aerialAttack.CanPerform) {
-				_aerialAttack.Perform(this);
+			else if (input.bAttackPress && _weapon.Aerial.CanPerform) {
+				_weapon.Aerial.Perform(this);
 			}
-			else if (input.bAttackPress && _standingAttack.CanPerform) {
-				_standingAttack.Perform(this);
+			else if (input.bAttackPress && _weapon.Standing.CanPerform) {
+				_weapon.Standing.Perform(this);
 			}
-			else if (input.bCrouchPress && _dropAttack.CanPerform) {
-				_dropAttack.Perform(this);
+			else if (input.bCrouchPress && _weapon.Drop.CanPerform) {
+				_weapon.Drop.Perform(this);
 			}
-			bool bIsAttacking = _standingAttack.IsPerforming || _aerialAttack.IsPerforming || _lowAttack.IsPerforming || _whirlAttack.IsPerforming || _dropAttack.IsPerforming;
-			bSwordHop = _aerialAttack.JustPerformed;
-			directionXZ *= bIsAttacking || _bIsStunned ? 0.0f : moveSpeed;
+			bool bIsAttacking = _weapon.Standing.IsPerforming ||
+				_weapon.Aerial.IsPerforming ||
+				_weapon.Low.IsPerforming ||
+				_weapon.Whirl.IsPerforming ||
+				_weapon.Drop.IsPerforming;
+			bSwordHop = _weapon.Aerial.JustPerformed;
+			directionXZ *= (bIsAttacking || _bIsStunned) ? 0.0f : moveSpeed;
 
 			// Set target velocity
 			Vector2 velocityTarget = directionXZ * (bIsOnGround ? GroundSpeed : AirSpeed);
@@ -290,17 +265,17 @@ namespace ActionPlatformer {
 			else if (!bIsOnGround) {
 				// Sword Hop
 				if (bSwordHop) {
-					velocityY += _aerialAttack.SwordHopSpeed - (velocityY / _aerialAttack.SwordHopCount);
+					velocityY += _weapon.Aerial.SwordHopSpeed - (velocityY / _weapon.Aerial.SwordHopCount);
 				}
 				// Slam Startup
-				else if (_dropAttack.IsInStartup) {
+				else if (_weapon.Drop.IsInStartup) {
 					velocityXZ = Vector2.Zero;
 					velocityY = 0.0f;
 				}
 				// Slam Start
-				else if (_dropAttack.JustStartedDescent) {
+				else if (_weapon.Drop.JustStartedDescent) {
 					velocityXZ = Vector2.Zero;
-					velocityY = -_dropAttack.DropSpeed;
+					velocityY = -_weapon.Drop.DropSpeed;
 				}
 				// Rising
 				else if (velocityY >= 0.0f) {
@@ -315,7 +290,7 @@ namespace ActionPlatformer {
 				}
 				// Falling
 				else if (velocityY < 0.0f) {
-					if (!bIsOnWall || !CanWallSlide || _dropAttack.IsPerforming) {
+					if (!bIsOnWall || !CanWallSlide || _weapon.Drop.IsPerforming) {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
@@ -343,24 +318,30 @@ namespace ActionPlatformer {
 			_pivot.GlobalRotation = new Vector3(_pivot.GlobalRotation.X,
 				Vector3.Back.SignedAngleTo(_forward, Vector3.Up),
 				_pivot.GlobalRotation.Z);
-
 			return MoveAndSlide();
 		}
 
 		public void TakeDamage(Combatant attacker, Attack attack) {
 			// Check both attack position and attacker facing
-			if (_bIsBlocking && _forward.Dot(attack.GlobalPosition - GlobalPosition) > 0.0f)
-			{
+			if (_bIsBlocking && _forward.Dot(attack.GlobalPosition - GlobalPosition) > 0.0f) {
+				// Attack was blocked
+				// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
+				float forceTaken = attack.Force * attacker._weapon.Impact / Poise;
+				Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
 				GD.Print(ToString() + " blocks the attack from " + attacker + ".");
 			}
 			else {
+				// Attack was not blocked
 				// DamageTaken = AttackDamage * WeaponPower / ArmorDefense
-				float damageTaken = attack.Damage * attacker.Power / Defense;
+				float damageTaken = attack.Damage * attacker._weapon.Power / Defense;
+				if (!_bIsStunned)
+					Life -= damageTaken;
+				GD.Print(ToString() + " takes " + damageTaken + " damage from " + attacker + ".");
 				// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
-				float forceTaken = attack.Force * attacker.Impact / Poise;
+				float forceTaken = attack.Force * attacker._weapon.Impact / Poise;
 				Velocity = new Vector3(attacker.Forward.X, 1.0f, attacker.Forward.Y).Normalized() * forceTaken;
 				_bIsStunned = true;
-				GD.Print(ToString() + " takes " + damageTaken + " damage from " + attacker + ".");
+				_bJustStunned = true;
 			}
 		}
 

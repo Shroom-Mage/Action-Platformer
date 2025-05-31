@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c8crwdhvej248"]
 
-[ext_resource type="Script" uid="uid://3dqk0iwe3crv" path="res://characters/attacks/DropAttack.cs" id="1_oerjn"]
+[ext_resource type="Script" uid="uid://3dqk0iwe3crv" path="res://characters/equipment/weapons/attacks/DropAttack.cs" id="1_oerjn"]
 [ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="3_2dy0r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_43w6b"]
@@ -27,6 +27,7 @@ height = 0.2
 
 [node name="DropAttack" type="Area3D"]
 script = ExtResource("1_oerjn")
+IsBlockedHigh = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

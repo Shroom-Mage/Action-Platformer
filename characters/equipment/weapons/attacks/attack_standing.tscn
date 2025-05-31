@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bx0l3cy5mpp56"]
 
-[ext_resource type="Script" uid="uid://dx0820href4x1" path="res://characters/attacks/StandingAttack.cs" id="1_neits"]
+[ext_resource type="Script" uid="uid://dx0820href4x1" path="res://characters/equipment/weapons/attacks/StandingAttack.cs" id="1_neits"]
 [ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_3thin"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_neits"]
@@ -8,6 +8,7 @@ height = 0.25
 
 [node name="StandingAttack" type="Area3D"]
 script = ExtResource("1_neits")
+IsBlockedHigh = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

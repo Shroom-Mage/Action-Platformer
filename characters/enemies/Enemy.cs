@@ -11,9 +11,9 @@ namespace ActionPlatformer {
 		private bool _bHoldingJump = false;
 		private bool _bHoldingCrouch = false;
 		private bool _bHoldingAttack = false;
-        private bool _bHoldingBlock = false;
+		private bool _bHoldingBlock = false;
 
-        public override void _Ready() {
+		public override void _Ready() {
 			base._Ready();
 			_vision = GetNode<Vision>("Pivot/Vision");
 		}
@@ -28,9 +28,9 @@ namespace ActionPlatformer {
 			_input.bCrouchHold = _bHoldingCrouch;
 			_input.bAttackPress = false;
 			_input.bAttackHold = _bHoldingAttack;
-            _input.bBlockPress = false;
-            _input.bBlockHold = _bHoldingBlock;
-        }
+			_input.bBlockPress = false;
+			_input.bBlockHold = _bHoldingBlock;
+		}
 
 		public void PressMovement(Vector2 direction) {
 			_input.movement = direction;
@@ -87,22 +87,22 @@ namespace ActionPlatformer {
 		public void ReleaseAttack() {
 			_input.bAttackHold = false;
 			_bHoldingAttack = false;
-        }
+		}
 
 
-        public void PressBlock() {
-            _input.bBlockPress = true;
-            _input.bBlockHold = true;
-        }
-        public void HoldBlock() {
-            if (!_bHoldingBlock)
-                _input.bBlockPress = true;
-            _input.bBlockHold = true;
-            _bHoldingBlock = true;
-        }
-        public void ReleaseBlock() {
-            _input.bBlockHold = false;
-            _bHoldingBlock = false;
-        }
-    }
+		public void PressBlock() {
+			_input.bBlockPress = true;
+			_input.bBlockHold = true;
+		}
+		public void HoldBlock() {
+			if (!_bHoldingBlock)
+				_input.bBlockPress = true;
+			_input.bBlockHold = true;
+			_bHoldingBlock = true;
+		}
+		public void ReleaseBlock() {
+			_input.bBlockHold = false;
+			_bHoldingBlock = false;
+		}
+	}
 }
