@@ -3,44 +3,73 @@ using System;
 
 namespace ActionPlatformer {
 	public partial class StandingAttack : Attack {
-		private AnimatedSprite3D _sprite = null;
+		private AnimatedSprite3D _sprite0 = null;
+		private AnimatedSprite3D _sprite1 = null;
 		private bool _bIsFollowUp = false;
-		private Vector3 _rotationDefault;
+		private bool _bPlayedFollowUp = false;
 
 		public override void _Ready() {
 			base._Ready();
-			_sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
-			_rotationDefault = Rotation;
+			_sprite0 = GetNode<AnimatedSprite3D>("Sprite0");
+			_sprite1 = GetNode<AnimatedSprite3D>("Sprite1");
 		}
 
 		public override void _PhysicsProcess(double delta) {
-			base._PhysicsProcess(delta);
-			IsPerforming = _sprite.IsPlaying();
 			JustPerformed = false;
 
+			// Initiate
 			if (IsAttackReady) {
-				// Attempt to attack
-				if (!IsPerforming) {
-					// Perform attack
-					if (!_bIsFollowUp) {
-						_sprite.FlipH = false;
-						Rotation = _rotationDefault;
+				if (IsStartingUp) {
+					// Starting up, input should be eaten
+					IsAttackReady = false;
+				}
+				else if (!IsPerforming) {
+                    // Attack is not already performing and may begin
+                    IsAttackReady = false;
+					IsPerforming = true;
+					JustPerformed = true;
+					AttackTime = 0.0;
+					if (_bIsFollowUp && !_bPlayedFollowUp) {
+						_sprite1.Frame = 0;
+						_sprite1.Play();
+						_bPlayedFollowUp = true;
 					}
 					else {
-						_sprite.FlipH = !_sprite.FlipH;
-						Rotation = new Vector3(Rotation.X, Rotation.Y, -Rotation.Z);
+                        _sprite0.Frame = 0;
+						_sprite0.Play();
+						_bPlayedFollowUp = false;
 					}
-					_sprite.Frame = 0;
-					_sprite.Play();
-					HitTargets();
-					IsAttackReady = false;
-					JustPerformed = true;
 					_bIsFollowUp = false;
-				}
+                }
 				else {
-					// Next attack will follow up
+					// Queue follow up
 					_bIsFollowUp = true;
 				}
+			}
+
+			// Startup
+			if (IsStartingUp) {
+				AttackTime += delta;
+			}
+
+			// Active
+			if (IsActive) {
+				AttackTime += delta;
+				Monitoring = true;
+				HitTargets();
+			}
+
+			// Recovery
+			if (IsRecovering) {
+				AttackTime += delta;
+				Monitoring = false;
+			}
+
+			// Finish
+			if (IsFinished) {
+				AttackTime = -1.0;
+				Monitoring = false;
+				IsPerforming = false;
 			}
 		}
 	}

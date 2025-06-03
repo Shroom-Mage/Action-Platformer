@@ -1,56 +1,88 @@
-[gd_resource type="SpriteFrames" load_steps=34 format=3 uid="uid://yg0s3jj47eq8"]
+[gd_resource type="SpriteFrames" load_steps=40 format=3 uid="uid://yg0s3jj47eq8"]
 
-[ext_resource type="Texture2D" uid="uid://de74hb3ytv7c2" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame1.png" id="1_h5xcn"]
-[ext_resource type="Texture2D" uid="uid://8ceg3w1yfw8m" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame4.png" id="1_vshw1"]
-[ext_resource type="Texture2D" uid="uid://tt7yr3iorr8c" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame5.png" id="2_au7w8"]
-[ext_resource type="Texture2D" uid="uid://cj63yogtadax0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame2.png" id="2_b72id"]
-[ext_resource type="Texture2D" uid="uid://d1spcc3g0oikc" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame6.png" id="3_13ijh"]
-[ext_resource type="Texture2D" uid="uid://btktv285glljj" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame3.png" id="3_v7ajo"]
-[ext_resource type="Texture2D" uid="uid://cjdka2q1fq4bm" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame4.png" id="4_uc80o"]
-[ext_resource type="Texture2D" uid="uid://doed3mgxjubwh" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame7.png" id="4_wxe2w"]
-[ext_resource type="Texture2D" uid="uid://d0m8om4iubw0b" path="res://effects/frostwindz/VFX 5/Frames/warrior_skill5_frame8.png" id="5_27fag"]
-[ext_resource type="Texture2D" uid="uid://cfgluqdj4oph0" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame5.png" id="5_g1b7u"]
-[ext_resource type="Texture2D" uid="uid://cx65k36uyawog" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame6.png" id="6_vshw1"]
-[ext_resource type="Texture2D" uid="uid://bcjao81cat034" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame7.png" id="7_au7w8"]
-[ext_resource type="Texture2D" uid="uid://5vbgybqkd1mr" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame8.png" id="8_13ijh"]
-[ext_resource type="Texture2D" uid="uid://bwfkp4wbqu42j" path="res://effects/frostwindz/Slash 3/color3/frames/Slash3_color3_frame9.png" id="9_wxe2w"]
-[ext_resource type="Texture2D" uid="uid://c6dc7b3yqmnqb" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame1.png" id="15_584hv"]
-[ext_resource type="Texture2D" uid="uid://ctffexr50wxw8" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame2.png" id="16_tp5by"]
-[ext_resource type="Texture2D" uid="uid://p3f0qaqracum" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame3.png" id="17_cykbx"]
-[ext_resource type="Texture2D" uid="uid://cngti7tctk6l0" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame4.png" id="18_r5vv5"]
-[ext_resource type="Texture2D" uid="uid://b0csmsnkif7hk" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame5.png" id="19_wj51l"]
-[ext_resource type="Texture2D" uid="uid://bibtuw2wmdcvw" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame6.png" id="20_pa6q6"]
-[ext_resource type="Texture2D" uid="uid://cjhq2haacv72a" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame7.png" id="21_klhy6"]
-[ext_resource type="Texture2D" uid="uid://d2agspt8aqrnt" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame8.png" id="22_xrvws"]
-[ext_resource type="Texture2D" uid="uid://yumph3aapcbs" path="res://effects/frostwindz/Slash 3/color5/frames/Slash3_color5_frame9.png" id="23_rowsg"]
-[ext_resource type="Texture2D" uid="uid://bt82kn3l30hd0" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame1.png" id="24_71x6t"]
-[ext_resource type="Texture2D" uid="uid://djj0whosyjv2o" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame2.png" id="25_0ty78"]
-[ext_resource type="Texture2D" uid="uid://vas21sqpofmm" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame3.png" id="26_gpc0h"]
-[ext_resource type="Texture2D" uid="uid://dtcerphb5xayt" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame4.png" id="27_lcypn"]
-[ext_resource type="Texture2D" uid="uid://djhdog1yi5ems" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame5.png" id="28_b86ao"]
-[ext_resource type="Texture2D" uid="uid://cr21uwmndyuso" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame6.png" id="29_rj2bk"]
-[ext_resource type="Texture2D" uid="uid://dxp6s60aul2km" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame7.png" id="30_sunsd"]
-[ext_resource type="Texture2D" uid="uid://d2vcwubpyaxjc" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame8.png" id="31_tkrjp"]
-[ext_resource type="Texture2D" uid="uid://buconymn4xy64" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame9.png" id="32_n6bwv"]
-[ext_resource type="Texture2D" uid="uid://bdyl8m2305rh0" path="res://effects/frostwindz/VFX 3/Frames/warrior_skill3_frame10.png" id="33_ndwx7"]
+[ext_resource type="Texture2D" uid="uid://dm6w0ja5sqq8r" path="res://effects/frostwindz/warrior/VFX 5/Frames/warrior_skill5_frame4.png" id="1_71x6t"]
+[ext_resource type="Texture2D" uid="uid://dnyn0b8qt4vda" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame1.png" id="1_sunsd"]
+[ext_resource type="Texture2D" uid="uid://bjw7dakcq1rx5" path="res://effects/frostwindz/warrior/VFX 5/Frames/warrior_skill5_frame5.png" id="2_0ty78"]
+[ext_resource type="Texture2D" uid="uid://hp8baoefxu0k" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame2.png" id="2_tkrjp"]
+[ext_resource type="Texture2D" uid="uid://ctkcu1hwpil2t" path="res://effects/frostwindz/warrior/VFX 5/Frames/warrior_skill5_frame6.png" id="3_gpc0h"]
+[ext_resource type="Texture2D" uid="uid://dhfcrvvpasgpp" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame3.png" id="3_n6bwv"]
+[ext_resource type="Texture2D" uid="uid://dws808kya3nch" path="res://effects/frostwindz/warrior/VFX 5/Frames/warrior_skill5_frame7.png" id="4_lcypn"]
+[ext_resource type="Texture2D" uid="uid://cxkskhhlj5gb2" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame4.png" id="4_ndwx7"]
+[ext_resource type="Texture2D" uid="uid://cyr2jdi8cfhl3" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame5.png" id="5_3rm3f"]
+[ext_resource type="Texture2D" uid="uid://by55xwsdmp2d" path="res://effects/frostwindz/warrior/VFX 5/Frames/warrior_skill5_frame8.png" id="5_b86ao"]
+[ext_resource type="Texture2D" uid="uid://1ccq0ia6dhto" path="res://effects/frostwindz/vampire/VFX4/Frames/Vampire_skill4_frame6.png" id="6_jngfk"]
+[ext_resource type="Texture2D" uid="uid://cyjv5g7ijefrh" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame1.png" id="6_rj2bk"]
+[ext_resource type="Texture2D" uid="uid://cut3tacfqk7wb" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame2.png" id="7_sunsd"]
+[ext_resource type="Texture2D" uid="uid://homatn3tew5d" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame3.png" id="8_tkrjp"]
+[ext_resource type="Texture2D" uid="uid://b7p14g2gwuq0v" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame4.png" id="9_n6bwv"]
+[ext_resource type="Texture2D" uid="uid://dtvahjopbsam6" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame5.png" id="10_ndwx7"]
+[ext_resource type="Texture2D" uid="uid://jcano3mibl15" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame6.png" id="11_3rm3f"]
+[ext_resource type="Texture2D" uid="uid://4uv5jy7vadus" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame7.png" id="12_jngfk"]
+[ext_resource type="Texture2D" uid="uid://p8mh3vnq6yhe" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame8.png" id="13_15jcj"]
+[ext_resource type="Texture2D" uid="uid://dg444jb8fjcb2" path="res://effects/frostwindz/slashes/Slash 3/color3/frames/Slash3_color3_frame9.png" id="14_b13x1"]
+[ext_resource type="Texture2D" uid="uid://btpjmte2iq0d7" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame1.png" id="15_f5dyh"]
+[ext_resource type="Texture2D" uid="uid://cptlg2l5ygiy5" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame2.png" id="16_2jje7"]
+[ext_resource type="Texture2D" uid="uid://duudqyf4akav2" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame3.png" id="17_m4a0x"]
+[ext_resource type="Texture2D" uid="uid://b31hnd71plrvn" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame4.png" id="18_ith28"]
+[ext_resource type="Texture2D" uid="uid://85tq8tsgonr7" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame5.png" id="19_66555"]
+[ext_resource type="Texture2D" uid="uid://56txm0blpy5h" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame6.png" id="20_eaph0"]
+[ext_resource type="Texture2D" uid="uid://clgeg8w1qqejh" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame7.png" id="21_1qmbj"]
+[ext_resource type="Texture2D" uid="uid://cb52qij47jnhw" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame8.png" id="22_xtv5q"]
+[ext_resource type="Texture2D" uid="uid://d0kmnkqamb8w6" path="res://effects/frostwindz/slashes/Slash 3/color5/frames/Slash3_color5_frame9.png" id="23_jpwn6"]
+[ext_resource type="Texture2D" uid="uid://cf55kje5sup5o" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame1.png" id="24_6clyq"]
+[ext_resource type="Texture2D" uid="uid://cbqxya22wrlk8" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame2.png" id="25_6pqy6"]
+[ext_resource type="Texture2D" uid="uid://dgtpc167wt1m" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame3.png" id="26_p2rsq"]
+[ext_resource type="Texture2D" uid="uid://m0xra31v5qle" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame4.png" id="27_86f4r"]
+[ext_resource type="Texture2D" uid="uid://n4ldy5k05ri" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame5.png" id="28_40hfh"]
+[ext_resource type="Texture2D" uid="uid://bmm311vqbbww3" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame6.png" id="29_cqby4"]
+[ext_resource type="Texture2D" uid="uid://cgl2bwg7jra1b" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame7.png" id="30_cc7gs"]
+[ext_resource type="Texture2D" uid="uid://bhyj0rndxxpka" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame8.png" id="31_617s4"]
+[ext_resource type="Texture2D" uid="uid://b7jgmpc55dc01" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame9.png" id="32_w08te"]
+[ext_resource type="Texture2D" uid="uid://ba7kxjrisxnqt" path="res://effects/frostwindz/warrior/VFX 3/Frames/warrior_skill3_frame10.png" id="33_n2d0l"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_vshw1")
+"texture": ExtResource("1_sunsd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_au7w8")
+"texture": ExtResource("2_tkrjp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_13ijh")
+"texture": ExtResource("3_n6bwv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_wxe2w")
+"texture": ExtResource("4_ndwx7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_27fag")
+"texture": ExtResource("5_3rm3f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jngfk")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"drop",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_71x6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0ty78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gpc0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lcypn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b86ao")
 }, {
 "duration": 1.0,
 "texture": null
@@ -61,31 +93,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_h5xcn")
+"texture": ExtResource("6_rj2bk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_b72id")
+"texture": ExtResource("7_sunsd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_v7ajo")
+"texture": ExtResource("8_tkrjp")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_uc80o")
+"texture": ExtResource("9_n6bwv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_g1b7u")
+"texture": ExtResource("10_ndwx7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_vshw1")
+"texture": ExtResource("11_3rm3f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_au7w8")
+"texture": ExtResource("12_jngfk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_13ijh")
+"texture": ExtResource("13_15jcj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_wxe2w")
+"texture": ExtResource("14_b13x1")
 }, {
 "duration": 1.0,
 "texture": null
@@ -96,37 +128,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("15_584hv")
+"texture": ExtResource("15_f5dyh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("16_tp5by")
+"texture": ExtResource("16_2jje7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_cykbx")
+"texture": ExtResource("17_m4a0x")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_r5vv5")
+"texture": ExtResource("18_ith28")
 }, {
 "duration": 1.0,
-"texture": ExtResource("19_wj51l")
+"texture": ExtResource("19_66555")
 }, {
 "duration": 1.0,
-"texture": ExtResource("20_pa6q6")
+"texture": ExtResource("20_eaph0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_klhy6")
+"texture": ExtResource("21_1qmbj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_xrvws")
+"texture": ExtResource("22_xtv5q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_rowsg")
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
+"texture": ExtResource("23_jpwn6")
 }, {
 "duration": 1.0,
 "texture": null
@@ -137,34 +163,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("24_71x6t")
+"texture": ExtResource("24_6clyq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_0ty78")
+"texture": ExtResource("25_6pqy6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("26_gpc0h")
+"texture": ExtResource("26_p2rsq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("27_lcypn")
+"texture": ExtResource("27_86f4r")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_b86ao")
+"texture": ExtResource("28_40hfh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("29_rj2bk")
+"texture": ExtResource("29_cqby4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("30_sunsd")
+"texture": ExtResource("30_cc7gs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("31_tkrjp")
+"texture": ExtResource("31_617s4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("32_n6bwv")
+"texture": ExtResource("32_w08te")
 }, {
 "duration": 1.0,
-"texture": ExtResource("33_ndwx7")
+"texture": ExtResource("33_n2d0l")
 }, {
 "duration": 1.0,
 "texture": null

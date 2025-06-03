@@ -39,11 +39,12 @@ process_material = SubResource("ParticleProcessMaterial_ktaxo")
 draw_pass_1 = SubResource("SphereMesh_vphp4")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.215, 0.1, -0.665)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 axis = 1
 sprite_frames = ExtResource("3_2dy0r")
-animation = &"slam"
-frame = 5
+animation = &"drop"
+frame = 6
+frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

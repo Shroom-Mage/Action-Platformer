@@ -3,26 +3,55 @@ using System;
 
 namespace ActionPlatformer {
 	public partial class WhirlAttack : Attack {
-        private AnimatedSprite3D _sprite = null;
+		private AnimatedSprite3D _sprite = null;
 
-        public override void _Ready() {
-            base._Ready();
-            _sprite = GetNode<AnimatedSprite3D>("AnimatedSprite3D");
-        }
+		public override void _Ready() {
+			base._Ready();
+			_sprite = GetNode<AnimatedSprite3D>("Sprite");
+		}
 
-        public override void _PhysicsProcess(double delta) {
-            base._PhysicsProcess(delta);
-            IsPerforming = _sprite.IsPlaying();
+		public override void _PhysicsProcess(double delta) {
             JustPerformed = false;
 
-            if (IsAttackReady && !IsPerforming) {
-                // Attempt to attack
-                _sprite.Frame = 0;
-                _sprite.Play();
+            // Initiate
+            if (IsAttackReady) {
+                if (IsStartingUp) {
+                    IsAttackReady = false;
+                }
+                else if (!IsPerforming) {
+                    IsAttackReady = false;
+                    IsPerforming = true;
+                    JustPerformed = true;
+                    AttackTime = 0.0;
+                    _sprite.Frame = 0;
+                    _sprite.Play();
+                }
+            }
+
+            // Startup
+            if (IsStartingUp) {
+                AttackTime += delta;
+            }
+
+            // Active
+            if (IsActive) {
+                AttackTime += delta;
+                Monitoring = true;
                 HitTargets();
-                IsAttackReady = false;
-                JustPerformed = true;
+            }
+
+            // Recovery
+            if (IsRecovering) {
+                AttackTime += delta;
+                Monitoring = false;
+            }
+
+            // Finish
+            if (IsFinished) {
+                AttackTime = -1.0;
+                Monitoring = false;
+                IsPerforming = false;
             }
         }
-    }
+	}
 }

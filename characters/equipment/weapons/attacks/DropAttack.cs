@@ -5,34 +5,12 @@ namespace ActionPlatformer {
 	public partial class DropAttack : Attack {
 		private GpuParticles3D _particles = null;
 		private AnimatedSprite3D _sprite = null;
-		private double _startupTimeRemaining = 0.0;
-		private double _recoveryTimeRemaining = 0.0;
-		private bool _bJustStartedDescent = false;
-		private bool _bIsDescending = false;
 		private bool _bTouchedGround = false;
 
-		[Export(PropertyHint.Range, "0,10")]
-		public double DropStartupTime = 0.25;
-		[Export(PropertyHint.Range, "0,10")]
-		public double DropRecoveryTime = 0.25;
 		[Export(PropertyHint.Range, "0,100")]
 		public float DropSpeed = 15.0f;
 
-		public bool IsInStartup {
-			get { return _startupTimeRemaining > 0.0; }
-		}
-
-		public bool IsInRecovery {
-			get { return _recoveryTimeRemaining > 0.0; }
-		}
-
-		public bool JustStartedDescent {
-			get { return _bJustStartedDescent; }
-		}
-
-		public bool IsDescending {
-			get { return _bIsDescending; }
-		}
+		public bool JustStartedDescent { get; private set; }
 
 		public override void _Ready() {
 			base._Ready();
@@ -42,39 +20,47 @@ namespace ActionPlatformer {
 		}
 
 		public override void _PhysicsProcess(double delta) {
-            base._PhysicsProcess(delta);
-            JustPerformed = false;
-			_bJustStartedDescent = false;
+			JustPerformed = false;
+			JustStartedDescent = false;
 
-			if (IsAttackReady) {
+            // Initiate
+            if (IsAttackReady) {
 				IsAttackReady = false;
 				IsPerforming = true;
 				JustPerformed = true;
-				_startupTimeRemaining = DropStartupTime;
-				_recoveryTimeRemaining = DropRecoveryTime;
+				AttackTime = 0.0;
 				_bTouchedGround = false;
 				_particles.Emitting = true;
-			}
+            }
 
-			if (_startupTimeRemaining > 0.0) {
-				_startupTimeRemaining -= delta;
-				if (_startupTimeRemaining <= 0.0) {
-					_bIsDescending = true;
-					_bJustStartedDescent = true;
+            // Startup
+            if (IsStartingUp) {
+				AttackTime += delta;
+				if (!IsStartingUp) {
+                    AttackTime = StartupTime;
+                    JustStartedDescent = true;
 				}
 			}
 
-			if (_bIsDescending) {
-				HitTargets();
+            // Active
+            if (IsActive) {
+                Monitoring = true;
+                HitTargets();
 			}
 
-			if (_recoveryTimeRemaining > 0.0 && _bTouchedGround) {
-				_recoveryTimeRemaining -= delta;
-				if (_recoveryTimeRemaining <= 0.0) {
-					IsPerforming = false;
-				}
-			}
-		}
+            // Recovery
+            if (IsRecovering) {
+                AttackTime += delta;
+                Monitoring = false;
+            }
+
+            // Finish
+            if (IsFinished) {
+                AttackTime = -1.0;
+                Monitoring = false;
+                IsPerforming = false;
+            }
+        }
 
 		public void TouchGround() {
 			if (!IsPerforming || _bTouchedGround) {
@@ -82,7 +68,7 @@ namespace ActionPlatformer {
 			}
 
 			_bTouchedGround = true;
-			_bIsDescending = false;
+			AttackTime = StartupTime + ActiveTime;
 			_particles.Emitting = false;
 			_sprite.Frame = 0;
 			_sprite.Play();

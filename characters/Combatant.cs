@@ -21,7 +21,7 @@ namespace ActionPlatformer {
 		private Weapon _weapon = null;
 		private GpuParticles3D _dust = null;
 
-        [Export, ExportGroup("Combat")]
+		[Export, ExportGroup("Combat")]
 		public float Life = 1.0f;
 		[Export, ExportGroup("Combat")]
 		public float Defense = 1.0f;
@@ -30,7 +30,7 @@ namespace ActionPlatformer {
 		[Export, ExportGroup("Combat")]
 		public PackedScene DeathBurst = null;
 
-        [Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
+		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float GroundSpeed = 7.5f;
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
 		public float AirSpeed = 7.5f;
@@ -117,8 +117,8 @@ namespace ActionPlatformer {
 			}
 			else {
 				_dust = new GpuParticles3D();
-            }
-        }
+			}
+		}
 
 		public bool MoveAndAttack(CombatInput input, double delta) {
 			Vector2 velocityXZ = new Vector2(Velocity.X, Velocity.Z);
@@ -150,11 +150,11 @@ namespace ActionPlatformer {
 			if (_bIsStunned && bIsOnGround && !_bJustStunned) {
 				_bIsStunned = false;
 				if (Life <= 0) {
-                    GpuParticles3D burst = (GpuParticles3D)DeathBurst.Instantiate();
+					GpuParticles3D burst = (GpuParticles3D)DeathBurst.Instantiate();
 					GetParent().AddChild(burst);
 					burst.GlobalPosition = GlobalPosition;
-                    burst.Restart();
-                    QueueFree();
+					burst.Restart();
+					QueueFree();
 				}
 			}
 			if (_bJustStunned) _bJustStunned = false;
@@ -267,12 +267,12 @@ namespace ActionPlatformer {
 				if (bSwordHop) {
 					velocityY += _weapon.Aerial.SwordHopSpeed - (velocityY / _weapon.Aerial.SwordHopCount);
 				}
-				// Slam Startup
-				else if (_weapon.Drop.IsInStartup) {
+				// Drop Startup
+				else if (_weapon.Drop.IsStartingUp) {
 					velocityXZ = Vector2.Zero;
 					velocityY = 0.0f;
 				}
-				// Slam Start
+				// Drop Active
 				else if (_weapon.Drop.JustStartedDescent) {
 					velocityXZ = Vector2.Zero;
 					velocityY = -_weapon.Drop.DropSpeed;
@@ -334,9 +334,10 @@ namespace ActionPlatformer {
 				// Attack was not blocked
 				// DamageTaken = AttackDamage * WeaponPower / ArmorDefense
 				float damageTaken = attack.Damage * attacker._weapon.Power / Defense;
-				if (!_bIsStunned)
+				if (!_bIsStunned) {
 					Life -= damageTaken;
-				GD.Print(ToString() + " takes " + damageTaken + " damage from " + attacker + ".");
+					GD.Print(ToString() + " takes " + damageTaken + " damage from " + attacker + ".");
+				}
 				// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
 				float forceTaken = attack.Force * attacker._weapon.Impact / Poise;
 				Velocity = new Vector3(attacker.Forward.X, 1.0f, attacker.Forward.Y).Normalized() * forceTaken;

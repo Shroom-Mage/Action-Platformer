@@ -4,10 +4,13 @@
 [ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_uit1i"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_neits"]
-height = 0.25
+height = 0.5
 
 [node name="AerialAttack" type="Area3D"]
 script = ExtResource("1_lwpjt")
+StartupTime = 0.1
+ActiveTime = 0.133
+RecoveryTime = 0.067
 IsBlockedHigh = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
@@ -15,13 +18,25 @@ metadata/_custom_type_script = "uid://bfm1026m4yuac"
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CylinderShape3D_neits")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="Sprite0" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, 0, 0)
 flip_h = true
 flip_v = true
 axis = 0
 sprite_frames = ExtResource("2_uit1i")
 animation = &"slash"
 frame = 9
+frame_progress = 1.0
+
+[node name="Sprite1" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0, 0, 0)
+flip_h = true
+flip_v = true
+axis = 0
+sprite_frames = ExtResource("2_uit1i")
+animation = &"slash"
+frame = 9
+frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

@@ -5,78 +5,67 @@ using System;
 namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Attack : Area3D {
-		private Array<Combatant> _targets;
 		private Combatant _attacker;
 
 		private bool _bCanPerform = false;
-		private bool _bIsAttackReady = false;
-		private bool _bIsPerforming = false;
-		private bool _bJustPerformed = false;
-
-		private double _time = 0.0;
 
 		[Export]
 		public float Damage { get; set; } = 0.0f;
 		[Export]
 		public float Force { get; set; } = 0.0f;
-        [Export]
-        public float Startup { get; set; } = 0.0f;
-        [Export]
-        public float Active { get; set; } = 0.0f;
-        [Export]
-        public float Recovery { get; set; } = 0.0f;
-        [Export]
+		[Export(PropertyHint.Range, "0.0,10")]
+		public double StartupTime { get; set; } = 0.0f;
+		[Export(PropertyHint.Range, "0.017,10")]
+		public double ActiveTime { get; set; } = 0.017f;
+		[Export(PropertyHint.Range, "0.0,10")]
+		public double RecoveryTime { get; set; } = 0.0f;
+		[Export]
 		public bool IsBlockedHigh { get; set; } = false;
-        [Export]
+		[Export]
 		public bool IsBlockedLow { get; set; } = false;
 
-        public Array<Combatant> Targets {
-			get { return _targets; }
-		}
+		public Array<Combatant> Targets { get; private set; }
+		public bool IsAttackReady { get; protected set; } = false;
+		public bool IsPerforming { get; protected set; } = false;
+		public bool JustPerformed { get; protected set; } = false;
+		public double AttackTime { get; protected set; } = -1.0;
 
 		public bool CanPerform {
 			get { return _bCanPerform; }
 			set {
 				_bCanPerform = value;
-				if (IsAttackReady) {
-					_bIsAttackReady = value;
+				if (!value) {
+					IsAttackReady = false;
 				}
 			}
 		}
 
-		public bool IsAttackReady {
-			get { return _bIsAttackReady; }
-			protected set { _bIsAttackReady = value; }
+		public bool IsStartingUp {
+			get { return AttackTime >= 0.0 &&
+					AttackTime < StartupTime; }
 		}
 
-		public bool IsPerforming {
-			get { return _bIsPerforming; }
-			protected set { _bIsPerforming = value; }
+		public bool IsActive {
+			get { return AttackTime >= StartupTime &&
+					AttackTime < StartupTime + ActiveTime; }
 		}
 
-		public bool JustPerformed {
-			get { return _bJustPerformed; }
-			protected set { _bJustPerformed = value; }
+		public bool IsRecovering {
+			get { return AttackTime >= StartupTime + ActiveTime &&
+					AttackTime < StartupTime + ActiveTime + RecoveryTime; }
+		}
+
+		public bool IsFinished {
+			get { return AttackTime >= StartupTime + ActiveTime + RecoveryTime; }
 		}
 
 		public Attack() {
-			_targets = new Array<Combatant>();
+			Targets = new Array<Combatant>();
 		}
-
-		public override void _Ready() {
-			Monitoring = true;
-		}
-
-        public override void _PhysicsProcess(double delta) {
-			if (IsPerforming) {
-				_time += delta;
-			}
-        }
 
 		public void Perform(Combatant attacker) {
-			_bIsAttackReady = true;
+			IsAttackReady = true;
 			_attacker = attacker;
-			_time = 0.0;
 		}
 
 		public void HitTargets() {
@@ -91,7 +80,7 @@ namespace ActionPlatformer {
 				return;
 			}
 
-			_targets.Add(target);
+			Targets.Add(target);
 		}
 
 		private void OnBodyExited(Node3D node) {
@@ -100,7 +89,7 @@ namespace ActionPlatformer {
 				return;
 			}
 
-			_targets.Remove(target);
+			Targets.Remove(target);
 		}
 	}
 }

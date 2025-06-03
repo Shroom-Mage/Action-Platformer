@@ -4,21 +4,27 @@
 [ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="2_7hwui"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_o5wey"]
-height = 0.5
+height = 0.875
+radius = 1.5
 
 [node name="WhirlAttack" type="Area3D"]
 script = ExtResource("1_3hslx")
+StartupTime = 0.133
+ActiveTime = 0.067
+RecoveryTime = 0.133
 IsBlockedHigh = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_o5wey")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
+pixel_size = 0.02
 axis = 1
 sprite_frames = ExtResource("2_7hwui")
 animation = &"spin"
 frame = 10
+frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

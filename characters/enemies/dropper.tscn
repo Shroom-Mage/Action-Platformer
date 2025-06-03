@@ -74,13 +74,22 @@ omni_attenuation = 10.0
 
 [node name="Weapon" parent="Pivot" instance=ExtResource("2_7qims")]
 
+[node name="StandingAttack" parent="Pivot/Weapon" index="0"]
+transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+
+[node name="AerialAttack" parent="Pivot/Weapon" index="2"]
+transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+
 [node name="DropAttack" parent="Pivot/Weapon" index="3"]
-DropRecoveryTime = 0.5
 DropSpeed = 10.0
 Damage = 1.0
+RecoveryTime = 0.5
 
 [node name="CollisionShape3D" parent="Pivot/Weapon/DropAttack" index="0"]
 shape = SubResource("SphereShape3D_3x5wn")
+
+[node name="WhirlAttack" parent="Pivot/Weapon" index="4"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
 
 [node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
 

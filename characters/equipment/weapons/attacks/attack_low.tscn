@@ -8,18 +8,21 @@ height = 0.25
 
 [node name="LowAttack" type="Area3D"]
 script = ExtResource("1_oqe72")
+StartupTime = 0.1
+ActiveTime = 0.133
+RecoveryTime = 0.1
 IsBlockedLow = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_oqe72")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
 flip_v = true
 axis = 1
 sprite_frames = ExtResource("3_6m7a6")
 animation = &"slash_low"
-frame = 11
+frame = 9
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]

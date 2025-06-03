@@ -12,7 +12,7 @@ script = ExtResource("1_32xa4")
 metadata/_custom_type_script = "uid://dxh6rwabqnoib"
 
 [node name="StandingAttack" parent="." instance=ExtResource("2_3mklu")]
-transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.75, 0.44)
 collision_layer = 2
 collision_mask = 4
 monitoring = false
@@ -30,7 +30,7 @@ Damage = 5.0
 Force = 5.0
 
 [node name="AerialAttack" parent="." instance=ExtResource("4_u5vc2")]
-transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.75, 0.44)
 collision_layer = 2
 collision_mask = 4
 monitoring = false
@@ -45,9 +45,11 @@ monitoring = false
 monitorable = false
 Damage = 10.0
 Force = 10.0
+StartupTime = 0.25
+RecoveryTime = 0.25
 
 [node name="WhirlAttack" parent="." instance=ExtResource("6_idn8c")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 2
 collision_mask = 4
 monitoring = false
