@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://b6cc053xun42n"]
 
-[ext_resource type="Script" uid="uid://1sko3n6uteub" path="res://characters/enemies/Dropper.cs" id="1_7qims"]
+[ext_resource type="Script" uid="uid://1sko3n6uteub" path="res://characters/enemies/dropper/Dropper.cs" id="1_7qims"]
 [ext_resource type="PackedScene" uid="uid://cg5qj6yaarmfk" path="res://effects/death_burst.tscn" id="2_3x5wn"]
 [ext_resource type="PackedScene" uid="uid://bsimwk2u7aktk" path="res://characters/equipment/weapons/weapon_enemy.tscn" id="2_7qims"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_nrakn"]

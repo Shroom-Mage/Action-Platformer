@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://buu8wl23agswh" path="res://characters/player/player.tscn" id="1_cf3ey"]
 [ext_resource type="PackedScene" uid="uid://pbe5scdtayhf" path="res://environment/env_cave.tscn" id="1_x6pcg"]
-[ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper.tscn" id="3_7uuc0"]
+[ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper/dropper.tscn" id="3_7uuc0"]
 [ext_resource type="Material" uid="uid://dev1jbqj8tdgy" path="res://environment/m_stone.tres" id="3_mbhx0"]
 [ext_resource type="PackedScene" uid="uid://b0hnhn7wxn2yr" path="res://effects/lights/torch_light.tscn" id="4_mr1je"]
-[ext_resource type="PackedScene" uid="uid://1tgqyy0vap4u" path="res://characters/enemies/guard.tscn" id="5_wbirl"]
+[ext_resource type="PackedScene" uid="uid://1tgqyy0vap4u" path="res://characters/enemies/guard/guard.tscn" id="5_wbirl"]
 
 [node name="IntroTest" type="Node3D"]
 

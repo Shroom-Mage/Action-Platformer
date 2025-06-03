@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://1tgqyy0vap4u"]
 
-[ext_resource type="Script" uid="uid://l0wj82aga8fk" path="res://characters/enemies/Guard.cs" id="1_ps64d"]
+[ext_resource type="Script" uid="uid://l0wj82aga8fk" path="res://characters/enemies/guard/Guard.cs" id="1_ps64d"]
 [ext_resource type="PackedScene" uid="uid://cg5qj6yaarmfk" path="res://effects/death_burst.tscn" id="2_7ghbo"]
 [ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/char/char.tscn" id="2_p32lx"]
 [ext_resource type="PackedScene" uid="uid://bsimwk2u7aktk" path="res://characters/equipment/weapons/weapon_enemy.tscn" id="3_1ou84"]

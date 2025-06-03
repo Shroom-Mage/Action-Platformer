@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bhfcxlvqytu1b"
-path="res://.godot/imported/bat_knight.fbx-09b9d8a293c68562e55caa38020bb3f8.scn"
+path="res://.godot/imported/knight.fbx-102de9410db39c659a09ac227e08854a.scn"
 
 [deps]
 
-source_file="res://characters/player/bat/bat_knight.fbx"
-dest_files=["res://.godot/imported/bat_knight.fbx-09b9d8a293c68562e55caa38020bb3f8.scn"]
+source_file="res://characters/player/knight/knight.fbx"
+dest_files=["res://.godot/imported/knight.fbx-102de9410db39c659a09ac227e08854a.scn"]
 
 [params]
 
