@@ -52,15 +52,15 @@ namespace ActionPlatformer {
 		}
 
 		protected override void PlayIdle() {
-			_model.PlayIdle();
-		}
+			_model.PlayLocomotion(0.0f, 0.0f);
+        }
 
 		protected override void PlayCrouch() {
 			_model.PlayCrouch();
 		}
 
 		protected override void PlayRun(float speed, float tilt) {
-			_model.PlayRun(speed, tilt);
+			_model.PlayLocomotion(speed, tilt);
 		}
 
 		protected override void PlayJump() {

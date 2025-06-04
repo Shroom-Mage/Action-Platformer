@@ -195,6 +195,8 @@ namespace ActionPlatformer {
 				_weapon.Whirl.IsPerforming ||
 				_weapon.Drop.IsPerforming;
 			bSwordHop = _weapon.Aerial.JustPerformed;
+
+			// Negate movement input if attacking or stunned
 			directionXZ *= (bIsAttacking || _bIsStunned) ? 0.0f : moveSpeed;
 
 			// Set target velocity
