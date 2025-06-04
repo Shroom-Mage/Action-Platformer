@@ -3,40 +3,39 @@ using System;
 
 namespace ActionPlatformer {
 	public partial class Guard : Enemy {
-		private Node3D _model = null;
+		private CombatantModel _model = null;
 
 		public override void _Ready() {
 			base._Ready();
-			_model = GetNode<Node3D>("Pivot/Model");
+			_model = GetNode<CombatantModel>("Pivot/Model");
 		}
 
 		protected override void PlayIdle() {
-			_model.Call("idle");
-		}
+            _model.PlayIdle();
+        }
 
 		protected override void PlayCrouch() {
-			_model.Call("crouch");
-		}
+            _model.PlayCrouch();
+        }
 
-		protected override void PlayMove(float speed, float tilt) {
-			_model.Call("move", speed / GroundSpeed);
-			_model.Set("run_tilt", tilt);
-		}
+		protected override void PlayRun(float speed, float tilt) {
+            _model.PlayRun(speed, tilt);
+        }
 
 		protected override void PlayJump() {
-			_model.Call("jump");
-		}
+            _model.PlayJump();
+        }
 
 		protected override void PlayFall() {
-			_model.Call("fall");
-		}
+            _model.PlayFall();
+        }
 
 		protected override void PlaySkid() {
-			_model.Call("skid");
-		}
+            _model.PlaySkid();
+        }
 
 		protected override void PlaySlide() {
-			_model.Call("wall_slide");
-		}
+            _model.PlayWallSlide();
+        }
 	}
 }

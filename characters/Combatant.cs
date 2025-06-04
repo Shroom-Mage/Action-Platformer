@@ -208,7 +208,7 @@ namespace ActionPlatformer {
 					velocityXZ = velocityXZ.MoveToward(velocityTarget, GroundAcceleration * (float)delta);
 					if (!_bIsBlocking)
 						Forward = velocityXZ;
-					PlayMove(velocityXZ.Length(), _right.Dot(directionXYZ));
+					PlayRun(velocityXZ.Length(), _right.Dot(directionXYZ));
 				}
 				else {
 					// In air
@@ -271,11 +271,13 @@ namespace ActionPlatformer {
 				else if (_weapon.Drop.IsStartingUp) {
 					velocityXZ = Vector2.Zero;
 					velocityY = 0.0f;
+					PlayDrop();
 				}
 				// Drop Active
 				else if (_weapon.Drop.JustStartedDescent) {
 					velocityXZ = Vector2.Zero;
 					velocityY = -_weapon.Drop.DropSpeed;
+					PlayDrop();
 				}
 				// Rising
 				else if (velocityY >= 0.0f) {
@@ -294,7 +296,10 @@ namespace ActionPlatformer {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
-						PlayFall();
+						if (_weapon.Drop.IsActive)
+							PlayDrop();
+						else
+							PlayFall();
 					}
 					else if (CanWallSlide) {
 						// Sliding on wall
@@ -346,36 +351,24 @@ namespace ActionPlatformer {
 			}
 		}
 
-		protected virtual void PlayIdle() {
-			
-		}
+		protected virtual void PlayIdle() {}
 
-		protected virtual void PlayCrouch() {
-			
-		}
+		protected virtual void PlayCrouch() {}
 
-		protected virtual void PlayMove(float speed, float tilt) {
-			
-		}
+		protected virtual void PlayRun(float speed, float tilt) {}
 
-		protected virtual void PlayJump() {
-			
-		}
+		protected virtual void PlayJump() {}
 
-		protected virtual void PlayFall() {
-			
-		}
+		protected virtual void PlayFall() {}
 
-		protected virtual void PlaySkid() {
-			
-		}
+		protected virtual void PlaySkid() {}
 
-		protected virtual void PlaySlide() {
+		protected virtual void PlaySlide() {}
 
-		}
+		protected virtual void PlayBlock() {}
 
-		protected virtual void PlayBlock() {
+		protected virtual void PlayDrop() {}
 
-		}
+		protected virtual void PlayDropLand() {}
 	}
 }

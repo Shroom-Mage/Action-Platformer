@@ -1,24 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6cc053xun42n"]
+[gd_scene load_steps=11 format=3 uid="uid://b6cc053xun42n"]
 
 [ext_resource type="Script" uid="uid://1sko3n6uteub" path="res://characters/enemies/dropper/Dropper.cs" id="1_7qims"]
 [ext_resource type="PackedScene" uid="uid://cg5qj6yaarmfk" path="res://effects/death_burst.tscn" id="2_3x5wn"]
 [ext_resource type="PackedScene" uid="uid://bsimwk2u7aktk" path="res://characters/equipment/weapons/weapon_enemy.tscn" id="2_7qims"]
+[ext_resource type="PackedScene" uid="uid://d2f003akl1lsl" path="res://characters/enemies/dropper/dropper_model.tscn" id="3_dq5jv"]
 [ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_nrakn"]
 [ext_resource type="BehaviorTree" uid="uid://5tgh3r65dmi6" path="res://ai/behavior_trees/dropper.tres" id="4_7qims"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_djh48"]
 height = 0.5
 radius = 0.3
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvmt3"]
-albedo_color = Color(0.8, 0.6, 0.2, 1)
-
-[sub_resource type="PrismMesh" id="PrismMesh_nrakn"]
-material = SubResource("StandardMaterial3D_uvmt3")
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_nrakn"]
-length = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3x5wn"]
 radius = 0.25
@@ -50,27 +41,7 @@ shape = SubResource("CylinderShape3D_djh48")
 
 [node name="Pivot" type="Node3D" parent="."]
 
-[node name="Model" type="MeshInstance3D" parent="Pivot"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.25, 0)
-layers = 4
-mesh = SubResource("PrismMesh_nrakn")
-skeleton = NodePath("../..")
-
-[node name="ShadowArm" type="SpringArm3D" parent="Pivot/Model"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.25, -2.18557e-08)
-shape = SubResource("SeparationRayShape3D_nrakn")
-spring_length = 10.0
-
-[node name="Shadow" type="OmniLight3D" parent="Pivot/Model/ShadowArm"]
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_size = 1.0
-light_negative = true
-light_specular = 0.0
-light_bake_mode = 0
-light_cull_mask = 4293918721
-omni_range = 0.3
-omni_attenuation = 10.0
+[node name="Model" parent="Pivot" instance=ExtResource("3_dq5jv")]
 
 [node name="Weapon" parent="Pivot" instance=ExtResource("2_7qims")]
 
