@@ -8,6 +8,7 @@ cull_mode = 2
 albedo_texture = ExtResource("1_w1mn5")
 emission_enabled = true
 emission_texture = ExtResource("1_w1mn5")
+uv1_offset = Vector3(0, 0.5, 0)
 metadata/extras = {
 "yp": {
 "active_ypaint_node": ""

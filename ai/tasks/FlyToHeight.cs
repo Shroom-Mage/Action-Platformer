@@ -15,6 +15,11 @@ public partial class FlyToHeight : BTAction
 
 	public override Status _Tick(double delta) {
 		Enemy self = Agent as Enemy;
+
+		if (self.IsAttacking || self.IsStunned) {
+			return Status.Failure;
+		}
+		
 		Vector3 destination = self.GlobalPosition;
 		destination.Y -= Height;
 

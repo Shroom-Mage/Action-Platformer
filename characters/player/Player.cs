@@ -4,7 +4,6 @@ using System;
 namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Player : Combatant {
-		private CombatantModel _model = null;
 		private Node3D _cameraPivot = null;
 		private SpringArm3D _cameraArm = null;
 		private Camera3D _camera = null;
@@ -19,7 +18,6 @@ namespace ActionPlatformer {
 
 		public override void _Ready() {
 			base._Ready();
-			_model = GetNode<CombatantModel>("Pivot/Model");
 			_cameraPivot = GetNode<Node3D>("CameraPivot");
 			_cameraArm = GetNode<SpringArm3D>("CameraPivot/CameraArm");
 			_camera = GetNode<Camera3D>("CameraPivot/CameraArm/Camera3D");
@@ -52,39 +50,39 @@ namespace ActionPlatformer {
 		}
 
 		protected override void PlayIdle() {
-			_model.PlayLocomotion(0.0f, 0.0f);
-        }
+			Model.PlayLocomotion(0.0f, 0.0f);
+		}
 
 		protected override void PlayCrouch() {
-			_model.PlayCrouch();
+			Model.PlayCrouch();
 		}
 
 		protected override void PlayRun(float speed, float tilt) {
-			_model.PlayLocomotion(speed, tilt);
+			Model.PlayLocomotion(speed, tilt);
 		}
 
 		protected override void PlayJump() {
-			_model.PlayJump();
+			Model.PlayJump();
 		}
 
 		protected override void PlayFall() {
-			_model.PlayFall();
+			Model.PlayFall();
 		}
 
 		protected override void PlaySkid() {
-			_model.PlaySkid();
+			Model.PlaySkid();
 		}
 
 		protected override void PlaySlide() {
-			_model.PlayWallSlide();
+			Model.PlayWallSlide();
 		}
 
-        protected override void PlayDrop() {
-            _model.PlayFall();
-        }
+		protected override void PlayDrop() {
+			Model.PlayFall();
+		}
 
-        protected override void PlayDropLand() {
-            _model.PlayFall();
-        }
-    }
+		protected override void PlayDropLand() {
+			Model.PlayFall();
+		}
+	}
 }
