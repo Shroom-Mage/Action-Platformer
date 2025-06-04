@@ -74,7 +74,7 @@ states/Locomotion/position = Vector2(389.012, 184.333)
 states/Run/node = SubResource("AnimationNodeAnimation_63g3o")
 states/Run/position = Vector2(387.524, 99.6667)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dd1xe"), "Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_knqh1"), "Start", "Run", SubResource("AnimationNodeStateMachineTransition_8flac")]
-graph_offset = Vector2(-291, -75)
+graph_offset = Vector2(-277, -135)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1mock"]
 animation = &"WallSlide"
@@ -114,7 +114,6 @@ xfade_time = 0.05
 xfade_time = 0.1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oxjrq"]
-xfade_time = 0.1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8ed60"]
 
@@ -158,4 +157,4 @@ states/Stand/position = Vector2(344.742, 99.9627)
 states/WallSlide/node = SubResource("AnimationNodeAnimation_1mock")
 states/WallSlide/position = Vector2(341.122, -29.4032)
 transitions = ["Fall", "Drop", SubResource("AnimationNodeStateMachineTransition_yjuti"), "Drop", "DropLand", SubResource("AnimationNodeStateMachineTransition_405yx"), "Jump", "Drop", SubResource("AnimationNodeStateMachineTransition_w2jy5"), "Jump", "Rise", SubResource("AnimationNodeStateMachineTransition_2r5nx"), "Rise", "Fall", SubResource("AnimationNodeStateMachineTransition_dffry"), "Fall", "Rise", SubResource("AnimationNodeStateMachineTransition_ra44k"), "DropLand", "Crouch", SubResource("AnimationNodeStateMachineTransition_vqikr"), "Crouch", "Skid", SubResource("AnimationNodeStateMachineTransition_hs36v"), "Skid", "Crouch", SubResource("AnimationNodeStateMachineTransition_b2ieo"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_63g3o"), "WallSlide", "Jump", SubResource("AnimationNodeStateMachineTransition_dkc58"), "Fall", "WallSlide", SubResource("AnimationNodeStateMachineTransition_oxjrq"), "WallSlide", "Stand", SubResource("AnimationNodeStateMachineTransition_8ed60"), "Start", "Stand", SubResource("AnimationNodeStateMachineTransition_ghx0o"), "Fall", "Stand", SubResource("AnimationNodeStateMachineTransition_xqopm"), "DropLand", "Stand", SubResource("AnimationNodeStateMachineTransition_s2k7u"), "Crouch", "Stand", SubResource("AnimationNodeStateMachineTransition_bo6wu"), "Skid", "Stand", SubResource("AnimationNodeStateMachineTransition_f0noh"), "Jump", "Stand", SubResource("AnimationNodeStateMachineTransition_h0klc"), "Stand", "Jump", SubResource("AnimationNodeStateMachineTransition_dcsb5"), "Stand", "Crouch", SubResource("AnimationNodeStateMachineTransition_irhku"), "Stand", "Skid", SubResource("AnimationNodeStateMachineTransition_hrys3")]
-graph_offset = Vector2(-149, 42)
+graph_offset = Vector2(-208, -194)

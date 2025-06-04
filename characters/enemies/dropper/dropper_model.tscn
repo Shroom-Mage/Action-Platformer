@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2f003akl1lsl"]
+[gd_scene load_steps=7 format=3 uid="uid://d2f003akl1lsl"]
 
 [ext_resource type="PackedScene" uid="uid://cm3vx26ax6xce" path="res://characters/enemies/dropper/enemy_bat.glb" id="1_ybukb"]
 [ext_resource type="Script" uid="uid://c16tdhbea1ddm" path="res://characters/CombatantModel.cs" id="2_36fe7"]
+[ext_resource type="Material" uid="uid://bj3l6n6d3a7ng" path="res://characters/enemies/dropper/enemy_bat_eye.tres" id="3_1c0ba"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bib0ugs6eao7n" path="res://characters/combatant_state_machine.tres" id="3_36fe7"]
 [ext_resource type="Script" uid="uid://c62kvlqi0u0nq" path="res://characters/ExpressionManager.cs" id="4_38a58"]
 
@@ -14,49 +15,8 @@ script = ExtResource("2_36fe7")
 [node name="root" parent="." index="0"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.2, 0)
 
-[node name="Skeleton3D" parent="root" index="0"]
-bones/1/position = Vector3(-5.42014e-09, 0.447921, 0.00248397)
-bones/2/position = Vector3(-5.47009e-16, 0.235249, 2.99861e-11)
-bones/3/position = Vector3(-5.9991e-16, 0.301858, -2.91711e-10)
-bones/4/position = Vector3(0.240182, 0.346002, -0.00479648)
-bones/4/rotation = Quaternion(0.165154, -0.0485935, -0.0494067, 0.98383)
-bones/5/rotation = Quaternion(0.00837966, -0.0587778, -0.196152, 0.978774)
-bones/6/rotation = Quaternion(0.00150928, -0.0105865, -0.0353293, 0.999319)
-bones/7/position = Vector3(-0.240182, 0.346002, -0.00479652)
-bones/7/rotation = Quaternion(0.165154, 0.0485933, 0.0494067, 0.98383)
-bones/8/rotation = Quaternion(0.00837967, 0.0587778, 0.196152, 0.978774)
-bones/9/rotation = Quaternion(0.00150931, 0.0105865, 0.0353293, 0.999319)
-bones/11/rotation = Quaternion(-0.2062, 0.326829, 0.0345282, 0.921668)
-bones/12/rotation = Quaternion(-5.23851e-08, -0.91919, -2.72026e-08, 0.393814)
-bones/13/rotation = Quaternion(1.90293e-08, 2.71991e-07, -0.588347, 0.808609)
-bones/14/rotation = Quaternion(5.45138e-08, 0.65386, 5.5764e-08, 0.756616)
-bones/15/rotation = Quaternion(-0.0227208, 0.622019, 0.0176136, 0.782474)
-bones/18/rotation = Quaternion(-0.370839, -0.24961, 0.245086, 0.860294)
-bones/20/rotation = Quaternion(0.0466691, 0.0702488, 0.948017, 0.30684)
-bones/22/rotation = Quaternion(0.0122641, 0.0363879, 0.794157, 0.606498)
-bones/24/rotation = Quaternion(-0.457122, 0.243664, 0.688111, 0.508105)
-bones/27/rotation = Quaternion(-0.206199, -0.326829, -0.0345284, 0.921668)
-bones/28/rotation = Quaternion(-3.02825e-07, 0.91919, -2.0724e-07, 0.393814)
-bones/29/rotation = Quaternion(-6.56864e-08, 2.67074e-07, 0.588347, 0.808609)
-bones/30/rotation = Quaternion(-2.22518e-09, -0.65386, -2.86236e-08, 0.756615)
-bones/31/rotation = Quaternion(-0.0227211, -0.62202, -0.0176136, 0.782474)
-bones/32/rotation = Quaternion(-0.370839, 0.24961, -0.245086, 0.860295)
-bones/36/rotation = Quaternion(-0.0466691, 0.070249, 0.948017, -0.306841)
-bones/38/rotation = Quaternion(-0.0122641, 0.036388, 0.794157, -0.606498)
-bones/40/rotation = Quaternion(-0.457123, -0.243664, -0.68811, 0.508105)
-bones/42/rotation = Quaternion(-0.707107, -8.83232e-08, -8.02642e-08, 0.707107)
-bones/43/rotation = Quaternion(-3.27377e-29, -4.44088e-15, 2.66454e-15, 1)
-bones/44/rotation = Quaternion(0.700203, -0.316344, 0.602246, -0.216661)
-bones/45/rotation = Quaternion(-0.00531713, 0.00763293, 0.0624761, 0.998003)
-bones/46/position = Vector3(-1.01039e-08, 0.13596, -3.75168e-10)
-bones/46/rotation = Quaternion(-0.0868366, -0.0142448, 0.14436, 0.985605)
-bones/47/rotation = Quaternion(0.700204, 0.316344, -0.602246, -0.21666)
-bones/48/rotation = Quaternion(-0.00531724, -0.00763294, -0.0624761, 0.998003)
-bones/49/position = Vector3(-7.12802e-09, 0.135961, 2.59999e-08)
-bones/49/rotation = Quaternion(-0.0868366, 0.0142448, -0.14436, 0.985605)
-
 [node name="enemy_bat" parent="root/Skeleton3D" index="0"]
-layers = 4
+surface_material_override/1 = ExtResource("3_1c0ba")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 unique_name_in_owner = true
@@ -70,12 +30,12 @@ parameters/Stand/Locomotion/Tilt/add_amount = 0
 unique_name_in_owner = true
 script = ExtResource("4_38a58")
 Mesh = NodePath("../root/Skeleton3D/enemy_bat")
-ExpressionCoordinates = {
+ExpressionCoordinates = Dictionary[int, Vector3]({
 0: Vector3(0, 0.5, 0),
 1: Vector3(0.5, 0.5, 0),
 2: Vector3(0, 0, 0),
 3: Vector3(0.5, 0, 0)
-}
+})
 metadata/_custom_type_script = "uid://c62kvlqi0u0nq"
 
 [node name="ShadowArm" type="SpringArm3D" parent="." index="4"]

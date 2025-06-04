@@ -5,16 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://b38vahcwqubi0" path="res://environment/terrain/platform_tiny.tscn" id="2_jedxc"]
 [ext_resource type="PackedScene" uid="uid://j2ksih2r28a3" path="res://environment/terrain/platform_short_ramp.tscn" id="3_72r3t"]
 [ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/m_grass.tres" id="4_q1q1c"]
-[ext_resource type="PackedScene" uid="uid://b80wl20isuajj" path="res://characters/enemies/hit_dummy.tscn" id="5_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://b6cc053xun42n" path="res://characters/enemies/dropper/dropper.tscn" id="6_lpvoh"]
 
 [node name="Test" type="Node3D"]
 
 [node name="GrassEnvironment" parent="." instance=ExtResource("2_at5dv")]
 
 [node name="Player" parent="." instance=ExtResource("1_ewdoh")]
-
-[node name="HitDummy" parent="." instance=ExtResource("5_j5jx5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 4)
 
 [node name="Geometry" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, 0)
@@ -804,3 +802,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 11.5, 0)
 use_collision = true
 size = Vector3(2, 2, 2)
 material = ExtResource("4_q1q1c")
+
+[node name="Dropper" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -5, -12)
+
+[node name="Dropper2" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, 4)
+
+[node name="Dropper3" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -5, -18)
+
+[node name="Dropper4" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5, -7)
+
+[node name="Dropper5" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -6, -17)
+
+[node name="Dropper6" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, -17)
+
+[node name="Dropper7" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -5, -13)
+
+[node name="Dropper8" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, -22)
+
+[node name="Dropper9" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -5, -13)
+
+[node name="Dropper10" parent="." instance=ExtResource("6_lpvoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -5, -18)

@@ -23,6 +23,7 @@ binding/targets = NodePath("../Pivot/Vision:Targets")
 
 [node name="Dropper" type="CharacterBody3D"]
 collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_7qims")
 Life = 5.0
 DeathBurst = ExtResource("2_3x5wn")
