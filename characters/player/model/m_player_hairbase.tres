@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://do4ewfb3xyx2m" path="res://characters/player/model/t_player_hairbase.png" id="1_5ikok"]
 
 [resource]
-resource_name = "hairbase_mat"
+resource_name = "Hair Base"
 transparency = 4
 cull_mode = 2
 vertex_color_use_as_albedo = true

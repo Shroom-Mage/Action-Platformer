@@ -1,18 +1,70 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bedi3edljlmgo"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bedi3edljlmgo"]
 
 [ext_resource type="Texture2D" uid="uid://btfgai0gwi8gb" path="res://characters/player/model/t_player_hair.png" id="1_vjuvb"]
 
+[sub_resource type="Shader" id="Shader_vjuvb"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.limboai+v1.4.1.mono's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 gradient0 : source_color;
+uniform vec4 gradient1 : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+
+	// Vertex Color Use as Albedo: Enabled
+	albedo_tex *= COLOR;
+	
+	ALBEDO = mix(gradient0.rgb, gradient1.rgb, albedo_tex.rgb);
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+}
+"
+
 [resource]
 resource_name = "Hair"
-cull_mode = 2
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_vjuvb")
-metadata/extras = {
-"yp": {
-"active_ypaint_node": ""
-},
-"zen_uv": {
-"trimsheet_image": {},
-"world_size_image": {}
-}
-}
+render_priority = 0
+shader = SubResource("Shader_vjuvb")
+shader_parameter/gradient0 = Color(0.496277, 0.186729, 0.335116, 1)
+shader_parameter/gradient1 = Color(0.952832, 0.531893, 0.576323, 1)
+shader_parameter/texture_albedo = ExtResource("1_vjuvb")
+shader_parameter/albedo_texture_size = Vector2i(2048, 2048)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)

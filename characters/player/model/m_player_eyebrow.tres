@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://1m12ioswpltp" path="res://characters/player/model/t_player_eyebrow.png" id="1_fv4qu"]
 
 [resource]
-resource_name = "eyebrows_mat"
+resource_name = "Eyebrow"
 transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("1_fv4qu")

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ifwgl0i0763q" path="res://characters/player/model/t_player_armor_n.png" id="2_juvft"]
 
 [resource]
-resource_name = "character_armor"
+resource_name = "Armor"
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_ppq62")

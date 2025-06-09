@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ber5buuiv8y75" path="res://characters/player/model/t_player_body.png" id="1_650w7"]
 
 [resource]
-resource_name = "Skin"
+resource_name = "Body"
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_650w7")
