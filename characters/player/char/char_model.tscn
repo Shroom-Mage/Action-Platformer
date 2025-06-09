@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://k0h0vw2gdnr1"]
 
 [ext_resource type="Script" uid="uid://c16tdhbea1ddm" path="res://characters/CombatantModel.cs" id="1_2dqui"]
-[ext_resource type="PackedScene" uid="uid://vapjh5urs8ol" path="res://characters/player/char/char.glb" id="2_q61ub"]
+[ext_resource type="PackedScene" uid="uid://ch8j7d4c2hjfk" path="res://characters/player/char/character_animations.glb" id="2_sjklu"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://bib0ugs6eao7n" path="res://characters/combatant_state_machine.tres" id="3_2dqui"]
 [ext_resource type="Script" uid="uid://c62kvlqi0u0nq" path="res://characters/ExpressionManager.cs" id="4_q61ub"]
 
@@ -11,93 +11,13 @@ length = 0.1
 [node name="Model" type="Node3D"]
 script = ExtResource("1_2dqui")
 
-[node name="Char" parent="." instance=ExtResource("2_q61ub")]
-
-[node name="Skeleton3D" parent="Char/root" index="0"]
-bones/1/position = Vector3(-2.33221e-10, 0.608723, 0.0389674)
-bones/1/rotation = Quaternion(-0.0960975, -3.48778e-06, 3.32016e-07, 0.995372)
-bones/2/rotation = Quaternion(0.147486, 3.37671e-06, -5.08877e-07, 0.989064)
-bones/3/rotation = Quaternion(0.138916, 3.74531e-10, -2.6639e-08, 0.990304)
-bones/4/rotation = Quaternion(-0.00455746, 2.49522e-10, -2.52985e-09, 0.99999)
-bones/8/rotation = Quaternion(0.262885, -0.187355, -0.267514, 0.907869)
-bones/9/rotation = Quaternion(1.62366e-08, -0.121909, -5.88187e-07, 0.992541)
-bones/10/rotation = Quaternion(0.0148368, 0.209324, 0.498106, 0.84134)
-bones/11/rotation = Quaternion(2.05379e-08, 0.0158145, -5.94297e-09, 0.999875)
-bones/12/rotation = Quaternion(0.0691106, 0.015944, 0.031758, 0.996976)
-bones/13/rotation = Quaternion(0.100851, -0.516481, 0.43956, 0.727918)
-bones/14/rotation = Quaternion(-0.121833, -0.0314014, -0.0225276, 0.991798)
-bones/15/rotation = Quaternion(-0.0342216, -0.0586926, -0.0579325, 0.996006)
-bones/17/rotation = Quaternion(-0.107471, 0.0027969, -0.0116481, 0.994136)
-bones/18/rotation = Quaternion(0.030109, 0.000545976, -0.0016852, 0.999545)
-bones/19/rotation = Quaternion(-0.0454127, -0.000871334, 0.00255592, 0.998965)
-bones/21/rotation = Quaternion(-0.216027, 0.00837075, -0.0375482, 0.975629)
-bones/22/rotation = Quaternion(-0.00312733, 3.32044e-05, -7.07473e-05, 0.999995)
-bones/23/rotation = Quaternion(0.0622725, -0.000552545, 0.00137881, 0.998058)
-bones/25/rotation = Quaternion(-0.177373, -0.00713576, 0.0314701, 0.983615)
-bones/26/rotation = Quaternion(0.0699121, -0.00131597, 0.00382519, 0.997545)
-bones/27/rotation = Quaternion(-0.0804189, 0.0015734, -0.00442085, 0.99675)
-bones/29/rotation = Quaternion(-0.167975, -0.0138008, 0.0544803, 0.984188)
-bones/30/rotation = Quaternion(-0.0254479, 0.0017373, -0.00366599, 0.999668)
-bones/31/rotation = Quaternion(0.0987119, -0.00535844, 0.0138501, 0.995005)
-bones/32/rotation = Quaternion(-0.454859, -0.454859, -0.541391, 0.54139)
-bones/33/rotation = Quaternion(0.262885, 0.187355, 0.267514, 0.907869)
-bones/34/rotation = Quaternion(1.72456e-07, 0.121909, 1.69337e-08, 0.992541)
-bones/35/rotation = Quaternion(0.0148367, -0.209324, -0.498107, 0.84134)
-bones/36/rotation = Quaternion(-2.25862e-07, -0.0158145, -2.36883e-07, 0.999875)
-bones/37/rotation = Quaternion(0.0691104, -0.0159441, -0.031758, 0.996976)
-bones/38/rotation = Quaternion(0.100851, 0.516481, -0.43956, 0.727917)
-bones/39/rotation = Quaternion(-0.121832, 0.0314016, 0.0225276, 0.991798)
-bones/40/rotation = Quaternion(-0.0342208, 0.0586928, 0.0579323, 0.996006)
-bones/42/rotation = Quaternion(-0.10747, -0.00279657, 0.0116482, 0.994136)
-bones/43/rotation = Quaternion(0.0301078, -0.00054612, 0.0016849, 0.999545)
-bones/44/rotation = Quaternion(-0.0454137, 0.000870854, -0.00255573, 0.998965)
-bones/46/rotation = Quaternion(-0.216026, -0.00837092, 0.0375483, 0.97563)
-bones/47/rotation = Quaternion(-0.00312734, -3.33063e-05, 7.08943e-05, 0.999995)
-bones/48/rotation = Quaternion(0.0622716, 0.000552643, -0.00137925, 0.998058)
-bones/50/rotation = Quaternion(-0.177373, 0.00713568, -0.0314702, 0.983615)
-bones/51/rotation = Quaternion(0.0699129, 0.00131613, -0.00382493, 0.997545)
-bones/52/rotation = Quaternion(-0.0804181, -0.00157354, 0.00442069, 0.99675)
-bones/54/rotation = Quaternion(-0.167975, 0.0138007, -0.0544802, 0.984188)
-bones/55/rotation = Quaternion(-0.0254484, -0.0017372, 0.00366597, 0.999668)
-bones/56/rotation = Quaternion(0.0987123, 0.0053583, -0.0138504, 0.995005)
-bones/57/rotation = Quaternion(0.707122, 0.154814, 0.680426, 0.114154)
-bones/57/scale = Vector3(1, 0.999999, 1)
-bones/58/rotation = Quaternion(2.92871e-09, 0.00777099, 2.91736e-07, 0.99997)
-bones/59/rotation = Quaternion(-0.0066307, 0.00848923, 0.316455, 0.948546)
-bones/60/rotation = Quaternion(0.473205, 0.498529, -0.494519, 0.531975)
-bones/61/rotation = Quaternion(-1.81328e-07, 0.998123, 0.0612433, -1.05076e-05)
-bones/62/rotation = Quaternion(3.17753e-09, -0.00613748, -1.89002e-07, 0.999981)
-bones/63/rotation = Quaternion(0.716577, -0.0704655, -0.693935, 0.00235238)
-bones/63/scale = Vector3(1, 1, 0.999999)
-bones/64/rotation = Quaternion(6.68119e-09, 0.000665141, -9.05479e-09, 1)
-bones/65/rotation = Quaternion(-0.0185777, -0.051543, -0.871158, 0.487937)
-bones/66/rotation = Quaternion(0.348351, -0.600956, 0.320574, 0.644)
-bones/67/rotation = Quaternion(-2.09258e-06, 0.998122, 0.0612519, 9.63219e-06)
-bones/68/rotation = Quaternion(3.3231e-08, 0.0252103, -1.6256e-07, 0.999682)
-
-[node name="Eyelash" parent="Char/root/Skeleton3D" index="0"]
-layers = 2
-
-[node name="Eyes_low" parent="Char/root/Skeleton3D" index="1"]
-layers = 2
-
-[node name="Hair_low" parent="Char/root/Skeleton3D" index="2"]
-layers = 2
-
-[node name="Shirt_low" parent="Char/root/Skeleton3D" index="3"]
-layers = 2
-
-[node name="Shorts_low" parent="Char/root/Skeleton3D" index="4"]
-layers = 2
-
-[node name="Village Leader_low" parent="Char/root/Skeleton3D" index="5"]
-layers = 2
+[node name="Character" parent="." instance=ExtResource("2_sjklu")]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 unique_name_in_owner = true
-root_node = NodePath("%AnimationTree/../Char")
+root_node = NodePath("%AnimationTree/../Character")
 tree_root = ExtResource("3_2dqui")
-anim_player = NodePath("../Char/AnimationPlayer")
+anim_player = NodePath("../Character/AnimationPlayer")
 parameters/Stand/Locomotion/IdleRun/blend_position = 0
 parameters/Stand/Locomotion/Tilt/add_amount = 0
 
@@ -122,4 +42,4 @@ light_cull_mask = 4293918721
 omni_range = 0.44
 omni_attenuation = 10.0
 
-[editable path="Char"]
+[editable path="Character"]
