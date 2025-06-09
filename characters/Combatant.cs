@@ -29,6 +29,8 @@ namespace ActionPlatformer {
 		[Export, ExportGroup("Combat")]
 		public float Poise = 1.0f;
 		[Export, ExportGroup("Combat")]
+		public float Deflection = 1.0f;
+		[Export, ExportGroup("Combat")]
 		public PackedScene DeathBurst = null;
 
 		[Export(PropertyHint.Range, "0,100"), ExportGroup("Movement")]
@@ -80,6 +82,7 @@ namespace ActionPlatformer {
 		public bool IsBlocking { get; private set; } = false;
 		public bool IsStunned { get; private set; } = false;
 		public bool WasJustStunned { get; private set; } = false;
+		public double TimeBlocking { get; private set; } = 0.0;
 
 		public CombatantModel Model {
 			get { return _model; }
@@ -169,6 +172,9 @@ namespace ActionPlatformer {
 			if (WasJustStunned) WasJustStunned = false;
 
 			// Block
+			if (IsBlocking)
+				TimeBlocking += delta;
+			else TimeBlocking = 0.0;
 			IsBlocking = bIsOnGround && input.bBlockHold;
 
 			// Check attack validity
@@ -340,11 +346,27 @@ namespace ActionPlatformer {
 		public void TakeDamage(Combatant attacker, Attack attack) {
 			// Check both attack position and attacker facing
 			if (IsBlocking && _forward.Dot(attack.GlobalPosition - GlobalPosition) > 0.0f) {
-				// Attack was blocked
-				// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
-				float forceTaken = attack.Force * attacker._weapon.Impact / Poise;
-				Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
-				GD.Print(ToString() + " blocks the attack from " + attacker + ".");
+				if (TimeBlocking < attack.AttackTime) {
+					// Attack was parried
+					// ForceTaken = AttackForce * WeaponImpact / ArmorPoise - ShieldDeflection
+					float forceTaken = attack.Force * attacker._weapon.Impact / Poise - Deflection;
+					if (forceTaken >= 0) {
+						Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
+					}
+					else {
+						attacker.Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
+                        attacker.IsStunned = true;
+                        attacker.WasJustStunned = true;
+                    }
+					GD.Print(ToString() + " parried the attack from " + attacker + ".");
+				}
+				else {
+					// Attack was blocked
+					// ForceTaken = AttackForce * WeaponImpact / ArmorPoise
+					float forceTaken = attack.Force * attacker._weapon.Impact / Poise;
+					Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
+					GD.Print(ToString() + " blocks the attack from " + attacker + ".");
+				}
 			}
 			else {
 				// Attack was not blocked

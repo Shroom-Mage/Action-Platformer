@@ -23,44 +23,44 @@ namespace ActionPlatformer {
 			JustPerformed = false;
 			JustStartedDescent = false;
 
-            // Initiate
-            if (IsAttackReady) {
+			// Initiate
+			if (IsAttackReady) {
 				IsAttackReady = false;
 				IsPerforming = true;
 				JustPerformed = true;
 				AttackTime = 0.0;
 				_bTouchedGround = false;
 				_particles.Emitting = true;
-            }
+			}
 
-            // Startup
-            if (IsStartingUp) {
+			// Startup
+			if (IsStartingUp) {
 				AttackTime += delta;
 				if (!IsStartingUp) {
-                    AttackTime = StartupTime;
-                    JustStartedDescent = true;
+					JustStartedDescent = true;
 				}
 			}
 
-            // Active
-            if (IsActive) {
-                Monitoring = true;
-                HitTargets();
+			// Active
+			if (IsActive) {
+				AttackTime += delta;
+				Monitoring = true;
+				HitTargets();
 			}
 
-            // Recovery
-            if (IsRecovering) {
-                AttackTime += delta;
-                Monitoring = false;
-            }
+			// Recovery
+			if (IsRecovering) {
+				AttackTime += delta;
+				Monitoring = false;
+			}
 
-            // Finish
-            if (IsFinished) {
-                AttackTime = -1.0;
-                Monitoring = false;
-                IsPerforming = false;
-            }
-        }
+			// Finish
+			if (IsFinished) {
+				AttackTime = -1.0;
+				Monitoring = false;
+				IsPerforming = false;
+			}
+		}
 
 		public void TouchGround() {
 			if (!IsPerforming || _bTouchedGround) {

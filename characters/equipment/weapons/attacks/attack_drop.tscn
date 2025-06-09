@@ -27,6 +27,9 @@ height = 0.2
 
 [node name="DropAttack" type="Area3D"]
 script = ExtResource("1_oerjn")
+StartupTime = 0.25
+ActiveTime = 10.0
+RecoveryTime = 0.25
 IsBlockedHigh = true
 metadata/_custom_type_script = "uid://bfm1026m4yuac"
 
