@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c7ovdedn5cct2"]
+
+[ext_resource type="Texture2D" uid="uid://ddfue815nbtqj" path="res://characters/enemies/dropper/model/t_bat_body.png" id="1_ewmfu"]
+
+[resource]
+resource_name = "bat_mat"
+cull_mode = 2
+albedo_texture = ExtResource("1_ewmfu")
+emission_enabled = true
+emission_texture = ExtResource("1_ewmfu")
+metadata/extras = {
+"yp": {
+"active_ypaint_node": ""
+},
+"zen_uv": {
+"trimsheet_image": {},
+"world_size_image": {}
+}
+}

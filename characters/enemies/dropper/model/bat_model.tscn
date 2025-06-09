@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2f003akl1lsl"]
+
+[ext_resource type="PackedScene" uid="uid://cm3vx26ax6xce" path="res://characters/enemies/dropper/model/model_bat.glb" id="1_ybukb"]
+[ext_resource type="Script" uid="uid://c16tdhbea1ddm" path="res://characters/CombatantModel.cs" id="2_36fe7"]
+[ext_resource type="Material" uid="uid://bj3l6n6d3a7ng" path="res://characters/enemies/dropper/model/m_bat_eye.tres" id="3_1c0ba"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bib0ugs6eao7n" path="res://characters/combatant_state_machine.tres" id="3_36fe7"]
+[ext_resource type="Script" uid="uid://c62kvlqi0u0nq" path="res://characters/ExpressionManager.cs" id="4_38a58"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_36fe7"]
+length = 0.1
+
+[node name="Model" instance=ExtResource("1_ybukb")]
+script = ExtResource("2_36fe7")
+
+[node name="root" parent="." index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.2, 0)
+
+[node name="enemy_bat" parent="root/Skeleton3D" index="0"]
+surface_material_override/1 = ExtResource("3_1c0ba")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = ExtResource("3_36fe7")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Stand/Locomotion/IdleRun/blend_position = 0
+parameters/Stand/Locomotion/Tilt/add_amount = 0
+
+[node name="ExpressionManager" type="Node3D" parent="." index="3" node_paths=PackedStringArray("Mesh")]
+unique_name_in_owner = true
+script = ExtResource("4_38a58")
+Mesh = NodePath("../root/Skeleton3D/enemy_bat")
+ExpressionCoordinates = Dictionary[int, Vector3]({
+0: Vector3(0, 0.5, 0),
+1: Vector3(0.5, 0.5, 0),
+2: Vector3(0, 0, 0),
+3: Vector3(0.5, 0, 0)
+})
+metadata/_custom_type_script = "uid://c62kvlqi0u0nq"
+
+[node name="ShadowArm" type="SpringArm3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_36fe7")
+spring_length = 10.0
+
+[node name="Shadow" type="OmniLight3D" parent="ShadowArm" index="0"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_size = 1.0
+light_negative = true
+light_specular = 0.0
+light_bake_mode = 0
+light_cull_mask = 4293918721
+omni_range = 0.3
+omni_attenuation = 10.0

@@ -1,0 +1,26 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bnmyjiy3us45b"]
+
+[ext_resource type="Texture2D" uid="uid://cucshdouhnut8" path="res://characters/player/model/t_player_head.png" id="1_f0mwi"]
+
+[resource]
+resource_name = "Head"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_f0mwi")
+metadata/extras = {
+"mmd_material": {
+"enabled_self_shadow_map": 1.0
+},
+"mw": {
+"material": {}
+},
+"niftools": {},
+"niftools_alpha": {},
+"yp": {
+"active_ypaint_node": "Group"
+},
+"zen_uv": {
+"trimsheet_image": {},
+"world_size_image": {}
+}
+}

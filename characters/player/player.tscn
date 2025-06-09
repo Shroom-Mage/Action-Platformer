@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
-[ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/char/char_model.tscn" id="2_dirf7"]
+[ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/model/player_model.tscn" id="2_dirf7"]
 [ext_resource type="PackedScene" uid="uid://c86r3ac0shdmn" path="res://characters/equipment/weapons/weapon_sword.tscn" id="3_exd8k"]
 [ext_resource type="PackedScene" uid="uid://bs7ls1mv3so1m" path="res://effects/dust.tscn" id="4_5dc8e"]
 

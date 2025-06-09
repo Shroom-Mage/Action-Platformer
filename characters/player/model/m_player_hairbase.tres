@@ -1,0 +1,25 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b24yaq1dhtjas"]
+
+[ext_resource type="Texture2D" uid="uid://do4ewfb3xyx2m" path="res://characters/player/model/t_player_hairbase.png" id="1_5ikok"]
+
+[resource]
+resource_name = "hairbase_mat"
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_5ikok")
+metadata/extras = {
+"mmd_material": {},
+"mw": {
+"material": {}
+},
+"niftools": {},
+"niftools_alpha": {},
+"yp": {
+"active_ypaint_node": ""
+},
+"zen_uv": {
+"trimsheet_image": {},
+"world_size_image": {}
+}
+}

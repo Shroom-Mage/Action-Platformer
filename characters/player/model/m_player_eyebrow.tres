@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://x5b51cecev1d"]
+
+[ext_resource type="Texture2D" uid="uid://1m12ioswpltp" path="res://characters/player/model/t_player_eyebrow.png" id="1_fv4qu"]
+
+[resource]
+resource_name = "eyebrows_mat"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_fv4qu")
+metadata/extras = {
+"yp": {
+"active_ypaint_node": ""
+},
+"zen_uv": {
+"trimsheet_image": {},
+"world_size_image": {}
+}
+}
