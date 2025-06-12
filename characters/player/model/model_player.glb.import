@@ -14430,35 +14430,35 @@ _subresources={
 "materials": {
 "Eye": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/Eye.tres"
+"use_external/path": "uid://dpsmdaiuag10e"
 },
 "Eyelash.001": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/Eyelash.001.tres"
+"use_external/path": "uid://bm3w31utlmtth"
 },
 "Hair": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/Hair.tres"
+"use_external/path": "uid://bedi3edljlmgo"
 },
 "Head": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/Head.tres"
+"use_external/path": "uid://bnmyjiy3us45b"
 },
 "Skin": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/Skin.tres"
+"use_external/path": "uid://dg5v0mwoqioq7"
 },
 "character_armor": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/character_armor.tres"
+"use_external/path": "uid://hijy1reomw57"
 },
 "eyebrows_mat": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/eyebrows_mat.tres"
+"use_external/path": "uid://x5b51cecev1d"
 },
 "hairbase_mat": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/player/model/hairbase_mat.tres"
+"use_external/path": "uid://b24yaq1dhtjas"
 }
 },
 "nodes": {

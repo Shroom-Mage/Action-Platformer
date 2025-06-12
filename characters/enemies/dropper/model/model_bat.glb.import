@@ -36,11 +36,11 @@ _subresources={
 "materials": {
 "bat_mat": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/enemies/dropper/model/bat_mat.tres"
+"use_external/path": "uid://c7ovdedn5cct2"
 },
 "enemy_bat_eye": {
 "use_external/enabled": true,
-"use_external/path": "res://characters/enemies/dropper/model/enemy_bat_eye.tres"
+"use_external/path": "uid://bj3l6n6d3a7ng"
 }
 },
 "nodes": {

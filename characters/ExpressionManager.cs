@@ -40,7 +40,7 @@ namespace ActionPlatformer {
 			set {
 				_expression = value;
 
-				if (Mesh == null)
+				if (_mesh == null)
 					return;
 
 				Vector3 coordinate;
@@ -50,17 +50,17 @@ namespace ActionPlatformer {
 
 				switch (_expression) {
 				case ExpressionType.Determined:
-					Mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Fierce:
-					Mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Hurt:
-					Mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Neutral:
 				default:
-					Mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				}
 			}
