@@ -78,6 +78,8 @@ namespace ActionPlatformer {
 		private Vector3 _right = Vector3.Right;
 		private Basis _space;
 
+		bool _bShouldWallSlide = false;
+
 		public bool IsAttacking { get; private set; } = false;
 		public bool IsBlocking { get; private set; } = false;
 		public bool IsStunned { get; private set; } = false;
@@ -137,7 +139,7 @@ namespace ActionPlatformer {
 			float velocityY = Velocity.Y;
 			bool bIsOnGround = IsOnFloor();
 			bool bIsOnWall = IsOnWallOnly();
-			bool bSwordHop = false;
+            bool bSwordHop = false;
 			_dust.Emitting = false;
 
 			// Ground reset
@@ -158,8 +160,17 @@ namespace ActionPlatformer {
 			// Sharp turn
 			bool bIsSkidding = velocityXZ.Normalized().Dot(directionXZ) < -0.5f;
 
-			// End stun on ground
-			if (IsStunned && bIsOnGround && !WasJustStunned) {
+			// Wall slide
+			Vector2 wallNormal = new Vector2(GetWallNormal().X, GetWallNormal().Z);
+			if (bIsOnWall && CanWallSlide && wallNormal.Normalized().Dot(directionXZ) < -0.75f) {
+				_bShouldWallSlide = true;
+			}
+			if (!bIsOnWall) {
+				_bShouldWallSlide = false;
+			}
+
+            // End stun on ground
+            if (IsStunned && bIsOnGround && !WasJustStunned) {
 				IsStunned = false;
 				if (Life <= 0) {
 					GpuParticles3D burst = (GpuParticles3D)DeathBurst.Instantiate();
@@ -178,15 +189,12 @@ namespace ActionPlatformer {
 			IsBlocking = bIsOnGround && input.bBlockHold;
 
 			// Check attack validity
-			bool bCanAttack = !IsBlocking &&
-				!IsStunned &&
-				!(CanWallSlide && bIsOnWall &&
-				velocityY < 0.0f) && !_weapon.Drop.IsPerforming;
-			_weapon.Standing.CanPerform = bCanAttack && bIsOnGround && !input.bCrouchHold;
-			_weapon.Low.CanPerform = bCanAttack && bIsOnGround && input.bCrouchHold;
-			_weapon.Aerial.CanPerform = bCanAttack && !bIsOnGround && !input.bCrouchHold;
+			bool bCanAttack = !IsBlocking && !IsStunned && !_weapon.Drop.IsPerforming;
+			_weapon.Standing.CanPerform = bCanAttack && bIsOnGround && !_bShouldWallSlide && !input.bCrouchHold;
+			_weapon.Low.CanPerform = bCanAttack && bIsOnGround && !_bShouldWallSlide && input.bCrouchHold;
+			_weapon.Aerial.CanPerform = bCanAttack && !bIsOnGround && !_bShouldWallSlide && !input.bCrouchHold;
 			_weapon.Drop.CanPerform = bCanAttack && !bIsOnGround;
-			_weapon.Whirl.CanPerform = bCanAttack && bIsOnGround && bIsSkidding;
+			_weapon.Whirl.CanPerform = bCanAttack && bIsOnGround && bIsSkidding && !_bShouldWallSlide;
 
 			// Attack
 			if (input.bAttackPress && _weapon.Low.CanPerform) {
@@ -225,7 +233,7 @@ namespace ActionPlatformer {
 					velocityXZ = velocityXZ.MoveToward(velocityTarget, GroundAcceleration * (float)delta);
 					if (!IsBlocking)
 						Forward = velocityXZ;
-					PlayRun(velocityXZ.Length(), _right.Dot(directionXYZ));
+					PlayMove(velocityXZ.Length(), _right.Dot(directionXYZ));
 				}
 				else {
 					// In air
@@ -239,8 +247,8 @@ namespace ActionPlatformer {
 					if (!input.bCrouchHold) {
 						// Standing halt
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, GroundDeceleration * (float)delta);
-						PlayIdle();
-					}
+                        PlayMove(velocityXZ.Length() / GroundSpeed, _right.Dot(directionXYZ));
+                    }
 					else {
 						// Slide
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, SlideDeceleration * (float)delta);
@@ -282,7 +290,8 @@ namespace ActionPlatformer {
 			else if (!bIsOnGround) {
 				// Sword Hop
 				if (bSwordHop) {
-					velocityY += _weapon.Aerial.SwordHopSpeed - (velocityY / _weapon.Aerial.SwordHopCount);
+					float coefficient = Mathf.Pow(_weapon.Aerial.SwordHopCountMult, _weapon.Aerial.SwordHopCount - 1);
+					velocityY += (_weapon.Aerial.SwordHopSpeed - velocityY) * coefficient;
 				}
 				// Drop Startup
 				else if (_weapon.Drop.IsStartingUp) {
@@ -309,7 +318,7 @@ namespace ActionPlatformer {
 				}
 				// Falling
 				else if (velocityY < 0.0f) {
-					if (!bIsOnWall || !CanWallSlide || _weapon.Drop.IsPerforming) {
+					if (!_bShouldWallSlide || _weapon.Drop.IsPerforming) {
 						// Falling in air
 						velocityY += GetGravity().Y * GravityDownMult * (float)delta;
 						velocityY = Mathf.Clamp(velocityY, -FallSpeed, 0.0f);
@@ -318,13 +327,12 @@ namespace ActionPlatformer {
 						else
 							PlayFall();
 					}
-					else if (CanWallSlide) {
+					else if (_bShouldWallSlide) {
 						// Sliding on wall
 						velocityY += GetGravity().Y * GravityDownMult * WallSlideMult * (float)delta;
 						velocityXZ = Vector2.Zero;
 						PlaySlide();
-						Vector3 wallNormal = GetWallNormal();
-						Forward = -new Vector2(wallNormal.X, wallNormal.Z);
+						Forward = -wallNormal;
 						_dust.Emitting = true;
 						if (input.bJumpPress) {
 							Forward = -Forward;
@@ -385,11 +393,9 @@ namespace ActionPlatformer {
 			}
 		}
 
-		protected virtual void PlayIdle() {}
+		protected virtual void PlayMove(float speed, float tilt) {}
 
 		protected virtual void PlayCrouch() {}
-
-		protected virtual void PlayRun(float speed, float tilt) {}
 
 		protected virtual void PlayJump() {}
 

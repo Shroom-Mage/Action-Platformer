@@ -15,8 +15,12 @@ namespace ActionPlatformer {
 		public float CameraUpperLimit = -45.0f;
 		[Export, ExportGroup("Camera")]
 		public float CameraLowerLimit = 0.0f;
+		[Export, ExportGroup("Camera")]
+		public bool Interior = false;
+        [Export, ExportGroup("Camera")]
+        public float CameraInteriorRotationLimit = 45.0f;
 
-		public override void _Ready() {
+        public override void _Ready() {
 			base._Ready();
 			_cameraPivot = GetNode<Node3D>("CameraPivot");
 			_cameraArm = GetNode<SpringArm3D>("CameraPivot/CameraArm");
@@ -42,23 +46,22 @@ namespace ActionPlatformer {
 			// Rotate camera
 			_cameraPivot.RotateObjectLocal(new Vector3(0.0f, 1.0f, 0.0f), -lookInput.X * CameraHorizontalSpeed * (float)delta);
 			_cameraArm.RotateObjectLocal(new Vector3(1.0f, 0.0f, 0.0f), -lookInput.Y * CameraVerticalSpeed * (float)delta);
-			_cameraArm.Rotation = new Vector3(Mathf.Clamp(_cameraArm.Rotation.X, Mathf.DegToRad(CameraUpperLimit), Mathf.DegToRad(CameraLowerLimit)), _cameraArm.Rotation.Y, _cameraArm.Rotation.Z);
-			Space = _camera.GlobalBasis;
+			float cameraX = Mathf.Clamp(_cameraArm.Rotation.X, Mathf.DegToRad(CameraUpperLimit), Mathf.DegToRad(CameraLowerLimit));
+			float cameraY = Interior ? Mathf.Clamp(_cameraPivot.Rotation.Y, Mathf.DegToRad(-CameraInteriorRotationLimit), Mathf.DegToRad(CameraInteriorRotationLimit)) : _cameraPivot.Rotation.Y;
+            _cameraArm.Rotation = new Vector3(cameraX, 0.0f, 0.0f);
+			_cameraPivot.Rotation = new Vector3(0.0f, cameraY, 0.0f);
+            Space = _camera.GlobalBasis;
 
 			// Move and attack
 			MoveAndAttack(input, delta);
 		}
 
-		protected override void PlayIdle() {
-			Model.PlayLocomotion(0.0f, 0.0f);
+		protected override void PlayMove(float speed, float tilt) {
+			Model.PlayLocomotion(speed, tilt);
 		}
 
 		protected override void PlayCrouch() {
 			Model.PlayCrouch();
-		}
-
-		protected override void PlayRun(float speed, float tilt) {
-			Model.PlayLocomotion(speed, tilt);
 		}
 
 		protected override void PlayJump() {

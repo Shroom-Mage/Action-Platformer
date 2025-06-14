@@ -46,7 +46,7 @@ animation = &"RunTiltR"
 [sub_resource type="AnimationNodeAdd3" id="AnimationNodeAdd3_oxjrq"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_w5qfv"]
-graph_offset = Vector2(-436, -63.3333)
+graph_offset = Vector2(-366.667, -62.6667)
 nodes/IdleRun/node = SubResource("AnimationNodeBlendSpace1D_vqikr")
 nodes/IdleRun/position = Vector2(-173.333, 133.333)
 nodes/RunTiltL/node = SubResource("AnimationNodeAnimation_7q44q")

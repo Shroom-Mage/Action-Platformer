@@ -8,7 +8,7 @@ namespace ActionPlatformer {
 			base._Ready();
 		}
 
-		protected override void PlayIdle() {
+		protected override void PlayMove(float speed, float tilt) {
 			Model.PlayIdle();
 		}
 
