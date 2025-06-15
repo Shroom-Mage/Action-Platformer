@@ -28,23 +28,23 @@ void vertex() {
 
 void fragment() {
 	vec2 base_uv = UV;
-	
+
 	vec4 ramp = texture(ramp_texture, base_uv);
 	ramp.rgb = invert_ramp ? ramp.rgb * -1.0f : ramp.rgb;
-	
+
 	vec4 albedo = texture(albedo_gradient, ramp.xy);
 	albedo.a = ramp.a;
-	
+
 	// Vertex Color Use as Albedo: Enabled
 	albedo *= COLOR;
-	
+
 	ALBEDO = albedo.rgb;
 	ALPHA = albedo.a;
-	
+
 	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
 	SPECULAR = specular;
-	
+
 	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
 	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
 	ROUGHNESS = roughness_tex * roughness;
