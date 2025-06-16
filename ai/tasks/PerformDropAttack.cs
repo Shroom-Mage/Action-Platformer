@@ -14,6 +14,10 @@ public partial class PerformDropAttack : BTAction {
 	public override Status _Tick(double delta) {
 		Enemy self = Agent as Enemy;
 
+		if (self.IsAttacking || self.IsStunned) {
+			return Status.Failure;
+		}
+
 		// Look below
 		Vector3 start = self.GlobalPosition;
 		Vector3 end = start + new Vector3(0.0f, -Distance, 0.0f);

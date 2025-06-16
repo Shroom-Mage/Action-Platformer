@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bedi3edljlmgo"]
+
+[ext_resource type="Gradient" uid="uid://b5pu37ywgy2ak" path="res://characters/player/model/gradient_hair.tres" id="1_0gosd"]
+[ext_resource type="Shader" uid="uid://d3oqu7jsgbi0a" path="res://characters/player/model/shader_color_ramp.gdshader" id="1_isfw7"]
+[ext_resource type="Texture2D" uid="uid://btfgai0gwi8gb" path="res://characters/player/model/t_player_hair.png" id="1_vjuvb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_isfw7"]
+gradient = ExtResource("1_0gosd")
+
+[resource]
+resource_name = "Hair"
+render_priority = 0
+shader = ExtResource("1_isfw7")
+shader_parameter/albedo_gradient = SubResource("GradientTexture1D_isfw7")
+shader_parameter/ramp_texture = ExtResource("1_vjuvb")
+shader_parameter/invert_ramp = true
+shader_parameter/ramp_texture_size = Vector2i(2048, 2048)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)

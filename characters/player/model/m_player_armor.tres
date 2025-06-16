@@ -1,0 +1,23 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://hijy1reomw57"]
+
+[ext_resource type="Texture2D" uid="uid://c6xjj32d62km5" path="res://characters/player/model/t_player_armor_d.png" id="1_ppq62"]
+[ext_resource type="Texture2D" uid="uid://ifwgl0i0763q" path="res://characters/player/model/t_player_armor_n.png" id="2_juvft"]
+
+[resource]
+resource_name = "Armor"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ppq62")
+metallic = 1.0
+roughness = 0.837563
+normal_enabled = true
+normal_texture = ExtResource("2_juvft")
+metadata/extras = {
+"yp": {
+"active_ypaint_node": ""
+},
+"zen_uv": {
+"trimsheet_image": {},
+"world_size_image": {}
+}
+}

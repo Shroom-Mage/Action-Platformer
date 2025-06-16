@@ -1,50 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://buu8wl23agswh"]
+[gd_scene load_steps=6 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
-[ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/char/char.tscn" id="2_dirf7"]
-[ext_resource type="PackedScene" uid="uid://bx0l3cy5mpp56" path="res://characters/attacks/standing_attack.tscn" id="3_exd8k"]
-[ext_resource type="PackedScene" uid="uid://c8crwdhvej248" path="res://characters/attacks/drop_attack.tscn" id="4_5dc8e"]
-[ext_resource type="PackedScene" uid="uid://7vb32v8odnx4" path="res://characters/attacks/aerial_attack.tscn" id="4_c6leb"]
-[ext_resource type="PackedScene" uid="uid://d0rulkfhdwbc5" path="res://characters/attacks/low_attack.tscn" id="4_ixbpm"]
-[ext_resource type="PackedScene" uid="uid://c480d1uanarxr" path="res://characters/attacks/whirl_attack.tscn" id="6_dirf7"]
+[ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/model/player_model.tscn" id="2_dirf7"]
+[ext_resource type="PackedScene" uid="uid://c86r3ac0shdmn" path="res://characters/equipment/weapons/weapon_sword.tscn" id="3_exd8k"]
+[ext_resource type="PackedScene" uid="uid://bs7ls1mv3so1m" path="res://effects/dust.tscn" id="4_5dc8e"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6jjan"]
 height = 1.5
 radius = 0.44
-
-[sub_resource type="Curve" id="Curve_ic4db"]
-_data = [Vector2(0.0026455, 0.883706), 0.0, 1.60016, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_ixbpm"]
-width = 32
-curve = SubResource("Curve_ic4db")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oj4oi"]
-emission_shape = 1
-emission_sphere_radius = 0.1
-direction = Vector3(1, 1, 0)
-spread = 90.0
-initial_velocity_min = 0.1
-initial_velocity_max = 0.35
-gravity = Vector3(0, 0.5, 0)
-tangential_accel_min = -2.23517e-06
-tangential_accel_max = 0.199998
-scale_min = 0.2
-scale_max = 0.4
-scale_curve = SubResource("CurveTexture_ixbpm")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6leb"]
-shading_mode = 2
-
-[sub_resource type="SphereMesh" id="SphereMesh_fbwp3"]
-material = SubResource("StandardMaterial3D_c6leb")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_mxv5h")
 CameraHorizontalSpeed = 3.0
 CameraVerticalSpeed = 3.0
+Life = 100.0
+Deflection = 15.0
 CanWallSlide = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -55,39 +26,10 @@ shape = SubResource("CylinderShape3D_6jjan")
 
 [node name="Model" parent="Pivot" instance=ExtResource("2_dirf7")]
 
-[node name="Dust" type="GPUParticles3D" parent="Pivot"]
+[node name="Weapon" parent="Pivot" instance=ExtResource("3_exd8k")]
+
+[node name="Dust" parent="Pivot" instance=ExtResource("4_5dc8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
-layers = 4
-cast_shadow = 0
-gi_mode = 0
-emitting = false
-explosiveness = 0.05
-process_material = SubResource("ParticleProcessMaterial_oj4oi")
-draw_pass_1 = SubResource("SphereMesh_fbwp3")
-
-[node name="StandingAttack" parent="Pivot" instance=ExtResource("3_exd8k")]
-transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.5)
-collision_layer = 2
-collision_mask = 4
-
-[node name="LowAttack" parent="Pivot" instance=ExtResource("4_ixbpm")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.25, 0.5)
-collision_layer = 2
-collision_mask = 4
-
-[node name="AerialAttack" parent="Pivot" instance=ExtResource("4_c6leb")]
-transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.5)
-collision_layer = 2
-collision_mask = 4
-
-[node name="DropAttack" parent="Pivot" instance=ExtResource("4_5dc8e")]
-collision_layer = 2
-collision_mask = 4
-
-[node name="WhirlAttack" parent="Pivot" instance=ExtResource("6_dirf7")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
-collision_layer = 2
-collision_mask = 4
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

@@ -19,9 +19,13 @@ public partial class MoveToDestination : BTAction {
 
 	public override Status _Tick(double delta) {
 		Enemy self = Agent as Enemy;
-		Vector3 destination = (Vector3)Blackboard.GetVar("destination");
+
+		if (self.IsAttacking || self.IsStunned) {
+			return Status.Failure;
+		}
 
 		// Calculate direction
+		Vector3 destination = (Vector3)Blackboard.GetVar("destination");
 		Vector3 direction = (destination - self.GlobalPosition);
 		self.PressMovement(new Vector2(direction.X, direction.Z));
 

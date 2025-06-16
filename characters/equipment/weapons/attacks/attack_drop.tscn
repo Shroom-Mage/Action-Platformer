@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8crwdhvej248"]
+
+[ext_resource type="Script" uid="uid://3dqk0iwe3crv" path="res://characters/equipment/weapons/attacks/DropAttack.cs" id="1_oerjn"]
+[ext_resource type="SpriteFrames" uid="uid://yg0s3jj47eq8" path="res://effects/slash/slash.tres" id="3_2dy0r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_43w6b"]
+
+[sub_resource type="Curve" id="Curve_tsn3t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5dc8e"]
+curve = SubResource("Curve_tsn3t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ktaxo"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_5dc8e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6leb"]
+transparency = 1
+albedo_color = Color(1, 0.4, 0.2, 0.8)
+
+[sub_resource type="SphereMesh" id="SphereMesh_vphp4"]
+material = SubResource("StandardMaterial3D_c6leb")
+radius = 0.1
+height = 0.2
+
+[node name="DropAttack" type="Area3D"]
+script = ExtResource("1_oerjn")
+StartupTime = 0.25
+ActiveTime = 10.0
+RecoveryTime = 0.25
+IsBlockedHigh = true
+metadata/_custom_type_script = "uid://bfm1026m4yuac"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_43w6b")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_ktaxo")
+draw_pass_1 = SubResource("SphereMesh_vphp4")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+axis = 1
+sprite_frames = ExtResource("3_2dy0r")
+animation = &"drop"
+frame = 6
+frame_progress = 1.0
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

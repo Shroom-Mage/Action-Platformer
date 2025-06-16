@@ -4,7 +4,6 @@ using System;
 namespace ActionPlatformer {
 	[GlobalClass]
 	public partial class Player : Combatant {
-		private Node3D _model = null;
 		private Node3D _cameraPivot = null;
 		private SpringArm3D _cameraArm = null;
 		private Camera3D _camera = null;
@@ -19,7 +18,6 @@ namespace ActionPlatformer {
 
 		public override void _Ready() {
 			base._Ready();
-			_model = GetNode<Node3D>("Pivot/Model");
 			_cameraPivot = GetNode<Node3D>("CameraPivot");
 			_cameraArm = GetNode<SpringArm3D>("CameraPivot/CameraArm");
 			_camera = GetNode<Camera3D>("CameraPivot/CameraArm/Camera3D");
@@ -35,6 +33,8 @@ namespace ActionPlatformer {
 			input.bCrouchHold = Input.IsActionPressed("crouch");
 			input.bAttackPress = Input.IsActionJustPressed("attack");
 			input.bAttackHold = Input.IsActionPressed("attack");
+			input.bBlockPress = Input.IsActionJustPressed("block");
+			input.bBlockHold = Input.IsActionPressed("block");
 
 			// Get look input
 			Vector2 lookInput = Input.GetVector("look_left", "look_right", "look_up", "look_down");
@@ -50,32 +50,39 @@ namespace ActionPlatformer {
 		}
 
 		protected override void PlayIdle() {
-			_model.Call("idle");
+			Model.PlayLocomotion(0.0f, 0.0f);
 		}
 
 		protected override void PlayCrouch() {
-			_model.Call("crouch");
+			Model.PlayCrouch();
 		}
 
-		protected override void PlayMove(float speed, float tilt) {
-			_model.Call("move", speed / GroundSpeed);
-			_model.Set("run_tilt", tilt);
+		protected override void PlayRun(float speed, float tilt) {
+			Model.PlayLocomotion(speed, tilt);
 		}
 
 		protected override void PlayJump() {
-			_model.Call("jump");
+			Model.PlayJump();
 		}
 
 		protected override void PlayFall() {
-			_model.Call("fall");
+			Model.PlayFall();
 		}
 
 		protected override void PlaySkid() {
-			_model.Call("skid");
+			Model.PlaySkid();
 		}
 
 		protected override void PlaySlide() {
-			_model.Call("wall_slide");
+			Model.PlayWallSlide();
+		}
+
+		protected override void PlayDrop() {
+			Model.PlayFall();
+		}
+
+		protected override void PlayDropLand() {
+			Model.PlayFall();
 		}
 	}
 }

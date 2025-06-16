@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://1tgqyy0vap4u"]
+
+[ext_resource type="Script" uid="uid://l0wj82aga8fk" path="res://characters/enemies/guard/Guard.cs" id="1_ps64d"]
+[ext_resource type="PackedScene" uid="uid://cg5qj6yaarmfk" path="res://effects/death_burst.tscn" id="2_7ghbo"]
+[ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/model/player_model.tscn" id="2_p32lx"]
+[ext_resource type="PackedScene" uid="uid://bsimwk2u7aktk" path="res://characters/equipment/weapons/weapon_enemy.tscn" id="3_1ou84"]
+[ext_resource type="PackedScene" uid="uid://dgbqjd8kkka3" path="res://ai/vision.tscn" id="3_ps64d"]
+[ext_resource type="PackedScene" uid="uid://bs7ls1mv3so1m" path="res://effects/dust.tscn" id="5_gw04l"]
+[ext_resource type="BehaviorTree" uid="uid://6d7v4guddh2k" path="res://ai/behavior_trees/guard.tres" id="10_m4qf5"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_p32lx"]
+height = 1.5
+radius = 0.44
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ps64d"]
+size = Vector3(8, 16, 16)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ncmt4"]
+binding/targets = NodePath("../Pivot/Vision:Targets")
+
+[node name="Guard" type="CharacterBody3D"]
+collision_layer = 4
+script = ExtResource("1_ps64d")
+Life = 20.0
+DeathBurst = ExtResource("2_7ghbo")
+GroundSpeed = 5.0
+AirSpeed = 5.0
+metadata/_custom_type_script = "uid://bw67ru2uktjdc"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CylinderShape3D_p32lx")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Model" parent="Pivot" instance=ExtResource("2_p32lx")]
+
+[node name="Weapon" parent="Pivot" instance=ExtResource("3_1ou84")]
+Impact = 2.0
+
+[node name="Vision" parent="Pivot" instance=ExtResource("3_ps64d")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Vision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+shape = SubResource("BoxShape3D_ps64d")
+
+[node name="Dust" parent="." instance=ExtResource("5_gw04l")]
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("10_m4qf5")
+blackboard_plan = SubResource("BlackboardPlan_ncmt4")

@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dpsmdaiuag10e"]
+
+[ext_resource type="Shader" uid="uid://d3oqu7jsgbi0a" path="res://characters/player/model/shader_color_ramp.gdshader" id="1_j1spj"]
+[ext_resource type="Gradient" uid="uid://cacb6aat6hkb" path="res://characters/player/model/gradient_eye.tres" id="2_4n6tc"]
+[ext_resource type="Texture2D" uid="uid://bux06f4arj2ur" path="res://characters/player/model/t_player_eye.png" id="3_atpo7"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_atpo7"]
+gradient = ExtResource("2_4n6tc")
+
+[resource]
+resource_name = "Eye"
+render_priority = 0
+shader = ExtResource("1_j1spj")
+shader_parameter/albedo_gradient = SubResource("GradientTexture1D_atpo7")
+shader_parameter/ramp_texture = ExtResource("3_atpo7")
+shader_parameter/invert_ramp = false
+shader_parameter/ramp_texture_size = Vector2i(1024, 1024)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)

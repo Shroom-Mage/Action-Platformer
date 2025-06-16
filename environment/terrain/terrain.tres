@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://184hlu66rc1y"]
+
+[ext_resource type="Texture2D" uid="uid://bhkkxewhtkgii" path="res://environment/terrain/terrain_blocks_Environment_basecolor.png" id="1_ug4ex"]
+[ext_resource type="Texture2D" uid="uid://daktmovjb5acv" path="res://environment/terrain/terrain_blocks_Environment_normal.png" id="2_f7dxd"]
+
+[resource]
+resource_name = "terrain"
+albedo_texture = ExtResource("1_ug4ex")
+roughness = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_f7dxd")
+texture_filter = 2
