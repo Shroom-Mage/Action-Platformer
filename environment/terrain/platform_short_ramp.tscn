@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://j2ksih2r28a3"]
 
-[ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/m_grass.tres" id="2_qjjqb"]
+[ext_resource type="Material" uid="uid://h8g2e23syga0" path="res://environment/terrain/m_grass.tres" id="2_qjjqb"]
 
 [node name="PlatformShortRamp" type="CSGCombiner3D"]
 material_override = ExtResource("2_qjjqb")

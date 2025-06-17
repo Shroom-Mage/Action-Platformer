@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://djsvyummcyshw"]
 
-[ext_resource type="Shader" uid="uid://cndgq5fyxbt2m" path="res://environment/shader_terrain.gdshader" id="1_s2840"]
-[ext_resource type="Texture2D" uid="uid://c2iixdl3mcqxa" path="res://environment/t_grid.png" id="2_l3375"]
+[ext_resource type="Shader" uid="uid://cndgq5fyxbt2m" path="res://environment/terrain/shader_terrain.gdshader" id="1_s2840"]
+[ext_resource type="Texture2D" uid="uid://c2iixdl3mcqxa" path="res://environment/terrain/t_grid.png" id="2_l3375"]
 
 [resource]
 render_priority = 0

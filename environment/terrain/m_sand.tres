@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://gv44cdlaod8i"]
 
-[ext_resource type="Shader" uid="uid://cndgq5fyxbt2m" path="res://environment/shader_terrain.gdshader" id="1_x5ga3"]
-[ext_resource type="Texture2D" uid="uid://c2iixdl3mcqxa" path="res://environment/t_grid.png" id="2_tmjib"]
+[ext_resource type="Shader" uid="uid://cndgq5fyxbt2m" path="res://environment/terrain/shader_terrain.gdshader" id="1_x5ga3"]
+[ext_resource type="Texture2D" uid="uid://c2iixdl3mcqxa" path="res://environment/terrain/t_grid.png" id="2_tmjib"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_x5ga3")
 shader_parameter/albedo_floor = Color(0.8, 0.8, 0.6, 1)
-shader_parameter/albedo_wall = Color(0.8, 0.8, 0.6, 1)
-shader_parameter/albedo_ceiling = Color(0.8, 0.8, 0.6, 1)
+shader_parameter/albedo_wall = Color(0.6, 0.6, 0.4, 1)
+shader_parameter/albedo_ceiling = Color(0.6, 0.6, 0.4, 1)
 shader_parameter/texture_albedo_floor = ExtResource("2_tmjib")
 shader_parameter/texture_albedo_wall = ExtResource("2_tmjib")
 shader_parameter/texture_albedo_ceiling = ExtResource("2_tmjib")
