@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://c63fwp3brlxgf"]
+
+[ext_resource type="PackedScene" uid="uid://d1gn55ag5de31" path="res://characters/enemies/frog/model/enemy_frog.glb" id="1_2ealp"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://bib0ugs6eao7n" path="res://characters/combatant_state_machine.tres" id="2_5se3a"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_2ealp"]
+length = 0.1
+
+[node name="Model" instance=ExtResource("1_2ealp")]
+
+[node name="Skeleton3D" parent="root" index="0"]
+bones/0/position = Vector3(-2.02529e-09, 0.415872, -0.613558)
+bones/0/rotation = Quaternion(0.682872, 1.57889e-05, 1.4753e-05, 0.730538)
+bones/1/rotation = Quaternion(-0.00992235, -2.03079e-05, -2.28603e-07, 0.999951)
+bones/3/rotation = Quaternion(-0.00309182, -4.99941e-06, -8.72769e-12, 0.999995)
+bones/5/rotation = Quaternion(0.386587, 0.921034, 0.0456526, -0.0127721)
+bones/6/rotation = Quaternion(-0.412077, -0.0260771, 0.222197, 0.883256)
+bones/7/rotation = Quaternion(1.00343e-07, -0.124437, -4.81933e-08, 0.992227)
+bones/8/rotation = Quaternion(1.60778e-07, 9.06175e-08, -0.73792, 0.674888)
+bones/9/rotation = Quaternion(4.15716e-09, -0.0148044, -4.93578e-08, 0.99989)
+bones/10/rotation = Quaternion(0.320276, 0.0196181, -0.0147266, 0.947007)
+bones/28/rotation = Quaternion(-0.412087, 0.0260948, -0.222204, 0.883249)
+bones/29/rotation = Quaternion(1.33848e-07, 0.124419, 3.11451e-08, 0.99223)
+bones/30/rotation = Quaternion(-1.98713e-07, 8.38148e-08, 0.73792, 0.674888)
+bones/31/rotation = Quaternion(-2.00433e-08, 0.0152876, 5.01037e-08, 0.999883)
+bones/32/rotation = Quaternion(0.32026, -0.0196315, 0.0147316, 0.947012)
+bones/49/position = Vector3(2.55444e-08, -3.11356e-08, -6.47419e-08)
+bones/49/rotation = Quaternion(0.926879, 0.323865, 0.108343, 0.155783)
+bones/50/rotation = Quaternion(-2.59034e-08, 0.0617532, -1.98616e-07, 0.998091)
+bones/51/rotation = Quaternion(4.03983e-08, -3.65395e-08, 0.510861, 0.859664)
+bones/52/rotation = Quaternion(0.0274977, 0.278534, -0.168551, 0.945121)
+bones/53/rotation = Quaternion(0.050195, 0.894277, 0.0393684, 0.442944)
+bones/57/rotation = Quaternion(0.0955743, 0.995422, -5.15551e-05, -0.000752994)
+bones/60/rotation = Quaternion(-0.0844783, 0.996217, -0.0203791, -0.000452305)
+bones/63/rotation = Quaternion(-0.24096, 0.970261, -0.023017, -0.00165766)
+bones/66/rotation = Quaternion(-2.54935e-09, 0.0205982, 2.95155e-08, 0.999788)
+bones/67/position = Vector3(4.77787e-09, 4.69699e-08, 8.03403e-09)
+bones/67/rotation = Quaternion(0.933448, -0.30377, -0.101941, 0.161265)
+bones/68/rotation = Quaternion(3.84995e-08, -0.0744806, 2.86355e-08, 0.997222)
+bones/69/rotation = Quaternion(7.77477e-08, 6.48089e-08, -0.466822, 0.884351)
+bones/70/rotation = Quaternion(0.00341462, -0.328986, 0.0766985, 0.941209)
+bones/71/rotation = Quaternion(-0.0501947, 0.894277, 0.0393683, -0.442944)
+bones/72/rotation = Quaternion(-0.241367, 0.970422, 0.0046122, -0.00162507)
+bones/84/rotation = Quaternion(-3.31432e-08, -0.0346279, -2.67892e-08, 0.9994)
+bones/85/position = Vector3(5.29266e-12, 0.53167, 0.458732)
+bones/85/rotation = Quaternion(0, -7.10543e-15, -1.42109e-14, 1)
+bones/89/scale = Vector3(0.57328, 3.04275, 0.57328)
+bones/92/position = Vector3(4.56337e-09, -0.0419489, 0.582279)
+bones/93/rotation = Quaternion(0.584284, 2.90233e-07, 2.08957e-07, 0.811549)
+bones/94/rotation = Quaternion(0.908987, -4.65992e-05, 2.9393e-05, 0.416825)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = ExtResource("2_5se3a")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Stand/Locomotion/IdleRun/blend_position = 0
+parameters/Stand/Locomotion/Tilt/add_amount = 0
+
+[node name="ShadowArm" type="SpringArm3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+shape = SubResource("SeparationRayShape3D_2ealp")
+spring_length = 10.0
+
+[node name="Shadow" type="OmniLight3D" parent="ShadowArm" index="0"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_size = 1.0
+light_negative = true
+light_specular = 0.0
+light_bake_mode = 0
+light_cull_mask = 4293918721
+omni_range = 0.3
+omni_attenuation = 10.0
