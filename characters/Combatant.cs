@@ -139,7 +139,7 @@ namespace ActionPlatformer {
 			float velocityY = Velocity.Y;
 			bool bIsOnGround = IsOnFloor();
 			bool bIsOnWall = IsOnWallOnly();
-            bool bSwordHop = false;
+			bool bSwordHop = false;
 			_dust.Emitting = false;
 
 			// Ground reset
@@ -169,8 +169,8 @@ namespace ActionPlatformer {
 				_bShouldWallSlide = false;
 			}
 
-            // End stun on ground
-            if (IsStunned && bIsOnGround && !WasJustStunned) {
+			// End stun on ground
+			if (IsStunned && bIsOnGround && !WasJustStunned) {
 				IsStunned = false;
 				if (Life <= 0) {
 					GpuParticles3D burst = (GpuParticles3D)DeathBurst.Instantiate();
@@ -247,8 +247,8 @@ namespace ActionPlatformer {
 					if (!input.bCrouchHold) {
 						// Standing halt
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, GroundDeceleration * (float)delta);
-                        PlayMove(velocityXZ.Length() / GroundSpeed, _right.Dot(directionXYZ));
-                    }
+						PlayMove(velocityXZ.Length() / GroundSpeed, _right.Dot(directionXYZ));
+					}
 					else {
 						// Slide
 						velocityXZ = velocityXZ.MoveToward(Vector2.Zero, SlideDeceleration * (float)delta);
@@ -363,9 +363,9 @@ namespace ActionPlatformer {
 					}
 					else {
 						attacker.Velocity = new Vector3(attacker.Forward.X, 0.0f, attacker.Forward.Y).Normalized() * forceTaken;
-                        attacker.IsStunned = true;
-                        attacker.WasJustStunned = true;
-                    }
+						attacker.IsStunned = true;
+						attacker.WasJustStunned = true;
+					}
 					GD.Print(ToString() + " parried the attack from " + attacker + ".");
 				}
 				else {

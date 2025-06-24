@@ -11,7 +11,7 @@ namespace ActionPlatformer {
 		[Export(PropertyHint.Range, "0,100")]
 		public float SwordHopSpeed = 5.0f;
 		[Export(PropertyHint.Range, "0,1")]
-		public float SwordHopCountMult = 0.5f;
+		public float SwordHopCountMult = 0.25f;
 
 		public uint SwordHopCount { get; private set; } = 0;
 

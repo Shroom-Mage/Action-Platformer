@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhm0x0pot1utj"]
+
+[ext_resource type="Script" uid="uid://b66pgw3dtni7e" path="res://characters/player/FollowCamera.cs" id="1_0a8js"]
+
+[node name="FollowCamera" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("1_0a8js")
+
+[node name="Arm" type="SpringArm3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, -1.04308e-07, 1.04308e-07, 0, 0.707107, 0.707107, -1.78814e-07, -0.707107, 0.707107, 0, 0, 0)
+collision_mask = 0
+spring_length = 15.0
+
+[node name="Camera" type="Camera3D" parent="Arm"]
+unique_name_in_owner = true
+current = true
+fov = 30.0

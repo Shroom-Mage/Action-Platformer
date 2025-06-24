@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://buu8wl23agswh"]
+[gd_scene load_steps=7 format=3 uid="uid://buu8wl23agswh"]
 
 [ext_resource type="Script" uid="uid://vbt4cvwfuw5s" path="res://characters/player/Player.cs" id="1_mxv5h"]
 [ext_resource type="PackedScene" uid="uid://k0h0vw2gdnr1" path="res://characters/player/model/player_model.tscn" id="2_dirf7"]
 [ext_resource type="PackedScene" uid="uid://c86r3ac0shdmn" path="res://characters/equipment/weapons/weapon_sword.tscn" id="3_exd8k"]
 [ext_resource type="PackedScene" uid="uid://bs7ls1mv3so1m" path="res://effects/dust.tscn" id="4_5dc8e"]
+[ext_resource type="PackedScene" uid="uid://dhm0x0pot1utj" path="res://characters/player/follow_camera.tscn" id="5_ixbpm"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6jjan"]
 height = 1.5
@@ -12,13 +13,8 @@ radius = 0.44
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_mxv5h")
-CameraHorizontalSpeed = 3.0
-CameraVerticalSpeed = 3.0
 Life = 100.0
 Deflection = 15.0
-JumpSpeed = 14.0
-CanWallSlide = true
-FlipJumpMult = 1.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -33,15 +29,5 @@ shape = SubResource("CylinderShape3D_6jjan")
 [node name="Dust" parent="Pivot" instance=ExtResource("4_5dc8e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="CameraArm" type="SpringArm3D" parent="CameraPivot"]
+[node name="FollowCamera" parent="." instance=ExtResource("5_ixbpm")]
 unique_name_in_owner = true
-transform = Transform3D(1, -1.04308e-07, 1.04308e-07, 0, 0.707107, 0.707107, -1.78814e-07, -0.707107, 0.707107, 0, 0, 0)
-collision_mask = 0
-spring_length = 20.0
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/CameraArm"]
-current = true
-fov = 30.0
