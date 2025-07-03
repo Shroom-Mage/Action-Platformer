@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://f5by1asi6ohg"]
+
+[ext_resource type="Shader" uid="uid://5koujse8ub2y" path="res://environment/m_terrain.tres" id="1_u1ad0"]
+[ext_resource type="Texture2D" uid="uid://c2iixdl3mcqxa" path="res://environment/t_grid.png" id="2_jm2qt"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_u1ad0")
+shader_parameter/albedo_floor = Color(0.429027, 0.537933, 0.61534, 1)
+shader_parameter/albedo_wall = Color(0.20098, 0.386561, 0.716857, 1)
+shader_parameter/albedo_ceiling = Color(0.4, 0.2, 0.2, 0.337255)
+shader_parameter/texture_albedo = ExtResource("2_jm2qt")
+shader_parameter/point_size = 0.1
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 10.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
