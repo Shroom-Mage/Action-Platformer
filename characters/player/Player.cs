@@ -46,7 +46,7 @@ namespace ActionPlatformer {
 		}
 
 		protected override void PlayMove(float speed, float tilt) {
-			Model.PlayLocomotion(speed, tilt);
+			Model.PlayIdleRunTilt(speed, tilt);
 		}
 
 		protected override void PlayCrouch() {

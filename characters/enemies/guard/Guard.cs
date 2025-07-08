@@ -3,13 +3,12 @@ using System;
 
 namespace ActionPlatformer {
 	public partial class Guard : Enemy {
-
 		public override void _Ready() {
 			base._Ready();
         }
 
         protected override void PlayMove(float speed, float tilt) {
-            Model.PlayLocomotion(speed, tilt);
+            Model.PlayIdleRunTilt(speed, tilt);
         }
 
         protected override void PlayCrouch() {

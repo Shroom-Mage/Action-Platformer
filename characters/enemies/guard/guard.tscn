@@ -44,7 +44,7 @@ Impact = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 shape = SubResource("BoxShape3D_ps64d")
 
-[node name="Dust" parent="." instance=ExtResource("5_gw04l")]
+[node name="Dust" parent="Pivot" instance=ExtResource("5_gw04l")]
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("10_m4qf5")

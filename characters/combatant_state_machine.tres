@@ -24,6 +24,8 @@ animation = &"EdgeGrab"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_evpo3"]
 animation = &"Idle"
 
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_63g3o"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vqikr"]
 animation = &"Idle"
 
@@ -46,7 +48,7 @@ animation = &"RunTiltR"
 [sub_resource type="AnimationNodeAdd3" id="AnimationNodeAdd3_oxjrq"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_w5qfv"]
-graph_offset = Vector2(-366.667, -62.6667)
+graph_offset = Vector2(-366.667, -60)
 nodes/IdleRun/node = SubResource("AnimationNodeBlendSpace1D_vqikr")
 nodes/IdleRun/position = Vector2(-173.333, 133.333)
 nodes/RunTiltL/node = SubResource("AnimationNodeAnimation_7q44q")
@@ -57,23 +59,28 @@ nodes/Tilt/node = SubResource("AnimationNodeAdd3_oxjrq")
 nodes/Tilt/position = Vector2(146.667, 66.6667)
 node_connections = [&"Tilt", 0, &"RunTiltL", &"Tilt", 1, &"IdleRun", &"Tilt", 2, &"RunTiltR", &"output", 0, &"Tilt"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_63g3o"]
-animation = &"Run"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dd1xe"]
+priority = 3
+advance_mode = 2
+advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_knqh1"]
+advance_mode = 2
+advance_condition = &"tilt"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8flac"]
+priority = 2
+advance_mode = 2
+advance_condition = &"run"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_di5oh"]
 states/Idle/node = SubResource("AnimationNodeAnimation_evpo3")
-states/Idle/position = Vector2(388.774, 3.66667)
-states/Locomotion/node = SubResource("AnimationNodeBlendTree_w5qfv")
-states/Locomotion/position = Vector2(389.012, 184.333)
-states/Run/node = SubResource("AnimationNodeAnimation_63g3o")
-states/Run/position = Vector2(387.524, 99.6667)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dd1xe"), "Start", "Locomotion", SubResource("AnimationNodeStateMachineTransition_knqh1"), "Start", "Run", SubResource("AnimationNodeStateMachineTransition_8flac")]
+states/Idle/position = Vector2(391.542, 3)
+states/IdleRun/node = SubResource("AnimationNodeBlendSpace1D_63g3o")
+states/IdleRun/position = Vector2(391.643, 95.6667)
+states/IdleRunTilt/node = SubResource("AnimationNodeBlendTree_w5qfv")
+states/IdleRunTilt/position = Vector2(391.458, 185.666)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dd1xe"), "Start", "IdleRunTilt", SubResource("AnimationNodeStateMachineTransition_knqh1"), "Start", "IdleRun", SubResource("AnimationNodeStateMachineTransition_8flac")]
 graph_offset = Vector2(-277, -135)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1mock"]
@@ -158,4 +165,4 @@ states/Stand/position = Vector2(345.002, 100.068)
 states/WallSlide/node = SubResource("AnimationNodeAnimation_1mock")
 states/WallSlide/position = Vector2(341.122, -29.4032)
 transitions = ["Fall", "Drop", SubResource("AnimationNodeStateMachineTransition_yjuti"), "Drop", "DropLand", SubResource("AnimationNodeStateMachineTransition_405yx"), "Jump", "Drop", SubResource("AnimationNodeStateMachineTransition_w2jy5"), "Jump", "Rise", SubResource("AnimationNodeStateMachineTransition_2r5nx"), "Rise", "Fall", SubResource("AnimationNodeStateMachineTransition_dffry"), "Fall", "Rise", SubResource("AnimationNodeStateMachineTransition_ra44k"), "DropLand", "Crouch", SubResource("AnimationNodeStateMachineTransition_vqikr"), "Crouch", "Skid", SubResource("AnimationNodeStateMachineTransition_hs36v"), "Skid", "Crouch", SubResource("AnimationNodeStateMachineTransition_b2ieo"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_63g3o"), "WallSlide", "Jump", SubResource("AnimationNodeStateMachineTransition_dkc58"), "Fall", "WallSlide", SubResource("AnimationNodeStateMachineTransition_oxjrq"), "WallSlide", "Stand", SubResource("AnimationNodeStateMachineTransition_8ed60"), "Start", "Stand", SubResource("AnimationNodeStateMachineTransition_ghx0o"), "Fall", "Stand", SubResource("AnimationNodeStateMachineTransition_xqopm"), "DropLand", "Stand", SubResource("AnimationNodeStateMachineTransition_s2k7u"), "Crouch", "Stand", SubResource("AnimationNodeStateMachineTransition_bo6wu"), "Skid", "Stand", SubResource("AnimationNodeStateMachineTransition_f0noh"), "Jump", "Stand", SubResource("AnimationNodeStateMachineTransition_h0klc"), "Stand", "Jump", SubResource("AnimationNodeStateMachineTransition_dcsb5"), "Stand", "Crouch", SubResource("AnimationNodeStateMachineTransition_irhku"), "Stand", "Skid", SubResource("AnimationNodeStateMachineTransition_hrys3")]
-graph_offset = Vector2(-47, -228)
+graph_offset = Vector2(-214, -115)
