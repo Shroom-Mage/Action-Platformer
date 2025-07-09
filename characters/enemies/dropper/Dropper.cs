@@ -10,7 +10,7 @@ namespace ActionPlatformer {
 
 		protected override void PlayMove(float speed, float tilt) {
 			Model.PlayIdleRunTilt(speed, tilt);
-        }
+		}
 
 		protected override void PlayJump() {
 			Model.PlayJump();

@@ -10,6 +10,8 @@ namespace ActionPlatformer {
 		private bool _bCanPerform = false;
 
 		[Export]
+		public bool Enabled = true;
+		[Export]
 		public float Damage { get; set; } = 0.0f;
 		[Export]
 		public float Force { get; set; } = 0.0f;
@@ -31,7 +33,7 @@ namespace ActionPlatformer {
 		public double AttackTime { get; protected set; } = -1.0;
 
 		public bool CanPerform {
-			get { return _bCanPerform; }
+			get { return Enabled && _bCanPerform; }
 			set {
 				_bCanPerform = value;
 				if (!value) {

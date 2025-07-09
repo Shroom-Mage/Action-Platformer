@@ -12,7 +12,10 @@ public partial class Wander : BTAction {
 	public float RangeMax = 1.0f;
 
 	public override string _GenerateName() {
-		return "Wander between " + RangeMin + " and " + RangeMax + " meters.";
+		if (RangeMin == RangeMax) {
+			return "Set destination to " + RangeMax + " meters away.";
+		}
+		return "Set destination to between " + RangeMin + " and " + RangeMax + " meters away.";
 	}
 
 	public override Status _Tick(double delta) {
@@ -23,6 +26,7 @@ public partial class Wander : BTAction {
 		float distance = (float)GD.RandRange(RangeMin, RangeMax);
 		Vector3 start = self.GlobalPosition;
 		Vector3 end = start + new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle)) * distance;
+		Vector3 direction = end - start;
 
 		// Check point
 		PhysicsDirectSpaceState3D space = self.GetWorld3D().DirectSpaceState;
@@ -34,6 +38,7 @@ public partial class Wander : BTAction {
 		}
 
 		Blackboard.SetVar("destination", end);
+		self.Forward = new Vector2(direction.X, direction.Z);
 
 		return Status.Success;
 	}

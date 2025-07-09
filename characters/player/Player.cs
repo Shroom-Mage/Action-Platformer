@@ -13,8 +13,8 @@ namespace ActionPlatformer {
 			}
 			set {
 				if (_camera != null) {
-                    _camera.Interior = value;
-                }
+					_camera.Interior = value;
+				}
 			}
 		}
 

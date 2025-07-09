@@ -1,3 +1,4 @@
+using ActionPlatformer;
 using Godot;
 using Godot.Collections;
 using System;
@@ -5,10 +6,10 @@ using System;
 [Tool]
 public partial class SelectTarget : BTAction {
 	public override string _GenerateName() {
-		return "Select nearest target within Vision.";
+		return "Set destination to nearest target within Vision.";
 	}
 	public override Status _Tick(double delta) {
-		Node3D self = Agent as Node3D;
+		Enemy self = Agent as Enemy;
 		Array<Node3D> targets = (Array<Node3D>)Blackboard.GetVar("targets");
 
 		// Return failure if no targets within vision
@@ -19,6 +20,7 @@ public partial class SelectTarget : BTAction {
 		// Find the closest target
 		Node3D closest = null;
 		float closestDistance = 1000.0f;
+		Vector3 direction = Vector3.Zero;
 
 		for (int i = 0; i < targets.Count; i++) {
 			// Check if closer
@@ -36,6 +38,7 @@ public partial class SelectTarget : BTAction {
 			}
 			// Update closest
 			closest = targets[i];
+			direction = end - start;
 		}
 
 		// Return failure if no targets were in sight
@@ -44,6 +47,7 @@ public partial class SelectTarget : BTAction {
 		}
 
 		Blackboard.SetVar("destination", closest.GlobalPosition);
+		self.Forward = new Vector2(direction.X, direction.Z);
 
 		// Return success if closest target found
 		return Status.Success;

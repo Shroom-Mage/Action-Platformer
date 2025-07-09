@@ -5,12 +5,12 @@ using ActionPlatformer;
 [Tool]
 public partial class MoveToDestination : BTAction {
 	[Export]
-	public double Duration = 1.0f;
+	public double Duration = 0.0f;
 
 	private double _timePassed = 0.0f;
 
 	public override string _GenerateName() {
-		return "Move toward destination for " + Duration + " second(s).";
+		return "Move toward destination" + (Duration != 0.0f ? " for " + Duration + " second(s)." : ".");
 	}
 
 	public override void _Enter() {

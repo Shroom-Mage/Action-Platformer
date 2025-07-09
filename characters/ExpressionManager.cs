@@ -50,17 +50,17 @@ namespace ActionPlatformer {
 
 				switch (_expression) {
 				case ExpressionType.Determined:
-                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+					_mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Fierce:
-                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+					_mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Hurt:
-                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+					_mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				case ExpressionType.Neutral:
 				default:
-                    _mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
+					_mesh.GetActiveMaterial(_surface).Set("uv1_offset", coordinate);
 					break;
 				}
 			}

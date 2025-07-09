@@ -49,9 +49,14 @@ shape = SubResource("CylinderShape3D_djh48")
 
 [node name="StandingAttack" parent="Pivot/Weapon" index="0"]
 transform = Transform3D(1.44889, -0.388229, 0, 0.388229, 1.44889, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+Enabled = false
+
+[node name="LowAttack" parent="Pivot/Weapon" index="1"]
+Enabled = false
 
 [node name="AerialAttack" parent="Pivot/Weapon" index="2"]
 transform = Transform3D(1.29904, 0.750001, 0, -0.750001, 1.29904, 0, 0, 0, 1.5, 0, 0.75, 0.44)
+Enabled = false
 
 [node name="DropAttack" parent="Pivot/Weapon" index="3"]
 DropSpeed = 10.0
@@ -63,6 +68,7 @@ shape = SubResource("SphereShape3D_3x5wn")
 
 [node name="WhirlAttack" parent="Pivot/Weapon" index="4"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.75, 0)
+Enabled = false
 
 [node name="Vision" parent="Pivot" instance=ExtResource("3_nrakn")]
 

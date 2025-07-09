@@ -4,7 +4,7 @@ using System;
 using ActionPlatformer;
 
 [Tool]
-public partial class PerformStandingAttack : BTAction {
+public partial class PerformAttack : BTAction {
 	[Export]
 	public float Range = 1.0f;
 
